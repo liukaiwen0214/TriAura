@@ -40,6 +40,7 @@ class UserServiceImplTest {
             System.out.println("根据用户名未查询到用户: " + username);
         }
         // 验证密码是否匹配
+
         boolean matches = passwordEncoder.matches(password, user.getPassword_hash());
         if (matches) {
             System.out.println("密码验证成功");
