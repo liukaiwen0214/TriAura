@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.triauras.mapper.UsersMapper">
+    <!-- 插入用户，返回自增主键 -->
+    <insert id="insertUser" parameterType="com.triauras.entity.Users"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username,
+                           email,
+                           password_hash,
+                           avatar_url,
+                           timezone,
+                           currency,
+                           created_at,
+                           updated_at,
+                           last_login_at,
+                           is_active)
+        VALUES (#{username},
+                #{email},
+                #{passwordHash},
+                #{avatarUrl},
+                #{timezone},
+                #{currency},
+                #{createdAt},
+                #{updatedAt},
+                #{lastLoginAt},
+                #{isActive})
+    </insert>
+    <update id="updatePassword">
+        update users
+        set password_hash = #{newPassword}
+        where username = #{username}
+    </update>
+
+    <select id="getUserByUsername" resultType="com.triauras.entity.Users">
+        select *
+        from users
+        where username = #{username}
+          and password_hash = #{password_hash}
+    </select>
+    <select id="getUserByUserName" resultType="com.triauras.entity.Users">
+        SELECT
+            id,
+            username,
+            email,
+            password_hash as passwordHash,
+            avatar_url as avatarUrl,
+            timezone,
+            currency,
+            created_at as createdAt,
+            updated_at as updatedAt,
+            last_login_at as lastLoginAt,
+            is_active as isActive
+        FROM users
+        WHERE username = #{username}
+          AND is_active = true
+    </select>
+    <select id="getUserByEmail" resultType="com.triauras.entity.Users">
+        SELECT id,
+               username,
+               email,
+               password_hash as passwordHash,
+               avatar_url    as avatarUrl,
+               timezone,
+               currency,
+               created_at    as createdAt,
+               updated_at    as updatedAt,
+               last_login_at as lastLoginAt,
+               is_active     as isActive
+        FROM users
+        WHERE email = #{email}
+          AND is_active = true
+    </select>
+</mapper>
