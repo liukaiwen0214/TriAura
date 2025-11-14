@@ -4,7 +4,24 @@ window.onload = function() {
     // 添加表单提交事件监听器
     const loginForm = document.getElementById('loginForm');
     loginForm.addEventListener('submit', validateForm);
+
+    // 添加输入框动画效果
+    addInputAnimations();
 };
+
+// 添加输入框动画效果
+function addInputAnimations() {
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+    });
+}
 
 // 修改验证函数，不再需要return语句
 function validateForm(event) {

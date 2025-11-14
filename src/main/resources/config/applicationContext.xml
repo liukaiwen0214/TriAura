@@ -3,44 +3,60 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+  	 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+ 	 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
-    <!-- 加载数据库配置文件 -->
-    <context:property-placeholder location="classpath:config/db.properties"/>
 
-    <!-- 扫描Service层 -->
-    <context:component-scan base-package="com.triauras.service"/>
+    <context:component-scan base-package="com.triauras">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Component"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Repository"/>
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
 
-    <!-- 配置数据源 -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <context:component-scan base-package="com">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 加载配数据源配置文件 db.properties -->
+    <context:property-placeholder location="classpath:config/db.properties" system-properties-mode="NEVER"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-    <!-- 配置SqlSessionFactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- 事务管理器 （JDBC） -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:config/mybatis-config.xml"/>
+    </bean>
+
+    <!-- 启动声明式事务驱动 -->
+    <tx:annotation-driven/>
+
+
+    <!-- spring 通过 sqlSessionFactoryBean 获取 sqlSessionFactory 工厂类 -->
+    <bean id="sqlSessionFactorys" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 扫描 po 包，使用别名 -->
+        <property name="typeAliasesPackage" value="com.triauras.entity"/>
+        <!-- 扫描映射文件 -->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
 
-    <!-- 配置Mapper扫描 -->
+    <!-- 配置扫描 mapper 包，动态实现 mapper 接口，注入到 spring 容器中 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.triauras.mapper"/>
+        <property name="basePackage" value="com.triauras.mapper" />
+        <!-- 注意使用 sqlSessionFactoryBeanName 避免出现spring 扫描组件失效问题 -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactorys" />
     </bean>
 
-    <!-- 配置事务管理器 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 
-    <!-- 开启事务注解支持 -->
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 </beans>

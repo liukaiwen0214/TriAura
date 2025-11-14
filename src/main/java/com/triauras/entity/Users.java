@@ -1,12 +1,8 @@
 package com.triauras.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.sql.Timestamp;
 
-@Getter
-@Setter
+
 public class Users {
     /**
      * 用户ID
@@ -52,6 +48,95 @@ public class Users {
      * 是否激活
      */
     private Boolean is_active;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword_hash() {
+        return password_hash;
+    }
+
+    public void setPassword_hash(String password_hash) {
+        this.password_hash = password_hash;
+    }
+
+    public String getAvatar_url() {
+        return avatar_url;
+    }
+
+    public void setAvatar_url(String avatar_url) {
+        this.avatar_url = avatar_url;
+    }
+
+    public String getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public Timestamp getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
+    }
+
+    public Timestamp getLast_login_at() {
+        return last_login_at;
+    }
+
+    public void setLast_login_at(Timestamp last_login_at) {
+        this.last_login_at = last_login_at;
+    }
+
+    public Boolean getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(Boolean is_active) {
+        this.is_active = is_active;
+    }
 
     public Users(Long id, String username, String email, String password_hash, String avatar_url, String timezone, String currency, Timestamp created_at, Timestamp updated_at, Timestamp last_login_at, Boolean is_active) {
         this.id = id;

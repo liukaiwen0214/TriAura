@@ -19,14 +19,14 @@
                            is_active)
         VALUES (#{username},
                 #{email},
-                #{passwordHash},
-                #{avatarUrl},
+                #{password_hash},
+                #{avatar_url},
                 #{timezone},
                 #{currency},
-                #{createdAt},
-                #{updatedAt},
-                #{lastLoginAt},
-                #{isActive})
+                #{created_at},
+                #{updated_at},
+                #{last_login_at},
+                #{is_active})
     </insert>
     <update id="updatePassword">
         update users
