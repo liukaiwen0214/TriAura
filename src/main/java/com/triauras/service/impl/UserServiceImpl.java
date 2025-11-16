@@ -1,6 +1,6 @@
 package com.triauras.service.impl;
 
-import com.triauras.entity.Users;
+import com.triauras.entity.UsersEntity;
 import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
 import com.triauras.util.PasswordUtil;
@@ -17,14 +17,14 @@ public class UserServiceImpl implements UsersService {
     }
 
     @Override
-    public Users getUserByUsername(String username, String password_hash) {
+    public UsersEntity getUserByUsername(String username, String password_hash) {
         return usersMapper.getUserByUsername(username, password_hash);
     }
 
     @Override
     public boolean updatePassword(String username, String password_hash, String newPassword) {
         // 验证当前密码是否匹配
-        Users user = usersMapper.getUserByUsername(username, password_hash);
+        UsersEntity user = usersMapper.getUserByUsername(username, password_hash);
         if (user == null || !PasswordUtil.matches(password_hash, user.getPassword_hash())) {
             return false;
         }
@@ -35,10 +35,10 @@ public class UserServiceImpl implements UsersService {
     }
 
     @Override
-    public boolean insertUser(Users user) {
+    public boolean insertUser(UsersEntity user) {
         try {
             // 检查用户名是否已存在 - 修正方法名
-            Users existingUser = usersMapper.getUserByUsername(user.getUsername(), null);
+            UsersEntity existingUser = usersMapper.getUserByUsername(user.getUsername(), null);
             if (existingUser != null) {
                 return false; // 返回false而不是抛出异常，符合测试期望
             }

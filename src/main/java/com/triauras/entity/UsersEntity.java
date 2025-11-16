@@ -3,7 +3,7 @@ package com.triauras.entity;
 import java.sql.Timestamp;
 
 
-public class Users {
+public class UsersEntity {
     /**
      * 用户ID
      */
@@ -138,7 +138,7 @@ public class Users {
         this.is_active = is_active;
     }
 
-    public Users(Long id, String username, String email, String password_hash, String avatar_url, String timezone, String currency, Timestamp created_at, Timestamp updated_at, Timestamp last_login_at, Boolean is_active) {
+    public UsersEntity(Long id, String username, String email, String password_hash, String avatar_url, String timezone, String currency, Timestamp created_at, Timestamp updated_at, Timestamp last_login_at, Boolean is_active) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -152,7 +152,7 @@ public class Users {
         this.is_active = is_active;
     }
 
-    public Users() {
+    public UsersEntity() {
 
     }
 

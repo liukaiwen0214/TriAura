@@ -1,6 +1,6 @@
 package com.triauras.service.impl;
 
-import com.triauras.entity.Users;
+import com.triauras.entity.UsersEntity;
 import com.triauras.mapper.UsersMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,7 +33,7 @@ class UserServiceImplTest {
         String password = "123456";     // 假设这是用户的真实密码
 
         // 先根据用户名获取用户
-        Users user = usersMapper.getUserByUserName(username);
+        UsersEntity user = usersMapper.getUserByUserName(username);
         if(user != null) {
             System.out.println("根据用户名查询到用户: " + user.getUsername());
         } else {
@@ -60,7 +60,7 @@ class UserServiceImplTest {
     @Test
     void insertUser() {
         // 测试数据
-        Users user = new Users();
+        UsersEntity user = new UsersEntity();
         user.setUsername("liukaiwen");
         user.setPassword_hash(passwordEncoder.encode("123456"));
         user.setEmail("lkwyouxiang@126.com");

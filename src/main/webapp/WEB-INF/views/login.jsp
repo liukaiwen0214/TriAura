@@ -42,16 +42,6 @@
                 <a href="#">忘记密码？</a>
             </div>
 
-            <div class="form-group">
-                <label for="captcha">验证码</label>
-                <div class="captcha-container">
-                    <input type="text" id="captcha" class="form-control captcha-input" placeholder="验证码" required
-                           maxlength="4">
-                    <img src="#" alt="验证码" class="captcha-image" onclick="refreshCaptcha()" title="点击刷新验证码">
-                </div>
-                <div id="captchaError" class="error-message">请输入正确的验证码</div>
-            </div>
-
             <button type="submit" class="btn btn-primary" id="loginButton">
                 <span id="loginText">登录</span>
                 <span id="loginSpinner" class="loading-spinner" style="display: none;"></span>

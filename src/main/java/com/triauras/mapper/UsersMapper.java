@@ -1,6 +1,6 @@
 package com.triauras.mapper;
 
-import com.triauras.entity.Users;
+import com.triauras.entity.UsersEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,7 +12,7 @@ public interface UsersMapper {
      * @param password_hash 密码哈希
      * @return 用户实体
      */
-    Users getUserByUsername(@Param("username") String username, @Param("password_hash") String password_hash);
+    UsersEntity getUserByUsername(@Param("username") String username, @Param("password_hash") String password_hash);
     /**
      * 更新用户密码
      * @param username 用户名
@@ -23,20 +23,20 @@ public interface UsersMapper {
     int updatePassword(@Param("username") String username, @Param("password_hash") String password_hash, @Param("newPassword") String newPassword);
      /**
      * 插入新用户
-     * @param users 用户实体
+     * @param usersEntity 用户实体
      * @return 插入影响的行数
      */
-    int insertUser(Users users);
+    int insertUser(UsersEntity usersEntity);
     /**
      * 根据用户名获取用户
      * @param username 用户名
      * @return 用户实体
      */
-    Users getUserByUserName(String username);
+    UsersEntity getUserByUserName(String username);
     /**
      * 根据邮箱获取用户
      * @param email 邮箱
      * @return 用户实体
      */
-    Users getUserByEmail(String email);
+    UsersEntity getUserByEmail(String email);
 }

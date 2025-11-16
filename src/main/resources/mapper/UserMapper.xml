@@ -5,9 +5,9 @@
 
 <mapper namespace="com.triauras.mapper.UsersMapper">
     <!-- 插入用户，返回自增主键 -->
-    <insert id="insertUser" parameterType="com.triauras.entity.Users"
+    <insert id="insertUser" parameterType="com.triauras.entity.UsersEntity"
             useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (username,
+        INSERT INTO usersEntity (username,
                            email,
                            password_hash,
                            avatar_url,
@@ -29,18 +29,18 @@
                 #{is_active})
     </insert>
     <update id="updatePassword">
-        update users
+        update usersEntity
         set password_hash = #{newPassword}
         where username = #{username}
     </update>
 
-    <select id="getUserByUsername" resultType="com.triauras.entity.Users">
+    <select id="getUserByUsername" resultType="com.triauras.entity.UsersEntity">
         select *
-        from users
+        from usersEntity
         where username = #{username}
           and password_hash = #{password_hash}
     </select>
-    <select id="getUserByUserName" resultType="com.triauras.entity.Users">
+    <select id="getUserByUserName" resultType="com.triauras.entity.UsersEntity">
         SELECT
             id,
             username,
@@ -53,11 +53,11 @@
             updated_at as updatedAt,
             last_login_at as lastLoginAt,
             is_active as isActive
-        FROM users
+        FROM usersEntity
         WHERE username = #{username}
           AND is_active = true
     </select>
-    <select id="getUserByEmail" resultType="com.triauras.entity.Users">
+    <select id="getUserByEmail" resultType="com.triauras.entity.UsersEntity">
         SELECT id,
                username,
                email,
@@ -69,7 +69,7 @@
                updated_at    as updatedAt,
                last_login_at as lastLoginAt,
                is_active     as isActive
-        FROM users
+        FROM usersEntity
         WHERE email = #{email}
           AND is_active = true
     </select>

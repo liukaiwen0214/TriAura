@@ -1,6 +1,9 @@
+// 获取当前页面的上下文路径
+const contextPath = window.location.pathname.split('/')[1];
+// 拼接完整的请求URL
+const requestUrl = '/' + contextPath;
 // 初始化验证码
 window.onload = function() {
-    refreshCaptcha();
     // 添加表单提交事件监听器
     const loginForm = document.getElementById('loginForm');
     loginForm.addEventListener('submit', validateForm);
@@ -28,9 +31,8 @@ function validateForm(event) {
     event.preventDefault(); // 阻止默认提交行为
     const isUsernameValid = validateUsername();
     const isPasswordValid = validatePassword();
-    const isCaptchaValid = validateCaptcha();
 
-    if (isUsernameValid && isPasswordValid && isCaptchaValid) {
+    if (isUsernameValid && isPasswordValid) {
         // 显示加载状态
         document.getElementById('loginText').textContent = '登录中';
         document.getElementById('loginSpinner').style.display = 'inline-block';
@@ -38,9 +40,27 @@ function validateForm(event) {
 
         // 模拟登录请求
         setTimeout(function() {
-            // 这里应该是实际的登录请求
-            console.log('登录成功，准备跳转到首页');
-            window.location.href = '/index';
+            fetch(requestUrl + '/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
+                })
+            }).then(r => r.json()).then(data => {
+                if (data.success) {
+                    console.log('登录成功，准备跳转到首页');
+                    window.location.href = '/index';
+                } else {
+                    console.log('登录失败');
+                    // 显示错误信息
+                    document.getElementById('loginText').textContent = '登录失败';
+                    document.getElementById('loginSpinner').style.display = 'none';
+                    document.getElementById('loginButton').disabled = false;
+                }
+            })
         }, 1500);
     }
 }
@@ -87,23 +107,6 @@ function validatePassword() {
     }
 }
 
-// 验证验证码
-function validateCaptcha() {
-    const captcha = document.getElementById('captcha').value;
-    const errorElement = document.getElementById('captchaError');
-    const inputElement = document.getElementById('captcha');
-
-    if (!captcha || captcha.length !== 4) {
-        errorElement.style.display = 'block';
-        inputElement.classList.add('error');
-        return false;
-    } else {
-        errorElement.style.display = 'none';
-        inputElement.classList.remove('error');
-        return true;
-    }
-}
-
 // 切换密码可见性
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
@@ -119,17 +122,6 @@ function togglePasswordVisibility() {
         toggleIcon.classList.add('fa-eye-slash');
     }
 }
-
-// 刷新验证码
-function refreshCaptcha() {
-    const captchaImage = document.querySelector('.captcha-image');
-    // 这里应该调用后端接口生成验证码
-    // 暂时使用随机数模拟
-    captchaImage.src = '#' + Math.random();
-    // 实际项目中替换为真实的验证码生成接口
-    captchaImage.alt = '验证码：' + Math.floor(1000 + Math.random() * 9000);
-}
-
 
 // 显示QQ登录弹窗
 function showQQLogin() {
