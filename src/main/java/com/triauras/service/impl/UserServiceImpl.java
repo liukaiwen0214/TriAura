@@ -5,6 +5,7 @@ import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.logging.Logger;
 
 @Service
@@ -52,8 +53,8 @@ public class UserServiceImpl implements UsersService {
         users.setTimezone("Asia/Shanghai");
         users.setCurrency("CNY");
         users.setIs_active(true);
-        users.setCreated_at(new java.sql.Timestamp(System.currentTimeMillis()));
-        users.setUpdated_at(new java.sql.Timestamp(System.currentTimeMillis()));
+        users.setCreated_at(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
+        users.setUpdated_at(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
         int rowsAffected = usersMapper.insertUser(users);
         if (rowsAffected == 0) {
             logger.log(java.util.logging.Level.INFO, "注册用户失败");

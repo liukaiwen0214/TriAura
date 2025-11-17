@@ -32,9 +32,13 @@
         <servlet-api.version>6.0.0</servlet-api.version>
         <jsp-api.version>3.1.1</jsp-api.version>
         
+        <!-- 参数校验相关 -->
+        <validation-api.version>3.0.2</validation-api.version>
+        <hibernate-validator.version>8.0.1.Final</hibernate-validator.version>
+        
         <!-- 日志框架 -->
         <log4j2.version>2.24.3</log4j2.version>  <!-- 安全版本，修复CVE漏洞 -->
-        <slf4j.version>2.0.13</slf4j.version>
+        <slf4j.version>2.0.16</slf4j.version>
         
         <!-- 开发工具 -->
         <lombok.version>1.18.30</lombok.version>
@@ -144,7 +148,27 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- ========== 参数校验相关 ========== -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>${validation-api.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
         <!-- ========== 日志框架 (Log4j2 + SLF4J) ========== -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>

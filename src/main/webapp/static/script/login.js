@@ -54,9 +54,11 @@ function validateForm(event) {
             }).then(response => {
                 if (response.ok) {
                     console.log('登录成功，准备跳转到首页');
-                    window.location.href = requestUrl + '/user/register';
+                    window.location.href = requestUrl + '/user/triAura';
                 } else {
                     console.log('登录失败');
+                    // 跳转到错误处理页面
+                    window.location.href = requestUrl + '/user/error';
                     // 显示错误信息
                     document.getElementById('loginText').textContent = '登录失败';
                     document.getElementById('loginSpinner').style.display = 'none';
