@@ -1,7 +1,6 @@
 package com.triauras.controller;
 import com.triauras.entity.UsersEntity;
 import com.triauras.service.UsersService;
-import com.triauras.util.VerifyCodeGenerator;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

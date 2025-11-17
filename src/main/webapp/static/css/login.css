@@ -119,29 +119,6 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
-.captcha-container {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.captcha-input {
-    flex: 1;
-}
-
-.captcha-image {
-    height: 38px;
-    border-radius: 6px;
-    cursor: pointer;
-    border: 1px solid #e9ecef;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.captcha-image:hover {
-    border-color: #adb5bd;
-    box-shadow: 0 2px 8px rgba(173, 181, 189, 0.2);
-}
-
 .forgot-password {
     text-align: right;
     margin-bottom: 12px;
