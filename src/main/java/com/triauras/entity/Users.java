@@ -1,11 +1,8 @@
 package com.triauras.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-
-@Getter
-@Setter
+@Data
 public class Users {
     /**
      * 用户ID
@@ -51,9 +48,4 @@ public class Users {
      * 是否激活
      */
     private Boolean is_active;
-
-    @Override
-    public String toString() {
-        return "Users{" + "id=" + id + ", username='" + username + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", avatar_url='" + avatar_url + '\'' + ", timezone='" + timezone + '\'' + ", currency='" + currency + '\'' + ", created_at=" + created_at + ", updated_at=" + updated_at + ", last_login_at=" + last_login_at + ", is_active=" + is_active + '}';
-    }
 }
