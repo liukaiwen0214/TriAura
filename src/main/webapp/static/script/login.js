@@ -38,21 +38,23 @@ function validateForm(event) {
         document.getElementById('loginSpinner').style.display = 'inline-block';
         document.getElementById('loginButton').disabled = true;
 
+        // 创建表单数据对象
+        const formData = {
+            email: document.getElementById('username').value,
+            password: document.getElementById('password').value
+        }
         // 模拟登录请求
         setTimeout(function() {
             fetch(requestUrl + '/user/login', {
                 method: 'POST',
+                body: JSON.stringify(formData),
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: document.getElementById('username').value,
-                    password: document.getElementById('password').value,
-                })
-            }).then(r => r.json()).then(data => {
-                if (data.success) {
+                }
+            }).then(response => {
+                if (response.ok) {
                     console.log('登录成功，准备跳转到首页');
-                    window.location.href = '/index';
+                    window.location.href = requestUrl + '/user/register';
                 } else {
                     console.log('登录失败');
                     // 显示错误信息
@@ -60,10 +62,20 @@ function validateForm(event) {
                     document.getElementById('loginSpinner').style.display = 'none';
                     document.getElementById('loginButton').disabled = false;
                 }
-            })
+            }).catch(error => {
+                console.error('请求错误:', error);
+                document.getElementById('loginText').textContent = '登录失败';
+                document.getElementById('loginSpinner').style.display = 'none';
+                document.getElementById('loginButton').disabled = false;
+            });
         }, 1500);
     }
 }
+// ... existing code ...
+// 注册按钮点击事件
+document.getElementById('registerButton').addEventListener('click', function() {
+    window.location.href = requestUrl + '/user/register';
+});
 
 // 验证邮箱或手机号
 function validateUsername() {

@@ -8,7 +8,7 @@
     </Appenders>
     <Loggers>
         <!-- 为测试类添加专门的日志配置 -->
-        <Logger name="com.triauras.service.impl.UserServiceImplTest" level="INFO" additivity="true">
+        <Logger name="com.triauras.service.impl.UsersServiceImplTest" level="INFO" additivity="true">
             <AppenderRef ref="Console"/>
         </Logger>
         <!-- 根日志级别设为 INFO -->

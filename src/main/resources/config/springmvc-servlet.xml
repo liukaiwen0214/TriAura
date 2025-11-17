@@ -4,10 +4,10 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:task="http://www.springframework.org/schema/task"
-       xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-	 	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	    http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+	    http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- 只需要扫描包中的 Controller 注解 -->
     <context:component-scan base-package="com.triauras.controller">
@@ -15,7 +15,6 @@
     </context:component-scan>
 
     <!-- 启动 mvc 注解驱动 -->
-    <!--    <mvc:annotation-driven></mvc:annotation-driven>-->
     <mvc:annotation-driven>
         <mvc:message-converters>
             <!-- 配置Fastjson支持 -->

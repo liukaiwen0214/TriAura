@@ -25,8 +25,8 @@
         <form id="loginForm">
             <div class="form-group">
                 <label for="username">账号</label>
-                <input type="text" id="username" class="form-control" placeholder="邮箱或手机号" required>
-                <div id="usernameError" class="error-message">请输入有效的邮箱或手机号</div>
+                <input type="text" id="username" class="form-control" placeholder="邮箱" required>
+                <div id="usernameError" class="error-message">请输入有效的邮箱</div>
             </div>
 
             <div class="form-group">
@@ -47,7 +47,7 @@
                 <span id="loginSpinner" class="loading-spinner" style="display: none;"></span>
             </button>
 
-            <button type="button" class="btn btn-secondary" onclick="window.location.href='/register'">
+            <button type="button" class="btn btn-secondary" id="registerButton">
                 注册新账号
             </button>
         </form>

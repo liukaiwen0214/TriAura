@@ -1,27 +1,20 @@
 package com.triauras.service;
 
-import com.triauras.entity.UsersEntity;
+import com.triauras.entity.Users;
 
 public interface UsersService {
     /**
-     * 根据用户名和密码哈希获取用户
-     * @param username 用户名
-     * @param password_hash 密码哈希
+     * 根据邮箱密码登陆
+     *
+     * @param email         用户邮箱
+     * @param password 密码哈希
      * @return 用户实体
      */
-    UsersEntity getUserByUsername(String username, String password_hash);
-    /**
-     * 更新用户密码
-     * @param username 用户名
-     * @param password_hash 当前密码哈希
-     * @param newPassword 新密码
-     * @return 是否更新成功
+    Users loginByEmail(String email, String password);
+        /**
+     * 注册用户
+     * @param users 用户实体
+     * @return 插入影响的行数
      */
-    boolean updatePassword(String username, String password_hash, String newPassword);
-     /**
-      * 插入新用户
-      * @param usersEntity 用户实体
-      * @return 是否插入成功
-      */
-    boolean insertUser(UsersEntity usersEntity);
+    String registerUser(Users users);
 }

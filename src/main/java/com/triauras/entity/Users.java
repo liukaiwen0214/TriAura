@@ -3,7 +3,7 @@ package com.triauras.entity;
 import java.sql.Timestamp;
 
 
-public class UsersEntity {
+public class Users {
     /**
      * 用户ID
      */
@@ -19,7 +19,7 @@ public class UsersEntity {
     /**
      * 密码哈希
      */
-    private String password_hash;
+    private String password;
     /**
      * 头像URL
      */
@@ -74,12 +74,12 @@ public class UsersEntity {
         this.email = email;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassword_hash(String password_hash) {
-        this.password_hash = password_hash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAvatar_url() {
@@ -138,11 +138,11 @@ public class UsersEntity {
         this.is_active = is_active;
     }
 
-    public UsersEntity(Long id, String username, String email, String password_hash, String avatar_url, String timezone, String currency, Timestamp created_at, Timestamp updated_at, Timestamp last_login_at, Boolean is_active) {
+    public Users(Long id, String username, String email, String password, String avatar_url, String timezone, String currency, Timestamp created_at, Timestamp updated_at, Timestamp last_login_at, Boolean is_active) {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.password_hash = password_hash;
+        this.password = password;
         this.avatar_url = avatar_url;
         this.timezone = timezone;
         this.currency = currency;
@@ -152,7 +152,12 @@ public class UsersEntity {
         this.is_active = is_active;
     }
 
-    public UsersEntity() {
+    public Users(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public Users() {
 
     }
 
@@ -162,7 +167,7 @@ public class UsersEntity {
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", password_hash='" + password_hash + '\'' +
+                ", password='" + password + '\'' +
                 ", avatar_url='" + avatar_url + '\'' +
                 ", timezone='" + timezone + '\'' +
                 ", currency='" + currency + '\'' +
