@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>出错啦 - TriAura</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/error.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/error.css">
 </head>
 <body>
 <div class="error-container">
@@ -50,6 +50,6 @@
     </div>
 </div>
 
-<script src="../static/script/error.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/error.js"></script>
 </body>
 </html>

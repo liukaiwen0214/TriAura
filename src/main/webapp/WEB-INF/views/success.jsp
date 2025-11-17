@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>操作成功 - TriAura</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/success.css">
+    <link rel="stylesheet" type="text/css" href=".${pageContext.request.contextPath}/static/css/success.css">
 </head>
 <body>
 <div class="success-container">
@@ -54,6 +54,6 @@
     </div>
 </div>
 
-<script src="../static/script/success.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/success.js"></script>
 </body>
 </html>

@@ -32,6 +32,7 @@ body {
 }
 
 /* 顶部导航栏 */
+/* 确保导航栏布局稳定性 */
 .navbar {
     position: fixed;
     top: 0;
@@ -43,6 +44,61 @@ body {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 防止在移动端出现滚动时的闪烁 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* 防止导航元素在特定情况下溢出 */
+.nav-logo,
+.nav-user {
+    min-width: auto;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.nav-logo h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #000000;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+    /* 防止文本溢出 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+/* 用户头像区域优化 */
+.user-avatar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 防止内容溢出 */
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+    /* 防止文本溢出 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
 }
 
 /* 导航栏优化 */
@@ -242,7 +298,6 @@ body {
     .nav-logo h1 {
         font-size: 20px;
     }
-
     .nav-menu {
         gap: 2px;
     }
@@ -346,113 +401,43 @@ body {
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
 }
 
-.user-avatar:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
 
 .user-avatar img {
     width: 32px;
     height: 32px;
     border-radius: 50%;
     border: 2px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-avatar:hover img {
+    border-color: rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
 }
 
 .user-name {
     font-size: 14px;
     font-weight: 500;
     color: #495057;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-avatar:hover .user-name {
+    color: #000000;
 }
 
 .user-dropdown-icon {
     font-size: 10px;
     color: #6c757d;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .user-avatar:hover .user-dropdown-icon {
     transform: rotate(180deg);
-}
-
-/* 个人信息面板 */
-.user-panel {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    width: 280px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1001;
-}
-
-.user-panel.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.user-panel-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.user-panel-header img {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.user-info h3 {
-    font-size: 16px;
-    font-weight: 600;
     color: #000000;
-    margin-bottom: 4px;
-}
-
-.user-info p {
-    font-size: 14px;
-    color: #6c757d;
-}
-
-.user-panel-menu {
-    padding: 8px 0;
-}
-
-.user-menu-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 20px;
-    font-size: 14px;
-    color: #495057;
-    text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.user-menu-item:hover {
-    color: #000000;
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.user-menu-item i {
-    font-size: 16px;
-    width: 16px;
-}
-
-.user-panel-menu .divider {
-    margin: 8px 0;
 }
 
 /* 主要内容区域 */
@@ -484,7 +469,6 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
-
 .welcome-content p {
     font-size: 18px;
     color: #6c757d;
@@ -595,7 +579,6 @@ body {
 .activity-item:last-child {
     border-bottom: none;
 }
-
 .activity-item:hover {
     background: rgba(255, 255, 255, 0.9);
 }
@@ -813,25 +796,38 @@ body {
     visibility: visible;
 }
 
-/* 超大屏幕适配 */
+/* 导航栏优化 */
+.nav-container {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    height: 56px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Logo区域 - 固定在对角位置 */
+.nav-logo {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+/* 个人信息区域 - 固定在对角位置 */
+.nav-user {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
 @media (min-width: 1600px) {
     .nav-container {
         max-width: 1600px;
-        padding: 0 30px;
-    }
-
-    .nav-logo {
-        left: 30px;
-    }
-
-    .nav-user {
-        right: 30px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .nav-container {
-        max-width: 1800px;
         padding: 0 40px;
     }
 
@@ -844,24 +840,33 @@ body {
     }
 }
 
-/* 中等屏幕尺寸优化 */
-@media (min-width: 1200px) and (max-width: 1599px) {
+@media (min-width: 1920px) {
     .nav-container {
-        max-width: 1200px;
-        padding: 0 25px;
+        max-width: 1920px;
+        padding: 0 60px;
     }
 
     .nav-logo {
-        left: 25px;
+        left: 60px;
     }
 
     .nav-user {
-        right: 25px;
+        right: 60px;
     }
+}
 
-    .nav-menu {
-        max-width: calc(100% - 280px);
-    }
+/* 主导航菜单优化 - 居中显示 */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 auto;
+    position: relative;
+    left: 0;
+    transform: none;
+    max-width: calc(100% - 320px); /* 增加间距以适应更大的边距 */
+    justify-content: center;
+    flex-wrap: nowrap;
 }
 
 /* 小屏幕桌面优化 */
@@ -890,10 +895,49 @@ body {
     }
 }
 
-/* 响应式设计 */
+@media (min-width: 769px) and (max-width: 991px) {
+    .nav-container {
+        max-width: 100%;
+        padding: 0 16px;
+    }
+
+    .nav-logo {
+        left: 16px;
+    }
+
+    .nav-user {
+        right: 16px;
+    }
+
+    .nav-menu {
+        max-width: calc(100% - 240px);
+        gap: 1px;
+    }
+
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}
+
+/* 平板端响应式优化 */
 @media (max-width: 768px) {
     .nav-container {
         padding: 0 16px;
+        height: 52px;
+    }
+
+    /* 平板端固定位置调整 */
+    .nav-logo {
+        left: 16px;
+    }
+
+    .nav-user {
+        right: 16px;
+    }
+
+    .nav-logo h1 {
+        font-size: 20px;
     }
 
     .nav-menu {
@@ -930,14 +974,24 @@ body {
     }
 }
 
+/* 手机端响应式优化 */
 @media (max-width: 480px) {
     .nav-container {
         padding: 0 12px;
-        height: 56px;
+        height: 48px;
+    }
+
+    /* 手机端固定位置调整 */
+    .nav-logo {
+        left: 12px;
+    }
+
+    .nav-user {
+        right: 12px;
     }
 
     .nav-logo h1 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .content-container {
@@ -965,4 +1019,294 @@ body {
     .activity-item {
         padding: 16px 20px;
     }
+}
+
+/* 超大屏幕适配 - 增强版 */
+@media (min-width: 2560px) {
+    .nav-container {
+        max-width: 2560px;
+        padding: 0 80px;
+    }
+
+    .nav-logo {
+        left: 80px;
+    }
+
+    .nav-user {
+        right: 80px;
+    }
+}
+
+/* 超宽屏幕适配 */
+@media (min-width: 3840px) {
+    .nav-container {
+        max-width: 3840px;
+        padding: 0 120px;
+    }
+
+    .nav-logo {
+        left: 120px;
+    }
+
+    .nav-user {
+        right: 120px;
+    }
+}
+
+/* 确保在移动端隐藏桌面导航元素时的平滑过渡 */
+@media (max-width: 768px) {
+    .nav-menu,
+    .nav-user {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .nav-menu.hidden,
+    .nav-user.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.user-avatar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-avatar:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.user-avatar img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #495057;
+}
+
+.user-dropdown-icon {
+    font-size: 10px;
+    color: #6c757d;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 删除悬浮相关样式 */
+/* .user-avatar.hover-trigger { ... } */
+/* .user-panel.hover-panel { ... } */
+/* .user-avatar.hover-trigger:hover + .user-panel.hover-panel, */
+/* .user-panel.hover-panel:hover { ... } */
+
+/* 个人信息面板 - 简化样式 */
+.user-panel {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1001;
+}
+
+.user-panel.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+/* 添加安全区域支持，确保在带刘海屏的设备上正确显示 */
+@supports (padding: max(0px)) {
+    .nav-container {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+
+    .nav-logo {
+        left: max(20px, env(safe-area-inset-left));
+    }
+
+    .nav-user {
+        right: max(20px, env(safe-area-inset-right));
+    }
+
+    @media (max-width: 768px) {
+        .nav-container {
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
+        }
+
+        .nav-logo {
+            left: max(16px, env(safe-area-inset-left));
+        }
+
+        .nav-user {
+            right: max(16px, env(safe-area-inset-right));
+        }
+    }
+
+    @media (max-width: 480px) {
+        .nav-container {
+            padding-left: max(12px, env(safe-area-inset-left));
+            padding-right: max(12px, env(safe-area-inset-right));
+        }
+
+        .nav-logo {
+            left: max(12px, env(safe-area-inset-left));
+        }
+
+        .nav-user {
+            right: max(12px, env(safe-area-inset-right));
+        }
+    }
+}
+
+/* 用户登录状态相关样式 */
+
+/* 登录提示样式 */
+.login-prompt {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #e9ecef;
+    margin-top: 10px;
+}
+
+.login-prompt-content p {
+    margin-bottom: 15px;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.btn-login, .btn-register {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    border: 1px solid #000;
+    border-radius: 6px;
+    background: #000;
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover, .btn-register:hover {
+    background: #333;
+    transform: translateY(-1px);
+}
+
+.btn-register {
+    background: transparent;
+    color: #000;
+}
+
+.btn-register:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* 退出登录通知样式 */
+.logout-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    animation: slideInRight 0.3s ease;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.notification-content i {
+    font-size: 16px;
+}
+
+.notification-content span {
+    font-size: 14px;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 用户状态指示器 */
+.user-status-indicator {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #28a745;
+    border: 2px solid white;
+}
+
+.user-status-indicator.offline {
+    background: #6c757d;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .login-prompt {
+        padding: 15px;
+    }
+
+    .btn-login, .btn-register {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .logout-notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+    }
+}
+
+/* 用户面板状态样式 */
+.user-panel .user-info h3.logged-in {
+    color: #000;
+}
+
+.user-panel .user-info h3.not-logged-in {
+    color: #6c757d;
+}
+
+/* 欢迎标题动态样式 */
+.welcome-content h1.logged-in {
+    color: #000;
+}
+
+.welcome-content h1.not-logged-in {
+    color: #6c757d;
 }

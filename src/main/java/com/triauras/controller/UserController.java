@@ -207,7 +207,7 @@ public class UserController {
      * 使用场景：
      * - 用户登录后，点击“进入TriAura”按钮跳转至TriAura主页
      */
-    @GetMapping("/triAura")
+    @GetMapping("/tiraura")
     public String toTriAura() {
         return "tiraura";
     }

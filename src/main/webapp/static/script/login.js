@@ -43,7 +43,7 @@ function validateForm(event) {
             email: document.getElementById('username').value,
             password: document.getElementById('password').value
         }
-        // 模拟登录请求
+        // 登录请求
         setTimeout(function() {
             fetch(requestUrl + '/user/login', {
                 method: 'POST',
@@ -54,7 +54,7 @@ function validateForm(event) {
             }).then(response => {
                 if (response.ok) {
                     console.log('登录成功，准备跳转到首页');
-                    window.location.href = requestUrl + '/user/triAura';
+                    window.location.href = requestUrl + '/user/tiraura';
                 } else {
                     console.log('登录失败');
                     // 跳转到错误处理页面
