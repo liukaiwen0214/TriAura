@@ -1,7 +1,6 @@
 package com.triauras.service.impl;
 
 import com.triauras.entity.Users;
-import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.Test;
