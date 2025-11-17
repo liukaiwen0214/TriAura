@@ -16,8 +16,8 @@ public interface UsersMapper{
     Users loginByEmail(@Param("email") String email, @Param("password") String password);
     /**
      * 根据邮箱查找用户
-     * @param email
-     * @return
+     * @param email 用户邮箱
+     * @return 用户实体
      */
     Users selectByEmail(@Param("email") String email);
     /**
