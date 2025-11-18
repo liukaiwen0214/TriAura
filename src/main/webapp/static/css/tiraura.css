@@ -1,27 +1,9 @@
 /* 主页样式 - 与登录注册页面保持一致的设计语言 */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-/* 下拉菜单箭头 */
-.dropdown-menu::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    left: 18px;
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.98);
-    border-left: 1px solid rgba(0, 0, 0, 0.08);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    transform: rotate(45deg);
-    z-index: -1;
-}
-
-/* 响应式导航优化 */
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -30,9 +12,7 @@ body {
     line-height: 1.5;
     color: #000000;
 }
-
 /* 顶部导航栏 */
-/* 确保导航栏布局稳定性 */
 .navbar {
     position: fixed;
     top: 0;
@@ -44,14 +24,28 @@ body {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     z-index: 1000;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 防止在移动端出现滚动时的闪烁 */
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
+/* 导航容器 - 整合所有定义 */
+.nav-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 56px;
+    max-width: 1400px;
+    margin: 0 auto;
+    z-index: 1000;
+}
 
-/* 防止导航元素在特定情况下溢出 */
-.nav-logo,
-.nav-user {
+/* Logo区域 - 整合所有定义 */
+.nav-logo {
+    /* 移除绝对定位，使用flex布局 */
+    position: static;
+    transform: none;
+    z-index: 10;
     min-width: auto;
     max-width: 200px;
     overflow: hidden;
@@ -70,71 +64,12 @@ body {
     background-clip: text;
     letter-spacing: -0.5px;
     white-space: nowrap;
-    /* 防止文本溢出 */
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
 }
 
-/* 用户头像区域优化 */
-.user-avatar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    /* 防止内容溢出 */
-    max-width: 200px;
-    overflow: hidden;
-}
-
-.user-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: #495057;
-    /* 防止文本溢出 */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 120px;
-}
-
-/* 导航栏优化 */
-.nav-container {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    height: 56px;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-}
-
-/* Logo区域 - 固定在对角位置 */
-.nav-logo {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-}
-
-.nav-logo h1 {
-    font-size: 24px;
-    font-weight: 800;
-    color: #000000;
-    text-transform: uppercase;
-    background: linear-gradient(135deg, #000000 0%, #333333 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    letter-spacing: -0.5px;
-    white-space: nowrap;
-}
-
-/* 主导航菜单优化 - 居中显示 */
+/* 主导航菜单 - 整合所有定义 */
 .nav-menu {
     display: flex;
     align-items: center;
@@ -143,7 +78,7 @@ body {
     position: relative;
     left: 0;
     transform: none;
-    max-width: calc(100% - 300px); /* 防止与logo和用户信息重叠 */
+    max-width: calc(100% - 320px);
     justify-content: center;
     flex-wrap: nowrap;
 }
@@ -193,7 +128,7 @@ body {
     transform: rotate(180deg);
 }
 
-/* 下拉菜单 - 优化版 */
+/* 下拉菜单 - 整合所有定义 */
 .dropdown-menu {
     position: absolute;
     top: calc(100% + 8px);
@@ -211,6 +146,20 @@ body {
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1001;
     overflow: hidden;
+}
+
+.dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 18px;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.98);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    transform: rotate(45deg);
+    z-index: -1;
 }
 
 .nav-item.dropdown:hover .dropdown-menu {
@@ -279,118 +228,17 @@ body {
     white-space: nowrap;
 }
 
-/* 响应式导航优化 */
-@media (max-width: 768px) {
-    .nav-container {
-        padding: 0 16px;
-        height: 52px;
-    }
-
-    /* 平板端固定位置调整 */
-    .nav-logo {
-        left: 16px;
-    }
-
-    .nav-user {
-        right: 16px;
-    }
-
-    .nav-logo h1 {
-        font-size: 20px;
-    }
-    .nav-menu {
-        gap: 2px;
-    }
-
-    .nav-link {
-        padding: 8px 12px;
-        font-size: 13px;
-        gap: 5px;
-    }
-
-    .dropdown-menu {
-        min-width: 130px;
-        max-width: 160px;
-        border-radius: 10px;
-    }
-
-    .dropdown-item {
-        padding: 7px 10px;
-        gap: 7px;
-    }
-
-    .dropdown-item:not(:last-child)::after {
-        left: 10px;
-        right: 10px;
-    }
-
-    .dropdown-menu::before {
-        left: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-container {
-        padding: 0 12px;
-        height: 48px;
-    }
-
-    /* 手机端固定位置调整 */
-    .nav-logo {
-        left: 12px;
-    }
-
-    .nav-user {
-        right: 12px;
-    }
-
-    .nav-logo h1 {
-        font-size: 18px;
-    }
-
-    .nav-link {
-        padding: 6px 10px;
-        font-size: 12px;
-        gap: 4px;
-    }
-
-    .dropdown-menu {
-        min-width: 120px;
-        max-width: 150px;
-        border-radius: 8px;
-    }
-
-    .dropdown-item {
-        padding: 6px 8px;
-        gap: 6px;
-    }
-
-    .dropdown-item i {
-        font-size: 13px;
-        width: 14px;
-        height: 14px;
-    }
-
-    .dropdown-item:not(:last-child)::after {
-        left: 8px;
-        right: 8px;
-    }
-
-    .dropdown-menu::before {
-        left: 14px;
-        width: 10px;
-        height: 10px;
-        top: -5px;
-    }
-}
-
-/* 个人信息区域 - 固定在对角位置 */
+/* 个人信息区域 - 整合所有定义 */
 .nav-user {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
+    /* 移除绝对定位，使用flex布局 */
+    position: static;
+    transform: none;
+    z-index: 1001;
+    min-width: auto;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .user-avatar {
@@ -404,6 +252,9 @@ body {
     position: relative;
 }
 
+.user-avatar:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
 
 .user-avatar img {
     width: 32px;
@@ -423,6 +274,10 @@ body {
     font-weight: 500;
     color: #495057;
     transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
 }
 
 .user-avatar:hover .user-name {
@@ -435,9 +290,264 @@ body {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.nav-user:hover .user-dropdown-icon,
 .user-avatar:hover .user-dropdown-icon {
     transform: rotate(180deg);
     color: #000000;
+}
+
+/* 个人信息面板 - 整合所有定义 */
+.user-panel {
+    position: absolute;
+    top: calc(100% + 4px); /* 减少间距 */
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    width: 240px; /* 缩小宽度 */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px) scale(0.95);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s; /* 增加0.3秒延迟 */
+    z-index: 1001;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.nav-user:hover .user-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0.1s; /* 添加延迟确保鼠标能移动上去 */
+}
+/* 添加面板箭头指示器 */
+.user-panel::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 20px;
+    width: 12px;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.98);
+    border-left: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.user-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+}
+
+.user-panel-header img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+}
+.user-panel-header img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.user-panel-header:hover img {
+    border-color: rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.user-info h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #343a40;
+    letter-spacing: -0.3px;
+}
+
+.user-info h3.logged-in {
+    color: #000;
+    background: linear-gradient(135deg, #000 0%, #333 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.user-info h3.not-logged-in {
+    color: #6c757d;
+}
+
+.user-info p {
+    margin: 6px 0 0;
+    font-size: 14px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+.user-panel-menu {
+    padding: 12px 0;
+}
+
+.user-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 20px;
+    font-size: 15px;
+    color: #343a40;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    border-radius: 8px;
+    margin: 0 8px;
+    width: calc(100% - 16px);
+}
+
+.user-menu-item:hover {
+    color: #000000;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.user-menu-item i {
+    font-size: 16px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+}
+
+.user-menu-item:hover i {
+    color: #000000;
+    transform: scale(1.1);
+}
+
+/* 添加菜单项之间的分隔线 */
+.user-menu-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
+}
+
+/* 美化通用分割线 */
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
+    margin: 12px 16px;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e9ecef, transparent);
+}
+
+/* 修复用户头像区域的悬停效果 */
+.user-avatar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: transparent;
+}
+
+.user-avatar:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.user-avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-avatar:hover img {
+    border-color: rgba(0, 0, 0, 0.3);
+    transform: scale(1.08);
+}
+
+.user-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #495057;
+    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px;
+}
+
+.user-avatar:hover .user-name {
+    color: #000000;
+    font-weight: 700;
+}
+
+.user-dropdown-icon {
+    font-size: 12px;
+    color: #6c757d;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-user:hover .user-dropdown-icon,
+.user-avatar:hover .user-dropdown-icon {
+    transform: rotate(180deg);
+    color: #000000;
+}
+
+/* 通用分割线 */
+.divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
+    margin: 8px 16px;
+    position: relative;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e9ecef, transparent);
+}
+
+.divider span {
+    background-color: #ffffff;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #6c757d;
+    position: relative;
+    z-index: 1;
 }
 
 /* 主要内容区域 */
@@ -469,6 +579,15 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
+
+.welcome-content h1.logged-in {
+    color: #000;
+}
+
+.welcome-content h1.not-logged-in {
+    color: #6c757d;
+}
+
 .welcome-content p {
     font-size: 18px;
     color: #6c757d;
@@ -579,6 +698,7 @@ body {
 .activity-item:last-child {
     border-bottom: none;
 }
+
 .activity-item:hover {
     background: rgba(255, 255, 255, 0.9);
 }
@@ -614,33 +734,7 @@ body {
     color: #6c757d;
 }
 
-/* 通用分割线 */
-.divider {
-    text-align: center;
-    margin: 12px 0;
-    position: relative;
-}
-
-.divider::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #e9ecef, transparent);
-}
-
-.divider span {
-    background-color: #ffffff;
-    padding: 0 16px;
-    font-size: 14px;
-    color: #6c757d;
-    position: relative;
-    z-index: 1;
-}
-
-/* 移动端菜单按钮 */
+/* 移动端菜单 */
 .mobile-menu-toggle {
     display: none;
     position: fixed;
@@ -668,7 +762,6 @@ body {
     color: #000000;
 }
 
-/* 移动端侧边菜单 */
 .mobile-sidebar {
     position: fixed;
     top: 0;
@@ -777,7 +870,6 @@ body {
     background: rgba(0, 0, 0, 0.05);
 }
 
-/* 遮罩层 */
 .overlay {
     position: fixed;
     top: 0;
@@ -796,388 +888,7 @@ body {
     visibility: visible;
 }
 
-/* 导航栏优化 */
-.nav-container {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    height: 56px;
-    max-width: 1400px;
-    margin: 0 auto;
-    position: relative;
-}
-
-/* Logo区域 - 固定在对角位置 */
-.nav-logo {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-}
-
-/* 个人信息区域 - 固定在对角位置 */
-.nav-user {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-}
-
-@media (min-width: 1600px) {
-    .nav-container {
-        max-width: 1600px;
-        padding: 0 40px;
-    }
-
-    .nav-logo {
-        left: 40px;
-    }
-
-    .nav-user {
-        right: 40px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .nav-container {
-        max-width: 1920px;
-        padding: 0 60px;
-    }
-
-    .nav-logo {
-        left: 60px;
-    }
-
-    .nav-user {
-        right: 60px;
-    }
-}
-
-/* 主导航菜单优化 - 居中显示 */
-.nav-menu {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin: 0 auto;
-    position: relative;
-    left: 0;
-    transform: none;
-    max-width: calc(100% - 320px); /* 增加间距以适应更大的边距 */
-    justify-content: center;
-    flex-wrap: nowrap;
-}
-
-/* 小屏幕桌面优化 */
-@media (min-width: 769px) and (max-width: 1199px) {
-    .nav-container {
-        max-width: 100%;
-        padding: 0 20px;
-    }
-
-    .nav-logo {
-        left: 20px;
-    }
-
-    .nav-user {
-        right: 20px;
-    }
-
-    .nav-menu {
-        max-width: calc(100% - 260px);
-        gap: 2px;
-    }
-
-    .nav-link {
-        padding: 8px 12px;
-        font-size: 13px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 991px) {
-    .nav-container {
-        max-width: 100%;
-        padding: 0 16px;
-    }
-
-    .nav-logo {
-        left: 16px;
-    }
-
-    .nav-user {
-        right: 16px;
-    }
-
-    .nav-menu {
-        max-width: calc(100% - 240px);
-        gap: 1px;
-    }
-
-    .nav-link {
-        padding: 6px 10px;
-        font-size: 12px;
-    }
-}
-
-/* 平板端响应式优化 */
-@media (max-width: 768px) {
-    .nav-container {
-        padding: 0 16px;
-        height: 52px;
-    }
-
-    /* 平板端固定位置调整 */
-    .nav-logo {
-        left: 16px;
-    }
-
-    .nav-user {
-        right: 16px;
-    }
-
-    .nav-logo h1 {
-        font-size: 20px;
-    }
-
-    .nav-menu {
-        display: none;
-    }
-
-    .nav-user {
-        display: none;
-    }
-
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
-    .content-container {
-        padding: 24px 16px;
-    }
-
-    .welcome-content h1 {
-        font-size: 28px;
-    }
-
-    .welcome-content p {
-        font-size: 16px;
-    }
-
-    .quick-cards {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .quick-card {
-        padding: 24px 16px;
-    }
-}
-
-/* 手机端响应式优化 */
-@media (max-width: 480px) {
-    .nav-container {
-        padding: 0 12px;
-        height: 48px;
-    }
-
-    /* 手机端固定位置调整 */
-    .nav-logo {
-        left: 12px;
-    }
-
-    .nav-user {
-        right: 12px;
-    }
-
-    .nav-logo h1 {
-        font-size: 18px;
-    }
-
-    .content-container {
-        padding: 20px 12px;
-    }
-
-    .welcome-section {
-        margin-bottom: 32px;
-    }
-
-    .welcome-content h1 {
-        font-size: 24px;
-    }
-
-    .welcome-content p {
-        font-size: 14px;
-    }
-
-    .quick-access h2,
-    .recent-activity h2 {
-        font-size: 20px;
-        margin-bottom: 20px;
-    }
-
-    .activity-item {
-        padding: 16px 20px;
-    }
-}
-
-/* 超大屏幕适配 - 增强版 */
-@media (min-width: 2560px) {
-    .nav-container {
-        max-width: 2560px;
-        padding: 0 80px;
-    }
-
-    .nav-logo {
-        left: 80px;
-    }
-
-    .nav-user {
-        right: 80px;
-    }
-}
-
-/* 超宽屏幕适配 */
-@media (min-width: 3840px) {
-    .nav-container {
-        max-width: 3840px;
-        padding: 0 120px;
-    }
-
-    .nav-logo {
-        left: 120px;
-    }
-
-    .nav-user {
-        right: 120px;
-    }
-}
-
-/* 确保在移动端隐藏桌面导航元素时的平滑过渡 */
-@media (max-width: 768px) {
-    .nav-menu,
-    .nav-user {
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-
-    .nav-menu.hidden,
-    .nav-user.hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
-}
-
-.user-avatar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.user-avatar:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.user-avatar img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-}
-
-.user-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: #495057;
-}
-
-.user-dropdown-icon {
-    font-size: 10px;
-    color: #6c757d;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* 删除悬浮相关样式 */
-/* .user-avatar.hover-trigger { ... } */
-/* .user-panel.hover-panel { ... } */
-/* .user-avatar.hover-trigger:hover + .user-panel.hover-panel, */
-/* .user-panel.hover-panel:hover { ... } */
-
-/* 个人信息面板 - 简化样式 */
-.user-panel {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    width: 280px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1001;
-}
-
-.user-panel.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-/* 添加安全区域支持，确保在带刘海屏的设备上正确显示 */
-@supports (padding: max(0px)) {
-    .nav-container {
-        padding-left: max(20px, env(safe-area-inset-left));
-        padding-right: max(20px, env(safe-area-inset-right));
-    }
-
-    .nav-logo {
-        left: max(20px, env(safe-area-inset-left));
-    }
-
-    .nav-user {
-        right: max(20px, env(safe-area-inset-right));
-    }
-
-    @media (max-width: 768px) {
-        .nav-container {
-            padding-left: max(16px, env(safe-area-inset-left));
-            padding-right: max(16px, env(safe-area-inset-right));
-        }
-
-        .nav-logo {
-            left: max(16px, env(safe-area-inset-left));
-        }
-
-        .nav-user {
-            right: max(16px, env(safe-area-inset-right));
-        }
-    }
-
-    @media (max-width: 480px) {
-        .nav-container {
-            padding-left: max(12px, env(safe-area-inset-left));
-            padding-right: max(12px, env(safe-area-inset-right));
-        }
-
-        .nav-logo {
-            left: max(12px, env(safe-area-inset-left));
-        }
-
-        .nav-user {
-            right: max(12px, env(safe-area-inset-right));
-        }
-    }
-}
-
 /* 用户登录状态相关样式 */
-
-/* 登录提示样式 */
 .login-prompt {
     padding: 20px;
     text-align: center;
@@ -1274,8 +985,205 @@ body {
     background: #6c757d;
 }
 
-/* 响应式调整 */
+/* 安全区域支持 */
+@supports (padding: max(0px)) {
+    .nav-container {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+
+    .nav-logo {
+        left: max(20px, env(safe-area-inset-left));
+    }
+
+    .nav-user {
+        right: max(20px, env(safe-area-inset-right));
+    }
+}
+
+/* 响应式适配 - 整合所有媒体查询 */
+@media (max-width: 480px) {
+    .nav-container {
+        padding: 0 12px;
+        height: 48px;
+    }
+
+    .nav-logo {
+        left: 12px;
+    }
+
+    .nav-logo h1 {
+        font-size: 18px;
+    }
+
+    .nav-user {
+        right: 12px;
+    }
+
+    .content-container {
+        padding: 20px 12px;
+    }
+
+    .welcome-section {
+        margin-bottom: 32px;
+    }
+
+    .welcome-content h1 {
+        font-size: 24px;
+    }
+
+    .welcome-content p {
+        font-size: 14px;
+    }
+
+    .quick-access h2,
+    .recent-activity h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .activity-item {
+        padding: 16px 20px;
+    }
+
+    .dropdown-menu {
+        min-width: 120px;
+        max-width: 150px;
+        border-radius: 8px;
+    }
+
+    .dropdown-item {
+        padding: 6px 8px;
+        gap: 6px;
+    }
+
+    .dropdown-item i {
+        font-size: 13px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .dropdown-item:not(:last-child)::after {
+        left: 8px;
+        right: 8px;
+    }
+
+    .dropdown-menu::before {
+        left: 14px;
+        width: 10px;
+        height: 10px;
+        top: -5px;
+    }
+
+    .user-panel {
+        width: 220px;
+        right: 12px;
+    }
+
+    .user-panel-header {
+        padding: 12px;
+    }
+
+    .user-menu-item {
+        padding: 8px 12px;
+    }
+
+    @supports (padding: max(0px)) {
+        .nav-container {
+            padding-left: max(12px, env(safe-area-inset-left));
+            padding-right: max(12px, env(safe-area-inset-right));
+        }
+
+        .nav-logo {
+            left: max(12px, env(safe-area-inset-left));
+        }
+
+        .nav-user {
+            right: max(12px, env(safe-area-inset-right));
+        }
+    }
+}
+
 @media (max-width: 768px) {
+    .nav-container {
+        padding: 0 16px;
+        height: 52px;
+    }
+
+    .nav-logo {
+        left: 16px;
+    }
+
+    .nav-logo h1 {
+        font-size: 20px;
+    }
+
+    .nav-user {
+        right: 16px;
+        position: static;
+        transform: none;
+        margin-left: auto;
+    }
+
+    .nav-menu {
+        display: none;
+        gap: 2px;
+    }
+
+    .nav-user.desktop {
+        display: none;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .content-container {
+        padding: 24px 16px;
+    }
+
+    .welcome-content h1 {
+        font-size: 28px;
+    }
+
+    .welcome-content p {
+        font-size: 16px;
+    }
+
+    .quick-cards {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .quick-card {
+        padding: 24px 16px;
+    }
+
+    .dropdown-menu {
+        min-width: 130px;
+        max-width: 160px;
+        border-radius: 10px;
+    }
+
+    .dropdown-item {
+        padding: 7px 10px;
+        gap: 7px;
+    }
+
+    .dropdown-item:not(:last-child)::after {
+        left: 10px;
+        right: 10px;
+    }
+
+    .dropdown-menu::before {
+        left: 16px;
+    }
+
+    .user-panel {
+        width: 250px;
+        right: 16px;
+    }
+
     .login-prompt {
         padding: 15px;
     }
@@ -1291,22 +1199,140 @@ body {
         right: 10px;
         left: 10px;
     }
+
+    .nav-menu,
+    .nav-user {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .nav-menu.hidden,
+    .nav-user.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    @supports (padding: max(0px)) {
+        .nav-container {
+            padding-left: max(16px, env(safe-area-inset-left));
+            padding-right: max(16px, env(safe-area-inset-right));
+        }
+
+        .nav-logo {
+            left: max(16px, env(safe-area-inset-left));
+        }
+
+        .nav-user {
+            right: max(16px, env(safe-area-inset-right));
+        }
+    }
 }
 
-/* 用户面板状态样式 */
-.user-panel .user-info h3.logged-in {
-    color: #000;
+@media (min-width: 769px) and (max-width: 991px) {
+    .nav-container {
+        max-width: 100%;
+        padding: 0 16px;
+    }
+
+    .nav-logo {
+        left: 16px;
+    }
+
+    .nav-user {
+        right: 16px;
+    }
+
+    .nav-menu {
+        max-width: calc(100% - 240px);
+        gap: 1px;
+    }
+
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
 }
 
-.user-panel .user-info h3.not-logged-in {
-    color: #6c757d;
+@media (min-width: 769px) and (max-width: 1199px) {
+    .nav-container {
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
+    .nav-logo {
+        left: 20px;
+    }
+
+    .nav-user {
+        right: 20px;
+    }
+
+    .nav-menu {
+        max-width: calc(100% - 260px);
+        gap: 2px;
+    }
+
+    .nav-link {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
 }
 
-/* 欢迎标题动态样式 */
-.welcome-content h1.logged-in {
-    color: #000;
+@media (min-width: 1600px) {
+    .nav-container {
+        max-width: 1600px;
+        padding: 0 40px;
+    }
+
+    .nav-logo {
+        left: 40px;
+    }
+
+    .nav-user {
+        right: 40px;
+    }
 }
 
-.welcome-content h1.not-logged-in {
-    color: #6c757d;
+@media (min-width: 1920px) {
+    .nav-container {
+        max-width: 1920px;
+        padding: 0 60px;
+    }
+
+    .nav-logo {
+        left: 60px;
+    }
+
+    .nav-user {
+        right: 60px;
+    }
+}
+
+@media (min-width: 2560px) {
+    .nav-container {
+        max-width: 2560px;
+        padding: 0 80px;
+    }
+
+    .nav-logo {
+        left: 80px;
+    }
+
+    .nav-user {
+        right: 80px;
+    }
+}
+
+@media (min-width: 3840px) {
+    .nav-container {
+        max-width: 3840px;
+        padding: 0 120px;
+    }
+
+    .nav-logo {
+        left: 120px;
+    }
+
+    .nav-user {
+        right: 120px;
+    }
 }
