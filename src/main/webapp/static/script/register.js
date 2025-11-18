@@ -219,29 +219,31 @@ class RegisterForm {
 
             const data = await response.json();
             
-            if (data.success) {
+            if (data.code === 200) {
                 // 注册成功
+                console.log("注册成功", data);
+                console.log('用户ID:', data.data.userId);
+                console.log('用户名:', data.data.username);
+                console.log('邮箱:', data.data.email);
                 this.showSuccessMessage('注册成功！正在跳转到登录页面...');
                 setTimeout(() => {
                     window.location.href = requestUrl;
                 }, 2000);
             } else {
                 // 注册失败
-                if (data.errors) {
-                    // 显示具体的错误信息
-                    if (data.errors.email) {
-                        this.showError('emailError', data.errors.email);
-                    }
-                    if (data.errors.username) {
-                        this.showError('usernameError', data.errors.username);
-                    }
-                    if (data.errors.general) {
-                        alert(data.errors.general);
+                console.log('注册失败:', data.message);
+
+                if (data.code === 1002) {
+                    // 用户已存在
+                    if (data.message.includes('邮箱')) {
+                        this.showError('emailError', '该邮箱已被注册');
+                    } else if (data.message.includes('用户名')) {
+                        this.showError('usernameError', '该用户名已被使用');
                     }
                 } else {
                     alert(data.message || '注册失败，请稍后重试');
                 }
-                
+
                 // 恢复按钮状态
                 this.registerButton.disabled = false;
                 this.registerText.style.display = 'inline';

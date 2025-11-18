@@ -1,28 +1,23 @@
-/* ==============================================
-   主页交互逻辑 - 个人信息悬浮功能修复版
-   ============================================== */
+// 获取当前页面的上下文路径
+const contextPath = window.location.pathname.split('/')[1];
+// 拼接完整的请求URL
+const requestUrl = '/' + contextPath;
 
 class IndexPage {
     constructor() {
-        // DOM元素引用
-        this.userAvatar = document.getElementById('userAvatar');     // 用户头像元素
-        this.userPanel = document.getElementById('userPanel');       // 个人信息面板
-        this.mobileMenuToggle = document.getElementById('mobileMenuToggle'); // 移动端菜单按钮
-        this.mobileSidebar = document.getElementById('mobileSidebar'); // 移动端侧边菜单
-        this.mobileSidebarClose = document.getElementById('mobileSidebarClose'); // 移动端菜单关闭按钮
-        this.overlay = document.getElementById('overlay');           // 遮罩层
-        this.mobileNavMenu = document.querySelector('.mobile-nav-menu'); // 移动端导航菜单
-
         // 状态变量
         this.isUserPanelOpen = false;      // 用户面板是否打开
         this.isMobileMenuOpen = false;      // 移动端菜单是否打开
-        this.isMobileDropdownOpen = false;  // 移动端下拉菜单是否打开
-        
-        // 用户状态相关属性
-        this.currentUser = null;            // 当前用户信息
         this.isLoggedIn = false;            // 是否已登录
 
-        // 初始化页面
+        // DOM元素引用（延迟初始化）
+        this.userAvatar = null;
+        this.userPanel = null;
+        this.mobileMenuToggle = null;
+        this.mobileSidebarClose = null;
+        this.overlay = null;
+
+        // 初始化页面（延迟到DOM加载完成后）
         this.init();
     }
 
@@ -30,10 +25,48 @@ class IndexPage {
      * 页面初始化方法
      */
     init() {
+        // 延迟初始化DOM元素
+        this.initializeDOMReferences();
+
+        // 检查DOM元素是否可用
+        if (!this.checkDOMAvailability()) {
+            console.warn('DOM元素尚未完全加载，将在DOMContentLoaded后重试');
+            return;
+        }
+
         this.setupEventListeners();     // 设置事件监听器
         this.generateMobileMenu();      // 生成移动端菜单
         this.setupMobileDropdowns();    // 设置移动端下拉菜单
+        this.setupTouchSupport();       // 设置触摸支持
+        this.setupMobileClickOptimization(); // 设置移动端点击优化
+        this.setupViewportControl();    // 设置视口控制
         this.checkLoginStatus();        // 检查登录状态
+    }
+
+    /**
+     * 初始化DOM元素引用
+     */
+    initializeDOMReferences() {
+        this.userAvatar = document.getElementById('userAvatar');     // 用户头像元素
+        this.userPanel = document.getElementById('userPanel');       // 个人信息面板
+        this.mobileMenuToggle = document.getElementById('mobileMenuToggle'); // 移动端菜单按钮
+        this.mobileSidebarClose = document.getElementById('mobileSidebarClose'); // 移动端菜单关闭按钮
+        this.overlay = document.getElementById('overlay');           // 遮罩层
+    }
+
+    /**
+     * 检查DOM元素是否可用
+     */
+    checkDOMAvailability() {
+        const requiredElements = [
+            this.userAvatar,
+            this.userPanel,
+            this.mobileMenuToggle,
+            this.mobileSidebarClose,
+            this.overlay
+        ];
+
+        return requiredElements.every(element => element !== null);
     }
 
     /**
@@ -49,15 +82,17 @@ class IndexPage {
                     this.toggleUserPanel();
                 } else {
                     // 未登录时跳转到登录页面
-                    window.location.href = '/user/login';
+                    window.location.href = requestUrl;
                 }
             });
         }
 
         // 点击外部关闭面板（用于点击打开的情况）
         document.addEventListener('click', (e) => {
-            if (this.isUserPanelOpen && 
-                !this.userAvatar.contains(e.target) && 
+            if (this.isUserPanelOpen &&
+                this.userAvatar &&
+                this.userPanel &&
+                !this.userAvatar.contains(e.target) &&
                 !this.userPanel.contains(e.target)) {
                 this.closeUserPanel();
             }
@@ -100,12 +135,12 @@ class IndexPage {
             // 添加show类显示面板
             this.userPanel.classList.add('show');
             this.isUserPanelOpen = true;
-            
+
             // 显示遮罩层
             if (this.overlay) {
                 this.overlay.classList.add('show');
             }
-            
+
             // 关闭移动端菜单和下拉菜单
             this.closeMobileMenu();
             this.closeAllMobileDropdowns();
@@ -120,7 +155,7 @@ class IndexPage {
             // 移除show类隐藏面板
             this.userPanel.classList.remove('show');
             this.isUserPanelOpen = false;
-            
+
             // 隐藏遮罩层（如果没有其他面板打开）
             if (this.overlay && !this.isMobileMenuOpen) {
                 this.overlay.classList.remove('show');
@@ -183,7 +218,7 @@ class IndexPage {
         // 更新用户信息显示
         const userNameElement = document.querySelector('.user-name');
         const userInfoName = document.querySelector('.user-info h3');
-        
+
         if (userNameElement) userNameElement.textContent = '已登录用户';
         if (userInfoName) userInfoName.textContent = '已登录用户';
     }
@@ -196,7 +231,7 @@ class IndexPage {
         const userNameElement = document.querySelector('.user-name');
         const userInfoName = document.querySelector('.user-info h3');
         const userInfoDesc = document.querySelector('.user-info p');
-        
+
         if (userNameElement) userNameElement.textContent = '未登录';
         if (userInfoName) userInfoName.textContent = '未登录用户';
         if (userInfoDesc) userInfoDesc.textContent = '请先登录';
@@ -206,14 +241,16 @@ class IndexPage {
      * 退出登录功能
      */
     logout() {
-        // 模拟退出登录
-        this.isLoggedIn = false;
-        this.currentUser = null;
-        this.updateUserInterface();
-        this.closeUserPanel();
-        
-        // 显示退出登录通知
-        this.showLogoutNotification();
+        fetch(requestUrl + '/user/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            getCurrentUserInfo();
+            // 显示退出登录通知
+            this.showLogoutNotification();
+        })
     }
 
     /**
@@ -228,38 +265,489 @@ class IndexPage {
                 <span>已成功退出登录</span>
             </div>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         // 3秒后自动移除通知
         setTimeout(() => {
             notification.remove();
         }, 3000);
     }
 
-    // 以下为移动端菜单相关方法（保持不变）
+    /**
+     * 生成移动端菜单内容
+     */
     generateMobileMenu() {
-        // 生成移动端菜单逻辑
+        const mobileNavMenu = document.getElementById('mobileNavMenu');
+        if (!mobileNavMenu) {
+            console.error('移动端菜单容器未找到');
+            return;
+        }
+
+        // 清空现有内容
+        mobileNavMenu.innerHTML = '';
+
+        // 定义所有导航菜单项
+        const menuItems = [
+            {
+                text: '主页',
+                icon: 'fas fa-home',
+                isDropdown: false,
+                href: '#'
+            },
+            {
+                text: '生活管理',
+                icon: 'fas fa-life-ring',
+                isDropdown: true,
+                href: '#',
+                children: [
+                    {text: '资产', icon: 'fas fa-calendar-alt', href: '#'},
+                    {text: '学习', icon: 'fas fa-tasks', href: '#'},
+                    {text: '日记', icon: 'fas fa-sticky-note', href: '#'},
+                    {text: '待办', icon: 'fas fa-sticky-note', href: '#'}
+                ]
+            },
+            {
+                text: '游戏管理',
+                icon: 'fas fa-chart-bar',
+                isDropdown: true,
+                href: '#',
+                children: [
+                    {text: '式神录', icon: 'fas fa-calendar-alt', href: '#'},
+                    {text: '式神图鉴', icon: 'fas fa-tasks', href: '#'},
+                    {text: '御魂背包', icon: 'fas fa-sticky-note', href: '#'},
+                    {text: '副本管理', icon: 'fas fa-sticky-note', href: '#'},
+                    {text: '资源收益', icon: 'fas fa-sticky-note', href: '#'}
+                ]
+            },
+            {
+                text: '工作管理',
+                icon: 'fas fa-comments',
+                isDropdown: true,
+                href: '#',
+                children: [
+                    {text: '目标看版', icon: 'fas fa-calendar-alt', href: '#'},
+                    {text: '执行中心', icon: 'fas fa-tasks', href: '#'},
+                    {text: '会议档案', icon: 'fas fa-sticky-note', href: '#'},
+                    {text: '复盘', icon: 'fas fa-sticky-note', href: '#'}
+                ]
+            },
+            {
+                text: '设置',
+                icon: 'fas fa-cog',
+                isDropdown: false,
+                href: '#'
+            }
+        ];
+
+        // 遍历菜单项生成HTML
+        for (let i = 0; i < menuItems.length; i++) {
+            const item = menuItems[i];
+            const mobileItem = document.createElement('div');
+            mobileItem.className = 'mobile-nav-item';
+
+            if (item.isDropdown) {
+                // 创建下拉菜单项
+                const dropdownHTML =
+                    '<a href="' + item.href + '" class="mobile-nav-link mobile-dropdown-toggle" data-index="' + i + '">' +
+                    '    <i class="' + item.icon + '"></i>' +
+                    '    <span>' + item.text + '</span>' +
+                    '    <i class="fas fa-chevron-down mobile-dropdown-icon" style="margin-left: auto;"></i>' +
+                    '</a>' +
+                    '<div class="mobile-dropdown-menu" id="mobile-dropdown-' + i + '">' +
+                    '</div>';
+                mobileItem.innerHTML = dropdownHTML;
+            } else {
+                // 创建普通菜单项
+                const linkHTML =
+                    '<a href="' + item.href + '" class="mobile-nav-link">' +
+                    '    <i class="' + item.icon + '"></i>' +
+                    '    <span>' + item.text + '</span>' +
+                    '</a>';
+                mobileItem.innerHTML = linkHTML;
+            }
+
+            // 添加到菜单容器
+            mobileNavMenu.appendChild(mobileItem);
+
+            // 如果是下拉菜单，添加子菜单项
+            if (item.isDropdown && item.children) {
+                const mobileDropdown = document.getElementById('mobile-dropdown-' + i);
+                if (mobileDropdown) {
+                    for (let j = 0; j < item.children.length; j++) {
+                        const child = item.children[j];
+                        const childLink = document.createElement('a');
+                        childLink.className = 'mobile-dropdown-item';
+                        childLink.href = child.href;
+                        childLink.innerHTML =
+                            '<i class="' + child.icon + '"></i>' +
+                            '<span>' + child.text + '</span>';
+                        mobileDropdown.appendChild(childLink);
+                    }
+                }
+            }
+        }
     }
 
+    /**
+     * 设置移动端下拉菜单交互
+     */
     setupMobileDropdowns() {
-        // 设置移动端下拉菜单逻辑
+        const dropdownToggles = document.querySelectorAll('.mobile-dropdown-toggle');
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const index = toggle.getAttribute('data-index');
+                const dropdownMenu = document.getElementById('mobile-dropdown-' + index);
+
+                // 关闭其他打开的下拉菜单
+                this.closeAllMobileDropdowns();
+
+                // 切换当前下拉菜单
+                if (dropdownMenu) {
+                    const isOpen = dropdownMenu.classList.contains('show');
+                    if (!isOpen) {
+                        dropdownMenu.classList.add('show');
+                        toggle.querySelector('.mobile-dropdown-icon').classList.replace('fa-chevron-down', 'fa-chevron-up');
+                    } else {
+                        dropdownMenu.classList.remove('show');
+                        toggle.querySelector('.mobile-dropdown-icon').classList.replace('fa-chevron-up', 'fa-chevron-down');
+                    }
+                }
+            });
+        });
     }
 
-    toggleMobileMenu() {
-        // 切换移动端菜单显示状态
-    }
-
-    closeMobileMenu() {
-        // 关闭移动端菜单
-    }
-
+    /**
+     * 关闭所有移动端下拉菜单
+     */
     closeAllMobileDropdowns() {
-        // 关闭所有移动端下拉菜单
+        const dropdownMenus = document.querySelectorAll('.mobile-dropdown-menu');
+        const dropdownIcons = document.querySelectorAll('.mobile-dropdown-icon');
+
+        dropdownMenus.forEach(menu => {
+            menu.classList.remove('show');
+        });
+
+        dropdownIcons.forEach(icon => {
+            if (icon.classList.contains('fa-chevron-up')) {
+                icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            }
+        });
+    }
+
+    /**
+     * 切换移动端菜单显示状态
+     */
+    toggleMobileMenu() {
+        if (this.isMobileMenuOpen) {
+            this.closeMobileMenu();
+        } else {
+            this.openMobileMenu();
+        }
+    }
+
+    /**
+     * 打开移动端菜单
+     */
+    openMobileMenu() {
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        if (mobileSidebar) {
+            mobileSidebar.classList.add('show');
+            this.isMobileMenuOpen = true;
+
+            // 显示遮罩层
+            if (this.overlay) {
+                this.overlay.classList.add('show');
+            }
+
+            // 关闭用户面板
+            this.closeUserPanel();
+        }
+    }
+
+    /**
+     * 关闭移动端菜单
+     */
+    closeMobileMenu() {
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        if (mobileSidebar) {
+            mobileSidebar.classList.remove('show');
+            this.isMobileMenuOpen = false;
+
+            // 隐藏遮罩层（如果没有其他面板打开）
+            if (this.overlay && !this.isUserPanelOpen) {
+                this.overlay.classList.remove('show');
+            }
+
+            // 关闭所有下拉菜单
+            this.closeAllMobileDropdowns();
+        }
+    }
+
+    /**
+     * 添加触摸滑动支持
+     */
+    setupTouchSupport() {
+        let startX = 0;
+        let currentX = 0;
+        const swipeThreshold = 50;
+
+        document.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            currentX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            const diffX = startX - currentX;
+
+            // 从右侧向左滑动打开菜单
+            if (diffX > swipeThreshold && startX > window.innerWidth - 100) {
+                this.openMobileMenu();
+            }
+
+            // 从左侧向右滑动关闭菜单
+            if (diffX < -swipeThreshold && startX < 100 && this.isMobileMenuOpen) {
+                this.closeMobileMenu();
+            }
+        });
+    }
+
+    /**
+     * 优化移动端点击体验
+     */
+    setupMobileClickOptimization() {
+        // 为移动端链接添加点击优化
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-item');
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // 防止快速连续点击
+                if (link.classList.contains('clicked')) {
+                    e.preventDefault();
+                    return;
+                }
+
+                link.classList.add('clicked');
+                setTimeout(() => {
+                    link.classList.remove('clicked');
+                }, 300);
+
+                // 如果是普通链接，关闭菜单
+                if (!link.classList.contains('mobile-dropdown-toggle')) {
+                    this.closeMobileMenu();
+                }
+            });
+        });
+    }
+
+    /**
+     * 设置视口控制，防止缩放
+     */
+    setupViewportControl() {
+        // 添加视口meta标签（如果不存在）
+        let viewportMeta = document.querySelector('meta[name="viewport"]');
+        if (!viewportMeta) {
+            viewportMeta = document.createElement('meta');
+            viewportMeta.name = 'viewport';
+            document.head.appendChild(viewportMeta);
+        }
+
+        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+    }
+
+    /**
+     * 优化移动端性能
+     */
+    optimizeMobilePerformance() {
+        // 延迟加载非关键资源
+        this.lazyLoadResources();
+
+        // 优化图片加载
+        this.optimizeImages();
+
+        // 减少重绘和重排
+        this.minimizeRepaints();
+    }
+
+    /**
+     * 延迟加载非关键资源
+     */
+    lazyLoadResources() {
+        // 使用Intersection Observer实现懒加载
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        const src = img.getAttribute('data-src');
+                        if (src) {
+                            img.src = src;
+                            img.removeAttribute('data-src');
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            // 观察所有需要懒加载的图片
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            lazyImages.forEach(img => observer.observe(img));
+        }
+    }
+
+    /**
+     * 优化图片加载
+     */
+    optimizeImages() {
+        // 根据设备像素比选择合适的图片
+        const dpr = window.devicePixelRatio || 1;
+        const images = document.querySelectorAll('img');
+
+        images.forEach(img => {
+            if (dpr > 1) {
+                // 高DPI设备使用更高分辨率的图片
+                const currentSrc = img.src;
+                if (currentSrc && !currentSrc.includes('@2x') && !currentSrc.includes('@3x')) {
+                    // 这里可以添加高分辨率图片的逻辑
+                }
+            }
+        });
+    }
+
+    /**
+     * 减少重绘和重排
+     */
+    minimizeRepaints() {
+        // 使用requestAnimationFrame优化动画
+        let ticking = false;
+
+        const update = () => {
+            // 执行需要优化的操作
+            ticking = false;
+        };
+
+        const requestTick = () => {
+            if (!ticking) {
+                requestAnimationFrame(update);
+                ticking = true;
+            }
+        };
+
+        // 监听需要优化的操作
+        window.addEventListener('scroll', requestTick);
+        window.addEventListener('resize', requestTick);
     }
 }
 
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    window.indexPage = new IndexPage();
+// 页面加载时初始化
+document.addEventListener('DOMContentLoaded', function () {
+    // 初始化主页面
+    const indexPage = new IndexPage();
+
+    // 获取当前登录用户信息
+    getCurrentUserInfo();
 });
+
+// 获取当前登录用户信息
+async function getCurrentUserInfo() {
+    try {
+        const response = await fetch(requestUrl + '/user/info');
+        const data = await response.json();
+
+        if (data.code === 200) {
+            const user = data.data;
+            console.log('当前用户信息:', user);
+
+            // 更新页面上的用户信息
+            updateUserInfo(user);
+            return user;
+        } else {
+            console.log('用户未登录:', data.message);
+            // 跳转到登录页面
+            window.location.href = requestUrl;
+            return null;
+        }
+    } catch (error) {
+        console.error('获取用户信息失败:', error);
+        return null;
+    }
+}
+
+// 更新页面上的用户信息
+function updateUserInfo(user) {
+    // 更新导航栏用户信息
+    const userAvatar = document.getElementById('userAvatar');
+    const userName = document.querySelector('.user-name');
+
+    if (userAvatar) {
+        // 设置用户头像（如果有的话）
+        // userAvatar.src = user.avatar || '/static/images/default-avatar.png';
+    }
+
+    if (userName) {
+        userName.textContent = user.username || user.email;
+    }
+
+    // 更新用户面板信息
+    const panelUserName = document.querySelector('.user-info h3');
+    const panelUserEmail = document.querySelector('.user-info p');
+
+    if (panelUserName) {
+        panelUserName.textContent = user.username;
+        panelUserName.className = 'logged-in';
+    }
+
+    if (panelUserEmail) {
+        panelUserEmail.textContent = user.email;
+    }
+}
+
+// 显示成功提示信息
+function showSuccessMessage(message, duration = 3000) {
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success-notification';
+    successDiv.innerHTML = `
+        <div style="
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 9999;
+            animation: slideInRight 0.3s ease-out;
+        ">
+            <i class="fas fa-check-circle"></i> ${message}
+        </div>
+    `;
+
+    document.body.appendChild(successDiv);
+
+    setTimeout(() => {
+        if (successDiv.parentNode) {
+            successDiv.parentNode.removeChild(successDiv);
+        }
+    }, duration);
+}
+
+// 检查URL参数，显示相应的成功信息
+function checkSuccessMessage() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    const message = urlParams.get('message');
+
+    if (action && message) {
+        showSuccessMessage(message);
+
+        // 清除URL参数（可选）
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+    }
+}

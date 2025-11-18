@@ -244,36 +244,41 @@ body {
 .user-avatar {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 8px;
+    gap: 10px;
+    padding: 8px 16px;
+    border-radius: 16px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    background: transparent;
 }
 
 .user-avatar:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
 }
 
 .user-avatar img {
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
 }
 
 .user-avatar:hover img {
     border-color: rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .user-name {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     color: #495057;
-    transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -282,10 +287,11 @@ body {
 
 .user-avatar:hover .user-name {
     color: #000000;
+    font-weight: 700;
 }
 
 .user-dropdown-icon {
-    font-size: 10px;
+    font-size: 12px;
     color: #6c757d;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -299,18 +305,18 @@ body {
 /* 个人信息面板 - 整合所有定义 */
 .user-panel {
     position: absolute;
-    top: calc(100% + 4px); /* 减少间距 */
+    top: calc(100% + 2px);
     right: 0;
     background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    width: 240px; /* 缩小宽度 */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-8px) scale(0.95);
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s; /* 增加0.3秒延迟 */
+    border-radius: 16px;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.12);
+    width: 280px;
+     opacity: 0;
+     visibility: hidden;
+    transform: translateY(-12px) scale(0.96);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1001;
     overflow: hidden;
     pointer-events: none;
@@ -320,57 +326,44 @@ body {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transition-delay: 0.1s; /* 添加延迟确保鼠标能移动上去 */
-}
-/* 添加面板箭头指示器 */
-.user-panel::before {
-    content: '';
-    position: absolute;
-    top: -6px;
-    right: 20px;
-    width: 12px;
-    height: 12px;
-    background: rgba(255, 255, 255, 0.98);
-    border-left: 1px solid rgba(0, 0, 0, 0.08);
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    transform: rotate(45deg);
-    z-index: -1;
 }
 
 .user-panel-header {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 20px;
+    padding: 24px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0%, transparent 100%);
+    transition: background 0.3s ease;
+}
+.user-panel-header:hover {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, transparent 100%);
 }
 
 .user-panel-header img {
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-}
-.user-panel-header img {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: cover;
 }
 
 .user-panel-header:hover img {
-    border-color: rgba(0, 0, 0, 0.2);
     transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+
 }
 
 .user-info h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 700;
     color: #343a40;
     letter-spacing: -0.3px;
+    transition: all 0.3s ease;
 }
 
 .user-info h3.logged-in {
@@ -393,46 +386,46 @@ body {
 }
 
 .user-panel-menu {
-    padding: 12px 0;
+    padding: 8px 0;
 }
 
 .user-menu-item {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 12px 20px;
+    padding: 14px 24px;
     font-size: 15px;
     color: #343a40;
     text-decoration: none;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    border-radius: 8px;
-    margin: 0 8px;
-    width: calc(100% - 16px);
+    border-radius: 12px;
+    margin: 4px 12px;
+    width: calc(100% - 24px);
 }
 
 .user-menu-item:hover {
     color: #000000;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.02) 100%);
-    transform: translateX(4px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.03) 100%);
+    transform: translateX(6px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 .user-menu-item i {
-    font-size: 16px;
-    width: 20px;
-    height: 20px;
+    font-size: 17px;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #6c757d;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
 }
 
 .user-menu-item:hover i {
     color: #000000;
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 /* 添加菜单项之间的分隔线 */
@@ -440,8 +433,8 @@ body {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 20px;
-    right: 20px;
+    left: 24px;
+    right: 24px;
     height: 1px;
     background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.05) 50%, transparent 100%);
 }
@@ -735,44 +728,34 @@ body {
 }
 
 /* 移动端菜单 */
+/* 移动端菜单按钮 */
 .mobile-menu-toggle {
     display: none;
-    position: fixed;
-    top: 16px;
-    left: 16px;
-    z-index: 1002;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    width: 44px;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 1.5rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
 .mobile-menu-toggle:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.1);
 }
 
-.mobile-menu-toggle i {
-    font-size: 18px;
-    color: #000000;
-}
-
+/* 移动端侧边栏 */
 .mobile-sidebar {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: -300px;
     width: 280px;
     height: 100vh;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
-    z-index: 1003;
-    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1002;
+    transition: left 0.3s ease;
     overflow-y: auto;
 }
 
@@ -782,94 +765,105 @@ body {
 
 .mobile-sidebar-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 20px 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    background: #f8f9fa;
 }
 
 .mobile-sidebar-header h3 {
-    font-size: 20px;
-    font-weight: 800;
-    color: #000000;
-    text-transform: uppercase;
-    background: linear-gradient(135deg, #000000 0%, #333333 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
 }
 
 .mobile-sidebar-close {
     background: none;
     border: none;
-    font-size: 24px;
-    color: #6c757d;
+    font-size: 1.3rem;
+    color: #666;
     cursor: pointer;
-    padding: 4px;
+    padding: 5px;
     border-radius: 4px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
 .mobile-sidebar-close:hover {
-    color: #000000;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
 }
 
+/* 移动端导航菜单 */
 .mobile-nav-menu {
-    padding: 16px 0;
+    padding: 10px 0;
 }
 
 .mobile-nav-item {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .mobile-nav-link {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 16px 24px;
-    font-size: 16px;
-    color: #495057;
+    padding: 15px 20px;
+    color: #333;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
 .mobile-nav-link:hover {
-    color: #000000;
-    background: rgba(0, 0, 0, 0.05);
+    background: #f8f9fa;
+    color: #007bff;
 }
 
 .mobile-nav-link.active {
-    color: #000000;
-    font-weight: 600;
+    background: #007bff;
+    color: white;
+}
+
+.mobile-nav-link i {
+    margin-right: 12px;
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
 }
 
 .mobile-dropdown-menu {
-    background: rgba(0, 0, 0, 0.02);
-    padding: 8px 0;
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    background: #f8f9fa;
 }
 
 .mobile-dropdown-menu.show {
-    display: block;
+    max-height: 300px;
 }
 
 .mobile-dropdown-item {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 48px;
-    font-size: 14px;
-    color: #6c757d;
+    padding: 12px 20px 12px 52px;
+    color: #666;
     text-decoration: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .mobile-dropdown-item:hover {
-    color: #000000;
-    background: rgba(0, 0, 0, 0.05);
+    background: #e9ecef;
+    color: #007bff;
 }
 
+.mobile-dropdown-item i {
+    margin-right: 10px;
+    font-size: 1rem;
+    width: 16px;
+    text-align: center;
+}
+
+/* 遮罩层 */
 .overlay {
     position: fixed;
     top: 0;
@@ -877,15 +871,108 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1002;
+    z-index: 1001;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
 }
 
 .overlay.show {
     opacity: 1;
     visibility: visible;
+}
+
+/* 移动端响应式样式 */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .nav-logo h1 {
+        font-size: 1.3rem;
+    }
+
+    .nav-user .user-name {
+        display: none;
+    }
+
+    .user-avatar img {
+        width: 32px;
+        height: 32px;
+    }
+
+    .user-dropdown-icon {
+        display: none;
+    }
+
+    /* 主要内容区域优化 */
+    .main-content {
+        padding: 80px 15px 20px;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.8rem;
+    }
+
+    .welcome-section p {
+        font-size: 1rem;
+    }
+
+    .activity-item {
+        padding: 12px;
+        margin-bottom: 10px;
+    }
+
+    .activity-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .activity-content p {
+        font-size: 0.9rem;
+    }
+
+    .activity-time {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-sidebar {
+        width: 100%;
+        left: -100%;
+    }
+
+    .nav-container {
+        padding: 0 10px;
+    }
+
+    .main-content {
+        padding: 70px 10px 15px;
+    }
+
+    .welcome-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-section p {
+        font-size: 0.9rem;
+    }
+
+    .activity-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .activity-icon {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
 }
 
 /* 用户登录状态相关样式 */
@@ -1164,7 +1251,6 @@ body {
         max-width: 160px;
         border-radius: 10px;
     }
-
     .dropdown-item {
         padding: 7px 10px;
         gap: 7px;

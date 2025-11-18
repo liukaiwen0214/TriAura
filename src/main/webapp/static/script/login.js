@@ -45,6 +45,7 @@ function validateForm(event) {
         }
         // 登录请求
         setTimeout(function() {
+            // 修改登录请求处理逻辑
             fetch(requestUrl + '/user/login', {
                 method: 'POST',
                 body: JSON.stringify(formData),
@@ -52,18 +53,26 @@ function validateForm(event) {
                     'Content-Type': 'application/json'
                 }
             }).then(response => {
-                if (response.ok) {
-                    console.log('登录成功，准备跳转到首页');
-                    window.location.href = requestUrl + '/user/tiraura';
-                } else {
-                    console.log('登录失败');
-                    // 跳转到错误处理页面
-                    window.location.href = requestUrl + '/user/error';
-                    // 显示错误信息
-                    document.getElementById('loginText').textContent = '登录失败';
-                    document.getElementById('loginSpinner').style.display = 'none';
-                    document.getElementById('loginButton').disabled = false;
-                }
+                return response.json().then(data => {
+                    if (data.code === 200) {
+                        console.log('登录成功，准备跳转到首页');
+                        console.log('用户信息:', data.data.user);
+                        console.log('会话ID:', data.data.sessionId);
+                        window.location.href = requestUrl + '/user/tiraura';
+                    } else {
+                        console.log('登录失败:', data.message);
+                        document.getElementById('loginText').textContent = '登录失败';
+                        document.getElementById('loginSpinner').style.display = 'none';
+                        document.getElementById('loginButton').disabled = false;
+                        
+                        // 显示具体的错误信息
+                        if (data.code === 1003) {
+                            alert('邮箱或密码错误');
+                        } else {
+                            alert(data.message || '登录失败，请稍后重试');
+                        }
+                    }
+                });
             }).catch(error => {
                 console.error('请求错误:', error);
                 document.getElementById('loginText').textContent = '登录失败';
@@ -73,7 +82,6 @@ function validateForm(event) {
         }, 1500);
     }
 }
-// ... existing code ...
 // 注册按钮点击事件
 document.getElementById('registerButton').addEventListener('click', function() {
     window.location.href = requestUrl + '/user/register';

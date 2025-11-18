@@ -17,12 +17,18 @@
 <body>
 <!-- 顶部导航栏 -->
 <nav class="navbar">
+    <!-- 在导航栏容器内添加移动端菜单按钮 -->
     <div class="nav-container">
+        <!-- 移动端菜单按钮 -->
+        <button id="mobileMenuToggle" class="mobile-menu-toggle" aria-label="打开菜单">
+            <i class="fas fa-bars"></i>
+        </button>
+    
         <!-- Logo区域 -->
         <div class="nav-logo">
             <h1>TriAura</h1>
         </div>
-
+    
         <!-- 主导航菜单 -->
         <div class="nav-menu">
             <div class="nav-item active">
@@ -211,26 +217,21 @@
     </div>
 </main>
 
-<!-- 移动端菜单按钮 -->
-<button class="mobile-menu-toggle" id="mobileMenuToggle">
-    <i class="fas fa-bars"></i>
-</button>
-
-<!-- 移动端侧边菜单 -->
-<div class="mobile-sidebar" id="mobileSidebar">
+<!-- 移动端侧边栏菜单 -->
+<div id="mobileSidebar" class="mobile-sidebar">
     <div class="mobile-sidebar-header">
-        <h3>TriAura</h3>
-        <button class="mobile-sidebar-close" id="mobileSidebarClose">
+        <h3>菜单</h3>
+        <button id="mobileSidebarClose" class="mobile-sidebar-close" aria-label="关闭菜单">
             <i class="fas fa-times"></i>
         </button>
     </div>
-    <div class="mobile-nav-menu">
-        <!-- 移动端菜单内容将通过JS动态生成 -->
+    <div class="mobile-nav-menu" id="mobileNavMenu">
+        <!-- 菜单内容由JavaScript动态生成 -->
     </div>
 </div>
 
 <!-- 遮罩层 -->
-<div class="overlay" id="overlay"></div>
+<div id="overlay" class="overlay"></div>
 
 <script src="${pageContext.request.contextPath}/static/script/tiraura.js"></script>
 </body>
