@@ -3,13 +3,12 @@ package com.triauras.controller;
 import com.triauras.entity.Users;
 import com.triauras.exception.BusinessException;
 import com.triauras.service.UsersService;
-import com.triauras.util.LogUtil;
+import com.triauras.utils.LogUtil;
 import com.triauras.vo.ResultCode;
 import com.triauras.vo.ResultVO;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

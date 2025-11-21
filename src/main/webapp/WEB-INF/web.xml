@@ -4,6 +4,13 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
+    <!-- 仅保留基本的Log4j2配置参数，不使用特殊监听器 -->
+    <context-param>
+        <param-name>log4j2.configurationFile</param-name>
+        <param-value>classpath:config/log4j2.xml</param-value>
+    </context-param>
+
+
     <!--配置欢迎界面-->
     <welcome-file-list>
         <!--                            <welcome-file>index.jsp</welcome-file>-->

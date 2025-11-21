@@ -19,6 +19,9 @@ class IndexPage {
 
         // 初始化页面（延迟到DOM加载完成后）
         this.init();
+        // 添加用于存储事件监听器的引用
+        this.logoutBtn = null;
+        this.logoutHandler = null;
     }
 
     /**
@@ -69,15 +72,12 @@ class IndexPage {
         return requiredElements.every(element => element !== null);
     }
 
-    /**
-     * 设置事件监听器
-     */
     setupEventListeners() {
         // 用户面板点击事件 - 作为悬浮功能的备用
         if (this.userAvatar) {
             this.userAvatar.addEventListener('click', (e) => {
                 e.stopPropagation(); // 阻止事件冒泡
-                if (this.isLoggedIn) {
+                if (getCurrentUserInfo() !== null) {
                     // 点击时切换面板显示状态
                     this.toggleUserPanel();
                 } else {
@@ -178,13 +178,20 @@ class IndexPage {
      * 设置退出登录按钮事件监听
      */
     setupLogoutListener() {
+        // 先移除旧的监听器（如果存在）
+        if (this.logoutBtn && this.logoutHandler) {
+            this.logoutBtn.removeEventListener('click', this.logoutHandler);
+        }
+
         // 查找退出登录按钮
-        const logoutBtn = document.querySelector('.user-menu-item:last-child');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', (e) => {
+        this.logoutBtn = document.querySelector('.user-menu-item:last-child');
+        if (this.logoutBtn) {
+            // 创建新的事件处理函数并保存引用
+            this.logoutHandler = (e) => {
                 e.preventDefault();
                 this.logout();
-            });
+            };
+            this.logoutBtn.addEventListener('click', this.logoutHandler);
         }
     }
 
@@ -247,16 +254,35 @@ class IndexPage {
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            getCurrentUserInfo();
-            // 显示退出登录通知
+            // 移除之前的getCurrentUserInfo调用，避免重复请求
+            this.isLoggedIn = false;
+            this.updateUserInterface();
+            this.closeUserPanel();
             this.showLogoutNotification();
-        })
+
+            // 1s后跳转回登录页面
+            setTimeout(() => {
+                window.location.href = requestUrl;
+            }, 1000);
+        }).catch(error => {
+            console.error('退出登录失败:', error);
+            // 即使失败也更新UI状态，防止用户状态不一致
+            this.isLoggedIn = false;
+            this.updateUserInterface();
+            this.closeUserPanel();
+        });
     }
 
     /**
      * 显示退出登录通知
      */
     showLogoutNotification() {
+        // 移除可能存在的旧通知
+        const existingNotification = document.querySelector('.logout-notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+
         const notification = document.createElement('div');
         notification.className = 'logout-notification';
         notification.innerHTML = `
@@ -268,10 +294,26 @@ class IndexPage {
 
         document.body.appendChild(notification);
 
-        // 3秒后自动移除通知
+        // 3秒后自动移除通知，添加安全检查
         setTimeout(() => {
-            notification.remove();
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
         }, 3000);
+    }
+
+    /**
+     * 清理资源方法
+     */
+    cleanup() {
+        // 清理事件监听器
+        if (this.logoutBtn && this.logoutHandler) {
+            this.logoutBtn.removeEventListener('click', this.logoutHandler);
+        }
+
+        // 清理其他可能的资源
+        this.logoutBtn = null;
+        this.logoutHandler = null;
     }
 
     /**
@@ -646,23 +688,64 @@ class IndexPage {
 
 // 页面加载时初始化
 document.addEventListener('DOMContentLoaded', function () {
+    // 显示毛玻璃罩子效果
+    showLoadingOverlay();
+
     // 初始化主页面
     const indexPage = new IndexPage();
-
     // 获取当前登录用户信息
     getCurrentUserInfo();
+
+    // 2秒后隐藏罩子，显示页面内容
+    setTimeout(() => {
+        hideLoadingOverlay();
+    }, 2000);
 });
+
+// 显示毛玻璃罩子
+function showLoadingOverlay() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const mainContent = document.querySelector('.main-content');
+
+    if (loadingOverlay) {
+        loadingOverlay.classList.remove('hidden');
+    }
+
+    if (mainContent) {
+        mainContent.classList.remove('visible');
+    }
+}
+
+// 隐藏毛玻璃罩子
+function hideLoadingOverlay() {
+    const loadingOverlay = document.getElementById('loadingOverlay');
+    const mainContent = document.querySelector('.main-content');
+
+    if (loadingOverlay) {
+        loadingOverlay.classList.add('hidden');
+    }
+
+    if (mainContent) {
+        mainContent.classList.add('visible');
+    }
+}
+
 
 // 获取当前登录用户信息
 async function getCurrentUserInfo() {
+    // 实现应该包含缓存机制，避免频繁请求
+    // 例如使用防抖或节流处理
+    // 这里仅提供框架
+    if (window._lastUserInfoRequest && Date.now() - window._lastUserInfoRequest < 500) {
+        return; // 避免短时间内重复请求
+    }
+
+    window._lastUserInfoRequest = Date.now();
     try {
         const response = await fetch(requestUrl + '/user/info');
         const data = await response.json();
-
         if (data.code === 200) {
             const user = data.data;
-            console.log('当前用户信息:', user);
-
             // 更新页面上的用户信息
             updateUserInfo(user);
             return user;
@@ -683,10 +766,11 @@ function updateUserInfo(user) {
     // 更新导航栏用户信息
     const userAvatar = document.getElementById('userAvatar');
     const userName = document.querySelector('.user-name');
-
+    const userPanel = document.getElementById('userPanel');
     if (userAvatar) {
         // 设置用户头像（如果有的话）
-        // userAvatar.src = user.avatar || '/static/images/default-avatar.png';
+        userAvatar.querySelector('img').src = user.avatar_url;
+        userPanel.querySelector('img').src = user.avatar_url;
     }
 
     if (userName) {
@@ -709,6 +793,14 @@ function updateUserInfo(user) {
 
 // 显示成功提示信息
 function showSuccessMessage(message, duration = 3000) {
+    // 移除相同类型的旧通知
+    const existingNotifications = document.querySelectorAll('.success-notification');
+    existingNotifications.forEach(notification => {
+        if (notification.parentNode) {
+            notification.parentNode.removeChild(notification);
+        }
+    });
+
     const successDiv = document.createElement('div');
     successDiv.className = 'success-notification';
     successDiv.innerHTML = `
@@ -751,3 +843,10 @@ function checkSuccessMessage() {
         window.history.replaceState({}, document.title, newUrl);
     }
 }
+
+//获取跳转URL并跳转
+const jumpUrl = document.querySelector('.dropdown-item').getAttribute('data-jumpUrl');
+document.querySelector('.dropdown-item').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = requestUrl+jumpUrl;
+});

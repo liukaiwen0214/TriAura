@@ -1,8 +1,10 @@
 package com.triauras.service.impl;
 
+import com.aliyuncs.exceptions.ClientException;
 import com.triauras.entity.Users;
 import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
+import com.triauras.utils.OSSImageUtil;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -20,14 +22,24 @@ public class UserServiceImpl implements UsersService {
     @Override
     public Users loginByEmail(String email, String password) {
         Users users = usersMapper.selectByEmail(email);
-        if (users == null) {
-            logger.log(java.util.logging.Level.INFO, "用户邮箱不存在");
-            return null;
+        OSSImageUtil ossImageUtil = new OSSImageUtil(
+                "https://oss-cn-beijing.aliyuncs.com",
+                "cn-beijing",
+                "triaura",
+                "Avatar/" + users.getAvatar_url()
+        );
+        String avatarUrl;
+        try {
+            avatarUrl = ossImageUtil.getAvatarUrl();
+        } catch (ClientException e) {
+            throw new RuntimeException(e);
         }
+        users.setAvatar_url(avatarUrl);
         if (!users.getPassword().equals(password)) {
             logger.log(java.util.logging.Level.INFO, "用户密码错误");
             return null;
         }
+        System.out.println(users.getAvatar_url());
         return users;
     }
 

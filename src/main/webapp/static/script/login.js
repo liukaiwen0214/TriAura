@@ -3,7 +3,7 @@ const contextPath = window.location.pathname.split('/')[1];
 // 拼接完整的请求URL
 const requestUrl = '/' + contextPath;
 // 初始化验证码
-window.onload = function() {
+window.onload = function () {
     // 添加表单提交事件监听器
     const loginForm = document.getElementById('loginForm');
     loginForm.addEventListener('submit', validateForm);
@@ -16,11 +16,11 @@ window.onload = function() {
 function addInputAnimations() {
     const inputs = document.querySelectorAll('.form-control');
     inputs.forEach(input => {
-        input.addEventListener('focus', function() {
+        input.addEventListener('focus', function () {
             this.parentElement.style.transform = 'scale(1.02)';
         });
 
-        input.addEventListener('blur', function() {
+        input.addEventListener('blur', function () {
             this.parentElement.style.transform = 'scale(1)';
         });
     });
@@ -44,7 +44,7 @@ function validateForm(event) {
             password: document.getElementById('password').value
         }
         // 登录请求
-        setTimeout(function() {
+        setTimeout(function () {
             // 修改登录请求处理逻辑
             fetch(requestUrl + '/user/login', {
                 method: 'POST',
@@ -55,16 +55,13 @@ function validateForm(event) {
             }).then(response => {
                 return response.json().then(data => {
                     if (data.code === 200) {
-                        console.log('登录成功，准备跳转到首页');
-                        console.log('用户信息:', data.data.user);
-                        console.log('会话ID:', data.data.sessionId);
                         window.location.href = requestUrl + '/user/tiraura';
                     } else {
                         console.log('登录失败:', data.message);
                         document.getElementById('loginText').textContent = '登录失败';
                         document.getElementById('loginSpinner').style.display = 'none';
                         document.getElementById('loginButton').disabled = false;
-                        
+
                         // 显示具体的错误信息
                         if (data.code === 1003) {
                             alert('邮箱或密码错误');
@@ -82,8 +79,9 @@ function validateForm(event) {
         }, 1500);
     }
 }
+
 // 注册按钮点击事件
-document.getElementById('registerButton').addEventListener('click', function() {
+document.getElementById('registerButton').addEventListener('click', function () {
     window.location.href = requestUrl + '/user/register';
 });
 
@@ -178,7 +176,7 @@ function closeWechatLogin() {
 }
 
 // 为弹窗添加点击外部关闭功能
-window.onclick = function(event) {
+window.onclick = function (event) {
     const qqModal = document.getElementById('qqLoginModal');
     const wechatModal = document.getElementById('wechatLoginModal');
 

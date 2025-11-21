@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+<!-- 毛玻璃罩子 -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <p>正在加载页面...</p>
+    </div>
+</div>
 <!-- 顶部导航栏 -->
 <nav class="navbar">
     <!-- 在导航栏容器内添加移动端菜单按钮 -->
@@ -46,7 +53,11 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">
+                    <a href="#" class="dropdown-item" data-jumpUrl="/life/life-total">
+                        <i class="fas fa-total"></i>
+                        <span>汇总</span>
+                    </a>
+                    <a href="#" class="dropdown-item" data-jumpUrl="/life/life-asset">
                         <i class="fas fa-wallet"></i>
                         <span>资产</span>
                     </a>
@@ -127,7 +138,7 @@
         <!-- 个人信息区域 -->
         <div class="nav-user">
             <div id="userAvatar" class="user-avatar">
-                <img src="/static/images/default-avatar.png" alt="用户头像">
+                <img src="" alt="用户头像">
                 <span class="user-name">未登录</span>
                 <i class="fas fa-chevron-down user-dropdown-icon"></i>
             </div>
@@ -135,7 +146,7 @@
             <!-- 个人信息面板 -->
             <div id="userPanel" class="user-panel">
                 <div class="user-panel-header">
-                    <img src="/static/images/default-avatar.png" alt="用户头像">
+                    <img src="" alt="用户头像">
                     <div class="user-info">
                         <h3>未登录用户</h3>
                         <p>请先登录</p>
