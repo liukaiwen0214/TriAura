@@ -850,3 +850,13 @@ document.querySelector('.dropdown-item').addEventListener('click', function (e) 
     e.preventDefault();
     window.location.href = requestUrl+jumpUrl;
 });
+const userJumpUrl = document.querySelector('.user-menu-item').getAttribute('data-userJumpUrl');
+document.querySelector('.user-menu-item').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = requestUrl+userJumpUrl;
+});
+const homeJumpUrl = document.querySelector('.nav-link').getAttribute('data-jumpUrl');
+document.querySelector('.nav-link').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = requestUrl+homeJumpUrl;
+});

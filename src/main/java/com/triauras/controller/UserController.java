@@ -240,4 +240,14 @@ public class UserController {
     public String successPage() {
         return "success";
     }
+     /**
+     * 用户个人资料页面
+     * GET请求：/user/profile
+     *
+     * @return 用户个人资料页面的视图名称
+     */
+    @GetMapping("/profile")
+    public String userProfile() {
+        return "user/user-profile";
+    }
 }
