@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <!-- 定义属性 -->
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+        <Property name="LOG_DIR">/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/logs</Property>
+        <Property name="MAX_FILE_SIZE">100MB</Property>
+        <Property name="MAX_FILE_COUNT">30</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- 彩色控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{white} [%style{%t}{bright,blue}] %highlight{%-5level}{FATAL=red, ERROR=red, WARN=yellow, INFO=green, DEBUG=cyan, TRACE=white} %style{%logger{36}}{bright,magenta} - %msg%n"/>
+        </Console>
+
+        <!-- 文件输出 - 所有日志 -->
+        <RollingFile name="File" fileName="${LOG_DIR}/app.log"
+                     filePattern="${LOG_DIR}/app-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBasedTriggeringPolicy size="${MAX_FILE_SIZE}"/>
+            </Policies>
+            <DefaultRolloverStrategy max="${MAX_FILE_COUNT}"/>
+        </RollingFile>
+
+        <!-- 错误日志单独输出 -->
+        <RollingFile name="ErrorFile" fileName="${LOG_DIR}/error.log"
+                     filePattern="${LOG_DIR}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+
+        <!-- SQL日志单独输出 -->
+        <RollingFile name="SqlFile" fileName="${LOG_DIR}/sql.log"
+                     filePattern="${LOG_DIR}/sql-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+
+        <!-- 业务日志单独输出 -->
+        <RollingFile name="BusinessFile" fileName="${LOG_DIR}/business.log"
+                     filePattern="${LOG_DIR}/business-%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBasedTriggeringPolicy size="50MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>
+
+        <!-- 异步文件输出器 -->
+        <Async name="AsyncFile" bufferSize="262144">
+            <AppenderRef ref="File"/>
+        </Async>
+
+        <Async name="AsyncError" bufferSize="262144">
+            <AppenderRef ref="ErrorFile"/>
+        </Async>
+    </Appenders>
+
+    <Loggers>
+        <!-- 根日志配置 -->
+        <Root level="INFO">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="AsyncFile"/>
+            <AppenderRef ref="AsyncError" level="ERROR"/>
+        </Root>
+
+        <!-- Spring框架日志 -->
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="AsyncFile"/>
+        </Logger>
+
+        <!-- MyBatis SQL日志 -->
+        <Logger name="com.triauras.mapper" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="SqlFile" level="DEBUG"/>
+        </Logger>
+
+        <!-- 业务服务日志 -->
+        <Logger name="com.triauras.service" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="BusinessFile" level="DEBUG"/>
+        </Logger>
+
+        <!-- 控制器日志 -->
+        <Logger name="com.triauras.controller" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="BusinessFile" level="DEBUG"/>
+        </Logger>
+
+        <!-- 异常处理日志 -->
+        <Logger name="com.triauras.exception" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console" level="INFO"/>
+            <AppenderRef ref="BusinessFile" level="DEBUG"/>
+            <AppenderRef ref="AsyncError" level="ERROR"/>
+        </Logger>
+
+        <!-- Hibernate日志 -->
+        <Logger name="org.hibernate" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- 第三方库日志控制 -->
+        <Logger name="org.apache" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Logger name="com.zaxxer.hikari" level="WARN" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- 调试模式下的详细日志 -->
+        <Logger name="com.triauras" level="TRACE" additivity="false">
+            <AppenderRef ref="Console" level="DEBUG"/>
+            <AppenderRef ref="AsyncFile" level="TRACE"/>
+        </Logger>
+    </Loggers>
+</Configuration>
