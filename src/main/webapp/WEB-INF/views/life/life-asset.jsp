@@ -5,7 +5,7 @@
   Time: 09:43
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -213,6 +213,7 @@
                 <div class="table-header">
                     <h3>资产明细列表</h3>
                     <div class="table-controls">
+                        <label for="asset-filter"></label>
                         <select id="asset-filter" class="filter-select">
                             <option value="all">全部类别</option>
                             <option value="现金及存款">现金及存款</option>
@@ -221,6 +222,7 @@
                             <option value="不动产">不动产</option>
                             <option value="车辆">车辆</option>
                         </select>
+                        <label for="asset-sort"></label>
                         <select id="asset-sort" class="sort-select">
                             <option value="value-desc">按价值从高到低</option>
                             <option value="value-asc">按价值从低到高</option>

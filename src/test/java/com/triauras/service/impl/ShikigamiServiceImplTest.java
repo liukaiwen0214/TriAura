@@ -1,8 +1,6 @@
 package com.triauras.service.impl;
 
-import com.triauras.entity.Users;
 import com.triauras.service.ShikigamiService;
-import com.triauras.service.UsersService;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 

@@ -1,6 +1,7 @@
 package com.triauras.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
  * 存储项目中使用的式神信息
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class Shikigami extends BaseEntity {
 
     /**

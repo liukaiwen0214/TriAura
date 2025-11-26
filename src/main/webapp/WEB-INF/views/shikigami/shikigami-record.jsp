@@ -5,7 +5,7 @@
   Time: 17:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -100,7 +100,7 @@
                         <button id="lastPage" class="pagination-btn" disabled>末页</button>
                     </div>
                     <div class="pagination-size">
-                        <label>每页显示：</label>
+                        <label for="pageSizeSelect">每页显示：</label>
                         <select id="pageSizeSelect">
                             <option value="10">10条</option>
                             <option value="20">20条</option>
