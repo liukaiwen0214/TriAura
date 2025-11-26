@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.triauras.mapper.ShikigamiMapper">
+    <insert id="batchInsertShikigami" parameterType="java.util.List">
+        insert into shikigami (shikigami_id, name, rarity,cv, release_date, head_image, create_time, update_time)
+        values
+        <foreach collection="shikigamis" item="shikigami" separator=",">
+            (#{shikigami.shikigami_id}, #{shikigami.name}, #{shikigami.rarity}, #{shikigami.cv}, #{shikigami.release_date}, #{shikigami.head_image}, #{shikigami.create_time}, #{shikigami.update_time})
+        </foreach>
+    </insert>
+    <select id="findShikigamiById" resultType="java.lang.Integer">
+        select count(*) from shikigami where shikigami_id = #{shikigamiId}
+    </select>
+</mapper>

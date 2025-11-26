@@ -699,7 +699,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 2秒后隐藏罩子，显示页面内容
     setTimeout(() => {
         hideLoadingOverlay();
-    }, 2000);
+    }, 500);
 });
 
 // 显示毛玻璃罩子
@@ -845,18 +845,24 @@ function checkSuccessMessage() {
 }
 
 //获取跳转URL并跳转
-const jumpUrl = document.querySelector('.dropdown-item').getAttribute('data-jumpUrl');
-document.querySelector('.dropdown-item').addEventListener('click', function (e) {
-    e.preventDefault();
-    window.location.href = requestUrl+jumpUrl;
-});
-const userJumpUrl = document.querySelector('.user-menu-item').getAttribute('data-userJumpUrl');
-document.querySelector('.user-menu-item').addEventListener('click', function (e) {
-    e.preventDefault();
-    window.location.href = requestUrl+userJumpUrl;
+// 给父元素绑定事件（事件委托）
+const DataUrl = document.querySelectorAll('.dropdown-menu');
+DataUrl.forEach(menu => {
+    menu.addEventListener('click', function (e) {
+        // 判断点击的目标是否是 .dropdown-item 元素
+        const targetItem = e.target.closest('.dropdown-item');
+        console.info(targetItem);
+        if (targetItem) {
+            e.preventDefault(); // 阻止默认行为
+            const Dataurl = targetItem.getAttribute('data-url');
+            console.info(requestUrl+Dataurl);
+            window.location.href = requestUrl + Dataurl;
+        }
+    });
 });
 const homeJumpUrl = document.querySelector('.nav-link').getAttribute('data-jumpUrl');
 document.querySelector('.nav-link').addEventListener('click', function (e) {
     e.preventDefault();
     window.location.href = requestUrl+homeJumpUrl;
 });
+

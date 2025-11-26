@@ -45,11 +45,11 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item" data-jumpUrl="/life/life-total">
+                    <a href="#" class="dropdown-item" data-url="/life/life-total">
                         <i class="fas fa-list"></i>
                         <span>汇总</span>
                     </a>
-                    <a href="#" class="dropdown-item" data-jumpUrl="/life/life-asset">
+                    <a href="#" class="dropdown-item" data-url="/life/life-asset">
                         <i class="fas fa-wallet"></i>
                         <span>资产</span>
                     </a>
@@ -76,7 +76,7 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </a>
                 <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">
+                    <a href="#" class="dropdown-item"  data-url="/shikigami/record">
                         <i class="fas fa-list"></i>
                         <span>式神录</span>
                     </a>
@@ -145,11 +145,11 @@
                     </div>
                 </div>
                 <div class="user-panel-menu">
-                    <a href="#" class="user-menu-item" data-userJumpUrl="/user/profile">
+                    <a href="#" class="user-menu-item" data-url="/user/profile">
                         <i class="fas fa-user"></i>
                         <span>个人资料</span>
                     </a>
-                    <a href="#" class="user-menu-item" data-userJumpUrl="/user/profile">
+                    <a href="#" class="user-menu-item" data-url="/user/profile">
                         <i class="fas fa-cog"></i>
                         <span>设置</span>
                     </a>

@@ -7,13 +7,10 @@ import com.aliyun.oss.OSSException;
 import com.aliyun.oss.common.auth.CredentialsProviderFactory;
 import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
-import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyuncs.exceptions.ClientException;
-import com.triauras.entity.Users;
 
 import java.net.URL;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * 阿里云OSS图片访问工具类

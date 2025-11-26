@@ -1,0 +1,438 @@
+.table-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+}
+.data-table{
+    overflow-x: auto;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+.data-table th,
+.data-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.data-table th{
+    font-size: 14px;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: rgba(0, 0, 0, 0.02);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.data-table tbody tr {
+    transition: background 0.2s ease;
+    cursor: pointer;
+}
+.data-table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table td {
+    font-size: 15px;
+    color: #000000;
+    font-weight: 500;
+}
+/* 稀有度徽章样式 */
+.rarity-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    color: white;
+}
+
+.rarity-badge.rarity-n {
+    background-color: #6c757d;
+    color: white;
+}
+
+.rarity-badge.rarity-r {
+    background-color: #007bff;
+    color: white;
+}
+
+.rarity-badge.rarity-sr {
+    background-color: #6f42c1;
+    color: white;
+}
+
+.rarity-badge.rarity-ssr {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.rarity-badge.rarity-sp {
+    background-color: #dc3545;
+    color: white;
+}
+
+.rarity-badge.rarity-ur {
+    position: relative;
+    background: linear-gradient(135deg, #ff4757 0%, #ff6348 100%);
+    color: white;
+    overflow: hidden;
+    animation: shine 2s infinite;
+}
+
+.rarity-badge.rarity-ur::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            rgba(255,255,255,0) 0%,
+            rgba(255,255,255,0.3) 50%,
+            rgba(255,255,255,0) 100%
+    );
+    transform: rotate(30deg);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) rotate(30deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(30deg);
+    }
+}
+
+@keyframes shine {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* 表格中的操作按钮样式 */
+.asset-table .action-buttons {
+    display: flex;
+    gap: 8px;
+}
+.action-btn {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #007bff;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.action-btn.edit:hover {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+}
+
+.action-btn.delete:hover {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.action-btn.view:hover {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+/* 标签样式 */
+.rarity-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* 空数据提示 */
+.empty-data {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: #6c757d;
+}
+
+/* 分页样式 */
+.pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 0 1rem;
+}
+
+.pagination-info {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination-btn {
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    color: #495057;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 4px;
+}
+
+.page-number {
+    padding: 8px 12px;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    color: #495057;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    min-width: 36px;
+    text-align: center;
+}
+
+.page-number:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.page-number.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.pagination-size {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+#pageSizeSelect {
+    padding: 6px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #495057;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* 确认删除对话框样式 */
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.dialog-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-content h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.25rem;
+}
+
+.dialog-content p {
+    margin-bottom: 1.5rem;
+    color: #666;
+}
+/* 响应式设计 */
+@media (max-width: 1199px) {
+    .table-container {
+        max-width: 100%;
+        margin: 1.5rem;
+        position: relative;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .action-buttons {
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-container {
+        margin: 1rem 0.5rem;
+        padding: 0;
+    }
+
+    .pagination {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .pagination-info {
+        text-align: center;
+    }
+
+    .pagination-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .pagination-size {
+        justify-content: center;
+    }
+
+    /* 移动端表格优化 */
+    .data-table {
+        font-size: 12px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .dialog-content {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+/* 表格加载状态 - 仅覆盖表格主体 */
+.table-wrapper {
+    position: relative;
+}
+
+.table-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    min-height: 200px;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5; /* 低于表头的z-index: 10 */
+    border-radius: 12px;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.table-loading p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* 行内加载状态 */
+.row-loading {
+    position: relative;
+    opacity: 0.6;
+}
+
+.row-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
