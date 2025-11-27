@@ -55,9 +55,51 @@
                     <div class="loading-spinner"></div>
                     <p>加载数据中...</p>
                 </div>
+
                 <div class="table-header">
-                    <!-- 式神录 -->
                     <h3>式神录</h3>
+                    <div class="table-controls">
+                        <!-- 稀有度筛选 -->
+                        <label for="shikigami-filter">稀有度</label>
+                        <select id="shikigami-filter" class="filter-select">
+                            <option value="all">所有</option>
+                            <option value="N">N</option>
+                            <option value="R">R</option>
+                            <option value="SR">SR</option>
+                            <option value="SSR">SSR</option>
+                            <option value="SP">SP</option>
+                            <option value="UR">UR</option>
+                        </select>
+
+                        <!-- 稀有度排序 -->
+                        <label for="rarity-sort">稀有度排序</label>
+                        <select id="rarity-sort" class="filter-select">
+                            <option value="none">默认</option>
+                            <option value="asc">升序</option>
+                            <option value="desc">降序</option>
+                        </select>
+
+                        <!-- 声优筛选 -->
+                        <label for="cv-filter">声优</label>
+                        <select id="cv-filter" class="filter-select">
+                            <option value="all">所有</option>
+                            <!-- 选项将通过JavaScript动态添加 -->
+                        </select>
+
+                        <!-- 地域筛选 -->
+                        <label for="region-filter">地域</label>
+                        <select id="region-filter" class="filter-select">
+                            <option value="all">所有</option>
+                            <!-- 选项将通过JavaScript动态添加 -->
+                        </select>
+
+                        <!-- 模糊查询 -->
+                        <div class="search-container">
+                            <label for="search-input"></label>
+                            <input type="text" id="search-input" placeholder="搜索式神名称..." class="search-input">
+                            <button id="search-btn" class="search-btn">查询</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- 表格主体 -->
                 <div class="table-wrapper">

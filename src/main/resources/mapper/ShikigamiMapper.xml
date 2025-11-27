@@ -4,6 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.triauras.mapper.ShikigamiMapper">
+    <!-- 添加结果映射，确保字段正确映射 -->
+    <resultMap id="ShikigamiResultMap" type="com.triauras.entity.Shikigami">
+        <id property="shikigami_id" column="shikigami_id"/>
+        <result property="name" column="name"/>
+        <result property="rarity" column="rarity"/>
+        <result property="cv" column="cv"/>
+        <result property="release_date" column="release_date"/>
+        <result property="head_image" column="head_image"/>
+        <result property="create_time" column="create_time"/>
+        <result property="update_time" column="update_time"/>
+    </resultMap>
     <insert id="batchInsertShikigami" parameterType="java.util.List">
         insert into shikigami (shikigami_id, name, rarity,cv, release_date, head_image, create_time, update_time)
         values
@@ -13,5 +24,8 @@
     </insert>
     <select id="findShikigamiById" resultType="java.lang.Integer">
         select count(*) from shikigami where shikigami_id = #{shikigamiId}
+    </select>
+    <select id="findAllShikigami" resultMap="ShikigamiResultMap">
+        select * from shikigami
     </select>
 </mapper>

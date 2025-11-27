@@ -1,12 +1,17 @@
 package com.triauras.task;
 
+import org.apache.logging.log4j.core.config.Scheduled;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDateTime;
 
 
 /**
@@ -17,12 +22,14 @@ import org.springframework.stereotype.Component;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:/config/applicationContext.xml", "classpath:/config/springmvc-servlet.xml"})
 class ScheduledTasksTest {
-//    private final Logger logger = LoggerFactory.getLogger(ScheduledTasksTest.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(ScheduledTasksTest.class.getName());
+    // 注入你的定时任务 Bean
+    @Autowired
+    private ScheduledTasks shikigamiScheduledTask;
 
-//    @Scheduled(cron = "0/5 * * * * ?")
-//    public void testTask() {
-//        String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-//        log.info("===== 测试定时任务执行，当前时间: {}", currentTime);
-//        System.out.println("[控制台输出] 测试定时任务执行，当前时间: " + currentTime);
-//    }
+    @Test
+    public void testRunScheduledTask() {
+        // 立即执行定时任务
+        shikigamiScheduledTask.ScheduledTaskForShikigami();
+    }
 }

@@ -1,11 +1,20 @@
 package com.triauras.service.impl;
 
+import com.aliyun.oss.OSSClient;
+import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.triauras.entity.Shikigami;
 import com.triauras.mapper.ShikigamiMapper;
 import com.triauras.service.ShikigamiService;
-
+import com.aliyun.oss.ClientBuilderConfiguration;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.OSSException;
+import com.aliyun.oss.common.auth.CredentialsProviderFactory;
+import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
+import com.aliyun.oss.common.comm.SignVersion;
+import com.triauras.utils.OSSImageUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -14,9 +23,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.io.*;
+
 
 /**
  * 获取式神信息工具类实现类
@@ -26,6 +38,8 @@ import java.util.*;
 public class ShikigamiServiceImpl implements ShikigamiService {
     private static final Logger logger = LogManager.getLogger(ShikigamiServiceImpl.class);
     private final ShikigamiMapper shikigamiMapper;
+    private OSSClient ossClient;
+
     /**
      * 构造函数，用于依赖注入
      *
@@ -34,6 +48,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
     public ShikigamiServiceImpl(ShikigamiMapper shikigamiMapper) {
         this.shikigamiMapper = shikigamiMapper;
     }
+
     /**
      * 获取所有式神信息
      *
@@ -112,6 +127,11 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         return shikigamiMapper.findShikigamiById(shikigamiId);
     }
 
+    @Override
+    public List<Shikigami> findAllShikigami() {
+        return shikigamiMapper.findAllShikigami();
+    }
+
     /**
      * 发送GET请求并返回响应内容
      *
@@ -127,7 +147,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         connection.setReadTimeout(5000);
 
         StringBuilder response = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 response.append(line);
@@ -139,15 +159,10 @@ public class ShikigamiServiceImpl implements ShikigamiService {
     }
 
     public int batchSaveShikigamis(List<Shikigami> shikigamis) {
-        // 检查是否存在重复的式神ID
-        /**
-         * 测试用，只添加10条数据
-         */
-//        shikigamis = shikigamis.subList(0, 10);
         for (Shikigami shikigami : shikigamis) {
             if (shikigamiMapper.findShikigamiById(shikigami.getShikigami_id()) != 0) {
                 logger.info("重复式神ID: {} 不添加到数据库", shikigami.getShikigami_id());
-                System.out.println("重复式神ID: " + shikigami.getShikigami_id()+"不添加到数据库");
+                System.out.println("重复式神ID: " + shikigami.getShikigami_id() + "不添加到数据库");
             } else {
                 shikigamiMapper.batchInsertShikigami(List.of(shikigami));
             }
@@ -155,4 +170,19 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         return shikigamis.size();
     }
 
+    @Override
+    public String downloadAndUploadImageById(String imgUrl, String head_name, String bucketName, String rarity) {
+        OSSImageUtil ossImageUtil = new OSSImageUtil(
+                "https://oss-cn-beijing.aliyuncs.com",
+                "cn-beijing",
+                bucketName,
+                "Shikigami/HeadImg/" + rarity + "/" + head_name
+        );
+        try {
+            ossImageUtil.uploadImage(imgUrl, head_name, bucketName);
+        } catch (IOException | ClientException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

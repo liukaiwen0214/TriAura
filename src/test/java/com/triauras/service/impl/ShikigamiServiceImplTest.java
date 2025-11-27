@@ -28,4 +28,17 @@ class ShikigamiServiceImplTest {
         int count = shikigamiService.fetchAndSaveShikigamiList();
         logger.info("获取到的式神数量: {}", count);
     }
+     /**
+      * 测试根据式神ID下载网易图片并上传到OSS
+      */
+    @Test
+    void downloadAndUploadImageById() {
+        // 执行测试
+        String imgUrl = "https://yys.res.netease.com/pc/zt/20161108171335/data/shishen/200.png";
+        String head_name = "200.png";
+        String bucketName = "triaura";
+        String rarity = "SR";
+        String ossPath = shikigamiService.downloadAndUploadImageById(imgUrl, head_name, bucketName, rarity);
+        logger.info("上传到OSS的路径: {}", ossPath);
+    }
 }

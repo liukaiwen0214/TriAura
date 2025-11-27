@@ -25,4 +25,8 @@ public interface ShikigamiMapper {
      * @return 式神信息
      */
     int findShikigamiById(int shikigamiId);
+    /**
+     * 查询所有式神基本信息
+     */
+    List<Shikigami> findAllShikigami();
 }

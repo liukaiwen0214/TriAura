@@ -30,7 +30,7 @@ public class UserServiceImpl implements UsersService {
         );
         String avatarUrl;
         try {
-            avatarUrl = ossImageUtil.getAvatarUrl();
+            avatarUrl = ossImageUtil.getImageUrl();
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
