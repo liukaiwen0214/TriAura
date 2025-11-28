@@ -25,10 +25,8 @@ public class ScheduledTasks {
         try {
             
             int count = shikigamiService.fetchAndSaveShikigamiList();
-            String url = "https:
-            shikigamiService.findAllShikigami().forEach(shikigami -> {
-                shikigamiService.downloadAndUploadImageById(url+shikigami.getHead_image(), shikigami.getHead_image(), "triaura", shikigami.getRarity());
-            });
+            String url = "https://yys.res.netease.com/pc/zt/20161108171335/data/shishen/";
+            shikigamiService.findAllShikigami().forEach(shikigami -> shikigamiService.downloadAndUploadImageById(url+shikigami.getHead_image(), shikigami.getHead_image(), "triaura", shikigami.getRarity()));
             log.info("获取并保存式神数据完成，保存数量: {}", count);
         } catch (Exception e) {
             log.error("获取并保存式神数据失败: {}", e.getMessage(), e);

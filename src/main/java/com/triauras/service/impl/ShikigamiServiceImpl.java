@@ -1,19 +1,12 @@
 package com.triauras.service.impl;
 
-import com.aliyun.oss.OSSClient;
+
 import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.triauras.entity.Shikigami;
 import com.triauras.mapper.ShikigamiMapper;
 import com.triauras.service.ShikigamiService;
-import com.aliyun.oss.ClientBuilderConfiguration;
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
-import com.aliyun.oss.OSSException;
-import com.aliyun.oss.common.auth.CredentialsProviderFactory;
-import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
-import com.aliyun.oss.common.comm.SignVersion;
 import com.triauras.utils.OSSImageUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,8 +30,6 @@ import java.io.*;
 public class ShikigamiServiceImpl implements ShikigamiService {
     private static final Logger logger = LogManager.getLogger(ShikigamiServiceImpl.class);
     private final ShikigamiMapper shikigamiMapper;
-    private OSSClient ossClient;
-
     /**
      * 构造函数，依赖注入式神映射器
      *
@@ -55,12 +46,11 @@ public class ShikigamiServiceImpl implements ShikigamiService {
      */
     @Override
     public int fetchAndSaveShikigamiList() {
-        String urlStr = "https:
-        String StoryUrlStr = "https:
+        String StoryUrlStr = "https://yys.res.netease.com/pc/zt/20161108171335/data/shishen/";
         try {
             logger.info("开始获取式神信息");
             // 发送HTTP请求获取式神列表数据
-            String response = sendGetRequest(urlStr);
+            String response = sendGetRequest(StoryUrlStr);
             ObjectMapper mapper = new ObjectMapper();
             ObjectMapper storyMapper = new ObjectMapper();
             JsonNode node = mapper.readTree(response);
@@ -198,7 +188,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
     @Override
     public String downloadAndUploadImageById(String imgUrl, String head_name, String bucketName, String rarity) {
         OSSImageUtil ossImageUtil = new OSSImageUtil(
-                "https:
+                "https://oss-cn-beijing.aliyuncs.com",
                 "cn-beijing",
                 bucketName,
                 "Shikigami/HeadImg/" + rarity + "/" + head_name

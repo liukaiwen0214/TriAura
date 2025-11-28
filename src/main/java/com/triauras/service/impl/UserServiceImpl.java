@@ -41,7 +41,7 @@ public class UserServiceImpl implements UsersService {
         Users users = usersMapper.selectByEmail(email);
         // 初始化OSS图片工具，用于获取头像URL
         OSSImageUtil ossImageUtil = new OSSImageUtil(
-                "https:
+                "https://oss-cn-beijing.aliyuncs.com",
                 "cn-beijing",
                 "triaura",
                 "Avatar/" + users.getAvatar_url()
@@ -85,7 +85,7 @@ public class UserServiceImpl implements UsersService {
         }
         
         // 设置默认值
-        users.setAvatar_url("https:
+        users.setAvatar_url("https://example.com/default-avatar.jpg");
         users.setTimezone("Asia/Shanghai");
         users.setCurrency("CNY");
         users.setIs_active(true);
