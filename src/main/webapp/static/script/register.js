@@ -1,9 +1,9 @@
-// 获取当前页面的上下文路径
+
 const contextPath = window.location.pathname.split('/')[1];
-// 拼接完整的请求URL
+
 const requestUrl = '/' + contextPath;
 
-// 注册表单验证和交互
+
 class RegisterForm {
     constructor() {
         this.form = document.getElementById('registerForm');
@@ -26,11 +26,11 @@ class RegisterForm {
     bindEvents() {
         this.form.addEventListener('submit', (e) => this.handleSubmit(e));
 
-        // 密码可见性切换
+        
         window.togglePasswordVisibility = () => this.togglePasswordVisibility();
         window.toggleConfirmPasswordVisibility = () => this.toggleConfirmPasswordVisibility();
 
-        // 第三方注册
+        
         window.showQQRegister = () => this.showQQRegister();
         window.closeQQRegister = () => this.closeQQRegister();
         window.showWechatRegister = () => this.showWechatRegister();
@@ -38,27 +38,27 @@ class RegisterForm {
     }
 
     setupRealTimeValidation() {
-        // 用户名实时验证
+        
         this.usernameInput.addEventListener('blur', () => this.validateUsername());
         this.usernameInput.addEventListener('input', () => this.hideError('usernameError'));
 
-        // 邮箱实时验证
+        
         this.emailInput.addEventListener('blur', () => this.validateEmail());
         this.emailInput.addEventListener('input', () => this.hideError('emailError'));
 
-        // 密码实时验证
+        
         this.passwordInput.addEventListener('blur', () => this.validatePassword());
         this.passwordInput.addEventListener('input', () => this.hideError('passwordError'));
 
-        // 确认密码实时验证
+        
         this.confirmPasswordInput.addEventListener('blur', () => this.validateConfirmPassword());
         this.confirmPasswordInput.addEventListener('input', () => this.hideError('confirmPasswordError'));
 
-        // 协议勾选
+        
         this.agreementCheckbox.addEventListener('change', () => this.hideError('agreementError'));
     }
 
-    // 验证方法
+    
     validateUsername() {
         const username = this.usernameInput.value.trim();
 
@@ -123,7 +123,7 @@ class RegisterForm {
         return true;
     }
 
-    // 密码可见性切换
+    
     togglePasswordVisibility() {
         const toggleIcon = this.passwordInput.nextElementSibling;
         const type = this.passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -153,7 +153,7 @@ class RegisterForm {
     }
 
 
-    // 第三方注册
+    
     showQQRegister() {
         document.getElementById('qqRegisterModal').style.display = 'flex';
     }
@@ -170,7 +170,7 @@ class RegisterForm {
         document.getElementById('wechatRegisterModal').style.display = 'none';
     }
 
-    // 错误处理
+    
     showError(elementId, message) {
         const errorElement = document.getElementById(elementId);
         errorElement.textContent = message;
@@ -182,11 +182,11 @@ class RegisterForm {
         errorElement.style.display = 'none';
     }
 
-    // 表单提交
+    
     async handleSubmit(e) {
         e.preventDefault();
 
-        // 验证所有字段
+        
         const isValid = this.validateUsername() &&
             this.validateEmail() &&
             this.validatePassword() &&
@@ -197,7 +197,7 @@ class RegisterForm {
             return;
         }
 
-        // 显示加载状态
+        
         this.registerButton.disabled = true;
         this.registerText.style.display = 'none';
         this.registerSpinner.style.display = 'inline-block';
@@ -220,7 +220,7 @@ class RegisterForm {
             const data = await response.json();
             
             if (data.code === 200) {
-                // 注册成功
+                
                 console.log("注册成功", data);
                 console.log('用户ID:', data.data.userId);
                 console.log('用户名:', data.data.username);
@@ -230,11 +230,11 @@ class RegisterForm {
                     window.location.href = requestUrl;
                 }, 2000);
             } else {
-                // 注册失败
+                
                 console.log('注册失败:', data.message);
 
                 if (data.code === 1002) {
-                    // 用户已存在
+                    
                     if (data.message.includes('邮箱')) {
                         this.showError('emailError', '该邮箱已被注册');
                     } else if (data.message.includes('用户名')) {
@@ -244,7 +244,7 @@ class RegisterForm {
                     alert(data.message || '注册失败，请稍后重试');
                 }
 
-                // 恢复按钮状态
+                
                 this.registerButton.disabled = false;
                 this.registerText.style.display = 'inline';
                 this.registerSpinner.style.display = 'none';
@@ -253,7 +253,7 @@ class RegisterForm {
             console.error('请求错误:', error);
             alert('网络错误，请稍后重试');
             
-            // 恢复按钮状态
+            
             this.registerButton.disabled = false;
             this.registerText.style.display = 'inline';
             this.registerSpinner.style.display = 'none';
@@ -261,7 +261,7 @@ class RegisterForm {
     }
 
     showSuccessMessage(message) {
-        // 创建成功提示
+        
         const successDiv = document.createElement('div');
         successDiv.className = 'success-message';
         successDiv.innerHTML = `
@@ -272,7 +272,7 @@ class RegisterForm {
 
         this.form.insertBefore(successDiv, this.form.firstChild);
 
-        // 3秒后移除提示
+        
         setTimeout(() => {
             if (successDiv.parentNode) {
                 successDiv.parentNode.removeChild(successDiv);
@@ -281,7 +281,7 @@ class RegisterForm {
     }
 }
 
-// 页面加载完成后初始化
+
 document.addEventListener('DOMContentLoaded', () => {
     new RegisterForm();
 });

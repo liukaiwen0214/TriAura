@@ -163,10 +163,7 @@
         <p>确定要删除此条记录吗？此操作不可撤销。</p>
         <div class="dialog-actions">
             <button id="cancelDelete" class="dialog-btn cancel close-button">取消</button>
-            <button id="confirmDelete" class="dialog-btn confirm delete-button"><span class="text">删除</span><span class="icon"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
-                    d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"></path></svg></span>
-            </button>
+            <button id="confirmDelete" class="dialog-btn confirm delete-button">删除</button>
         </div>
     </div>
 </div>
