@@ -9,12 +9,10 @@ import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyuncs.exceptions.ClientException;
+import lombok.extern.slf4j.Slf4j;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 
@@ -22,27 +20,28 @@ import java.util.Date;
  * OSS图片工具类
  * 用于处理OSS图片的上传、获取预签名URL和获取输入流等操作
  */
+@Slf4j
 public class OSSImageUtil {
 
     /**
      * OSS服务端点
      */
-    private String endpoint;
+    private final String endpoint;
     
     /**
      * OSS存储桶名称
      */
-    private String bucketName;
+    private final String bucketName;
     
     /**
      * OSS区域
      */
-    private String region;
+    private final String region;
     
     /**
      * OSS对象名称
      */
-    private String objectName;
+    private final String objectName;
 
     /**
      * 构造函数，初始化OSS图片工具
@@ -153,7 +152,7 @@ public class OSSImageUtil {
         try {
             return ossClient.doesObjectExist(bucketName, head_name);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("检查OSS对象是否存在时出错: {}", head_name, e);
             return false;
         }
     }
@@ -197,7 +196,7 @@ public class OSSImageUtil {
         } catch (IOException e) {
             // 处理IO异常
             System.out.println("Failed to open stream from URL: ");
-            e.printStackTrace();
+            log.error("从URL打开流时出错: {}", objectName, e);
             throw e;
         } finally {
             // 关闭OSS客户端
