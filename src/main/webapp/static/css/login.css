@@ -1,11 +1,16 @@
-C/* 简约风格登录页面样式 */
+/**
+ * 登录页面CSS文件
+ * 负责定义登录页面的样式，包括布局、表单、按钮、动画和响应式设计等
+ */
 
+/* 全局样式重置 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* 页面基础样式 */
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -17,8 +22,7 @@ body {
     line-height: 1.5;
 }
 
-
-
+/* 登录容器 */
 .login-container {
     padding: 24px;
     border-radius: 12px;
@@ -32,6 +36,7 @@ body {
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
 }
 
+/* 登录头部 */
 .login-header {
     text-align: center;
     margin-bottom: 28px;
@@ -52,8 +57,7 @@ body {
     background-clip: text;
 }
 
-
-
+/* 表单组 */
 .form-group {
     margin-bottom: 28px;
 }
@@ -72,6 +76,7 @@ body {
     transform: translateX(2px);
 }
 
+/* 表单输入框 */
 .form-control {
     width: 100%;
     padding: 10px 14px;
@@ -99,10 +104,12 @@ body {
     transform: translateX(4px);
 }
 
+/* 密码容器 */
 .password-container {
     position: relative;
 }
 
+/* 密码可见性切换图标 */
 .toggle-password {
     position: absolute;
     right: 16px;
@@ -119,6 +126,7 @@ body {
     transform: translateY(-50%) scale(1.1);
 }
 
+/* 忘记密码链接 */
 .forgot-password {
     text-align: right;
     margin-bottom: 12px;
@@ -152,6 +160,7 @@ body {
     width: 100%;
 }
 
+/* 按钮样式 */
 .btn {
     width: 100%;
     padding: 8px;
@@ -164,6 +173,7 @@ body {
     margin-bottom: 28px;
 }
 
+/* 主按钮样式 */
 .btn-primary {
     background-color: #000000;
     color: #ffffff;
@@ -175,6 +185,7 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* 次要按钮样式 */
 .btn-secondary {
     background-color: rgba(255, 255, 255, 0.5);
     color: #000000;
@@ -189,6 +200,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 分隔线 */
 .divider {
     text-align: center;
     margin: 12px 0;
@@ -214,12 +226,14 @@ body {
     z-index: 1;
 }
 
+/* 第三方登录 */
 .third-party-login {
     display: flex;
     gap: 12px;
     justify-content: center;
 }
 
+/* 第三方登录按钮 */
 .third-party-btn {
     display: flex;
     align-items: center;
@@ -249,6 +263,7 @@ body {
     font-size: 16px;
 }
 
+/* 错误信息 */
 .error-message {
     font-size: 12px;
     color: #dc3545;
@@ -256,6 +271,7 @@ body {
     display: none;
 }
 
+/* 加载动画 */
 .loading-spinner {
     display: inline-block;
     width: 16px;
@@ -266,12 +282,14 @@ body {
     animation: spin 0.8s linear infinite;
 }
 
+/* 旋转动画 */
 @keyframes spin {
     to {
         transform: rotate(360deg);
     }
 }
 
+/* 淡入上移动画 */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -283,6 +301,7 @@ body {
     }
 }
 
+/* 模态框样式 */
 .modal.show .modal-content {
     opacity: 1;
     transform: scale(1);
@@ -329,6 +348,7 @@ body {
     margin: 0;
 }
 
+/* 关闭按钮 */
 .close {
     font-size: 24px;
     color: #6c757d;
@@ -355,6 +375,7 @@ body {
     padding: 24px;
 }
 
+/* 响应式设计 */
 @media (max-width: 480px) {
     body {
         padding: 20px 16px;
@@ -376,8 +397,6 @@ body {
         margin-bottom: 0;
         letter-spacing: -0.8px;
     }
-
-
 
     .form-group {
         margin-bottom: 22px;

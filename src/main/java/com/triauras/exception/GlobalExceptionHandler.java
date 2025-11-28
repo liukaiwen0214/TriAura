@@ -2,6 +2,7 @@ package com.triauras.exception;
 
 import com.triauras.vo.ResultVO;
 import com.triauras.vo.ResultCode;
+import jakarta.validation.ConstraintViolation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -67,7 +68,7 @@ public class GlobalExceptionHandler {
                                                             HttpServletRequest request) {
         // 提取约束违反的错误信息
         String errorMessage = ex.getConstraintViolations().stream()
-                .map(violation -> violation.getMessage())
+                .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining(", "));
         
         log.warn("约束违反异常 - URL: {}, 错误: {}", request.getRequestURI(), errorMessage);
