@@ -18,34 +18,21 @@ import java.io.OutputStream;
 @RequestMapping("/util")
 public class UtilController {
     private static final Logger logger = LogManager.getLogger(UtilController.class);
-    /**
-     * 图片代理方法，用于隐藏OSS访问凭证
-     */
     @RequestMapping("/image/{rarity}/{fileName}")
     public void proxyImage(@PathVariable String rarity, @PathVariable String fileName, HttpServletResponse response) {
-        // 添加输出语句，记录访问的链接信息
-        System.out.println("访问的图片路径: rarity=" + rarity + ", fileName=" + fileName);
-        System.out.println("构建的OSS对象路径: Shikigami/HeadImg/" + rarity + "/" + fileName);
-
         try {
-            // 创建OSSImageUtil实例
+            
             OSSImageUtil ossImageUtil = new OSSImageUtil(
                     "oss-cn-beijing.aliyuncs.com",
                     "cn-beijing", "triaura",
                     "Shikigami/HeadImg/" + rarity + "/" + fileName
             );
-
-            System.out.println("OSSImageUtil实例创建成功");
-
-            // 使用新方法获取图片输入流
+            
             try (InputStream in = ossImageUtil.getImageInputStream()) {
-                System.out.println("成功获取图片输入流");
-
-                // 设置响应内容类型
+                
                 String contentType = getContentType(fileName);
                 response.setContentType(contentType);
-
-                // 将输入流复制到响应输出流
+                
                 OutputStream out = response.getOutputStream();
                 byte[] buffer = new byte[4096];
                 int bytesRead;
@@ -53,7 +40,6 @@ public class UtilController {
                     out.write(buffer, 0, bytesRead);
                 }
                 out.flush();
-                System.out.println("图片数据传输完成");
             }
         } catch (ClientException e) {
             System.out.println("ClientException: " + e.getMessage());
@@ -67,9 +53,6 @@ public class UtilController {
     }
 
 
-    /**
-     * 根据文件名获取内容类型
-     */
     private String getContentType(String fileName) {
         if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
             return "image/jpeg";

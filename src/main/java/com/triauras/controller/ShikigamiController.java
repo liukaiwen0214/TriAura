@@ -30,10 +30,10 @@ public class ShikigamiController {
     public ResultVO<List<Shikigami>> getAllShikigami() {
         List<Shikigami> shikigamis = shikigamiService.findAllShikigami();
 
-        // 不再直接设置OSS预签名URL，而是设置相对路径指向MessageController中的代理方法
+        
         shikigamis.forEach(shikigami -> {
             if (shikigami.getHead_image() != null && !shikigami.getHead_image().isEmpty()) {
-                // 修改路径为指向MessageController中的代理方法
+                
                 shikigami.setHead_image("/util/image/" + shikigami.getRarity() + "/" + shikigami.getHead_image());
             }
         });

@@ -29,10 +29,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
 
-
 /**
- * 获取式神信息工具类实现类
- * 用于获取项目中使用的式神信息
+ * 式神服务实现类
+ * 负责式神数据的获取、保存、查询和图片处理等核心业务逻辑
  */
 @Service
 public class ShikigamiServiceImpl implements ShikigamiService {
@@ -41,54 +40,53 @@ public class ShikigamiServiceImpl implements ShikigamiService {
     private OSSClient ossClient;
 
     /**
-     * 构造函数，用于依赖注入
+     * 构造函数，依赖注入式神映射器
      *
-     * @param shikigamiMapper 式神数据映射器
+     * @param shikigamiMapper 式神数据访问对象
      */
     public ShikigamiServiceImpl(ShikigamiMapper shikigamiMapper) {
         this.shikigamiMapper = shikigamiMapper;
     }
 
     /**
-     * 获取所有式神信息
+     * 从外部API获取式神数据并保存到数据库
      *
-     * @return 所有式神信息的列表
+     * @return 成功保存的式神数量
      */
     @Override
     public int fetchAndSaveShikigamiList() {
-        String urlStr = "https://yys.res.netease.com/pc/zt/20161108171335/js/app/all_shishen.json";
-        String StoryUrlStr = "https://g37simulator.webapp.163.com/get_hero_story?heroid=";
+        String urlStr = "https:
+        String StoryUrlStr = "https:
         try {
             logger.info("开始获取式神信息");
+            // 发送HTTP请求获取式神列表数据
             String response = sendGetRequest(urlStr);
             ObjectMapper mapper = new ObjectMapper();
             ObjectMapper storyMapper = new ObjectMapper();
             JsonNode node = mapper.readTree(response);
             List<Shikigami> shikigamis = new ArrayList<>();
 
-            // 检查是否为数组格式
+            // 解析JSON数组格式的式神数据
             if (node.isArray()) {
-                // 遍历数组中的每个元素
+                // 遍历每个式神节点，构建式神对象
                 for (JsonNode item : node) {
-                    // 创建Shikigami对象
                     Shikigami shikigami = new Shikigami();
-                    // 提取id字段并转换为整数
+                    
+                    // 设置式神基本信息
                     if (item.has("id")) {
                         shikigami.setShikigami_id(Integer.parseInt(item.get("id").asText()));
-                        shikigami.setHead_image(Integer.parseInt(item.get("id").asText()) + ".png"); // 默认值
+                        shikigami.setHead_image(Integer.parseInt(item.get("id").asText()) + ".png"); 
                     }
-                    // 提取name字段
                     if (item.has("name")) {
                         shikigami.setName(item.get("name").asText());
                     }
-                    // 提取level字段（对应稀有度）
                     if (item.has("level")) {
                         String level = item.get("level").asText();
                         shikigami.setRarity(level);
                     }
-                    // 发送GET请求获取式神详情
+                    
+                    // 获取式神详细信息（声优）
                     String storyResponse = sendGetRequest(StoryUrlStr + shikigami.getShikigami_id());
-                    // 解析式神详情JSON
                     JsonNode storyNode = storyMapper.readTree(storyResponse);
                     if (storyNode.has("data")) {
                         JsonNode dataNode = storyNode.get("data");
@@ -97,20 +95,18 @@ public class ShikigamiServiceImpl implements ShikigamiService {
                         }
                     }
 
-
-                    // 设置其他必要字段的默认值
-                    shikigami.setRelease_date(LocalDate.now()); // 默认值
+                    // 设置默认值和时间戳
+                    shikigami.setRelease_date(LocalDate.now()); 
                     shikigami.setCreate_time(LocalDateTime.now());
                     shikigami.setUpdate_time(LocalDateTime.now());
                     shikigamis.add(shikigami);
                 }
             } else {
-                // 兼容旧格式的逻辑（如果需要）
+                // 兼容旧格式的处理逻辑
                 System.out.println("JSON不是数组格式，可能是旧格式");
             }
 
             System.out.println("解析完成，共获取到 " + shikigamis.size() + " 条式神数据");
-            // 保存到数据库
             System.out.println("开始保存到数据库");
             if (!shikigamis.isEmpty()) {
                 return batchSaveShikigamis(shikigamis);
@@ -122,22 +118,33 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         return 0;
     }
 
+    /**
+     * 根据ID查询式神是否存在
+     *
+     * @param shikigamiId 式神ID
+     * @return 1表示存在，0表示不存在
+     */
     @Override
     public int findShikigamiById(int shikigamiId) {
         return shikigamiMapper.findShikigamiById(shikigamiId);
     }
 
+    /**
+     * 查询所有式神信息
+     *
+     * @return 式神列表
+     */
     @Override
     public List<Shikigami> findAllShikigami() {
         return shikigamiMapper.findAllShikigami();
     }
 
     /**
-     * 发送GET请求并返回响应内容
+     * 发送HTTP GET请求获取响应内容
      *
      * @param urlStr 请求URL
-     * @return 响应内容
-     * @throws Exception 如果请求失败
+     * @return 响应内容字符串
+     * @throws Exception 请求失败时抛出异常
      */
     private String sendGetRequest(String urlStr) throws Exception {
         URL url = new URL(urlStr);
@@ -147,6 +154,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         connection.setReadTimeout(5000);
 
         StringBuilder response = new StringBuilder();
+        // 读取响应内容
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -158,27 +166,45 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         return response.toString();
     }
 
+    /**
+     * 批量保存式神数据到数据库
+     *
+     * @param shikigamis 式神列表
+     * @return 处理的式神数量
+     */
     public int batchSaveShikigamis(List<Shikigami> shikigamis) {
         for (Shikigami shikigami : shikigamis) {
+            // 检查式神是否已存在，避免重复插入
             if (shikigamiMapper.findShikigamiById(shikigami.getShikigami_id()) != 0) {
                 logger.info("重复式神ID: {} 不添加到数据库", shikigami.getShikigami_id());
                 System.out.println("重复式神ID: " + shikigami.getShikigami_id() + "不添加到数据库");
             } else {
+                // 单个插入，避免批量插入的复杂性
                 shikigamiMapper.batchInsertShikigami(List.of(shikigami));
             }
         }
         return shikigamis.size();
     }
 
+    /**
+     * 根据ID下载并上传式神图片到OSS
+     *
+     * @param imgUrl     图片源URL
+     * @param head_name  图片文件名
+     * @param bucketName OSS存储桶名称
+     * @param rarity     式神稀有度
+     * @return 上传结果
+     */
     @Override
     public String downloadAndUploadImageById(String imgUrl, String head_name, String bucketName, String rarity) {
         OSSImageUtil ossImageUtil = new OSSImageUtil(
-                "https://oss-cn-beijing.aliyuncs.com",
+                "https:
                 "cn-beijing",
                 bucketName,
                 "Shikigami/HeadImg/" + rarity + "/" + head_name
         );
         try {
+            // 下载并上传图片到OSS
             ossImageUtil.uploadImage(imgUrl, head_name, bucketName);
         } catch (IOException | ClientException e) {
             throw new RuntimeException(e);
