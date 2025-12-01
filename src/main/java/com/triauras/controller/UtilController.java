@@ -20,14 +20,13 @@ public class UtilController {
     /**
      * 图片代理接口，用于从OSS获取图片并返回给客户端
      *
-     * @param rarity   式神稀有度
      * @param fileName 图片文件名
      * @param response HTTP响应对象
      */
     @RequestMapping("/image/{rarity}/{fileName}")
-    public void proxyImage(@PathVariable String rarity, @PathVariable String fileName, HttpServletResponse response) {
+    public void proxyImage(@PathVariable String fileName, HttpServletResponse response) {
         try {
-            // 初始化OSS图片工具
+            // 初始化OSS图片工具，指定稀有度和文件名
             OSSUtil ossUtil = new OSSUtil();
 
             // 获取图片输入流并写入响应

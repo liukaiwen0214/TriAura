@@ -39,6 +39,7 @@ public class OSSUtil {
     private static final Map<String, Long> CACHE_UPDATE_TIME = new ConcurrentHashMap<>();
 
     // ==================== 新增：单例客户端初始化（核心复用逻辑）====================
+
     /**
      * 获取单例OSS客户端（全局唯一，线程安全）
      */
@@ -75,20 +76,12 @@ public class OSSUtil {
         return ossClient;
     }
 
-    /**
-     * 关闭单例客户端（应用停止时调用）
-     */
-    public static void shutdownSingletonClient() {
-        if (ossClient != null) {
-            ossClient.shutdown();
-            ossClient = null;
-             log.info("OSS 单例客户端已关闭");
-        }
-    }
 
     // ==================== 新增：批量查询指定稀有度的所有头像文件名（核心优化）====================
+
     /**
      * 批量查询 OSS 中「指定稀有度」目录下的所有头像文件名（缓存优化）
+     *
      * @param rarity 式神稀有度（对应 OSS 目录：Shikigami/HeadImg/{rarity}/）
      * @return 存在的头像文件名集合（不含路径，仅文件名）
      */
@@ -146,6 +139,7 @@ public class OSSUtil {
     }
 
     // ==================== 改造原有方法：复用单例客户端（不再每次创建/关闭）====================
+
     /**
      * 获取OSS图片预签名URL（改造：复用单例客户端）
      */
@@ -154,10 +148,10 @@ public class OSSUtil {
         try {
             // 优先使用实例的bucketName，无则用默认
             Date expiration = new Date(System.currentTimeMillis() + 36000 * 1000L); // 10小时过期
-            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME,HEAD_IMG_ROOT_DIR, expiration);
+            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, expiration);
             return url.toString();
         } catch (OSSException oe) {
-             log.error("生成预签名URL失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
+            log.error("生成预签名URL失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
             throw oe;
         }
     }
@@ -178,7 +172,7 @@ public class OSSUtil {
         try (InputStream inputStream = url.openStream()) { // 自动关闭流
             PutObjectRequest putObjectRequest = new PutObjectRequest(targetBucket, HEAD_IMG_ROOT_DIR + head_name, inputStream);
             client.putObject(putObjectRequest);
-             log.info("图片上传成功：{}", HEAD_IMG_ROOT_DIR + head_name);
+            log.info("图片上传成功：{}", HEAD_IMG_ROOT_DIR + head_name);
         }
     }
 
@@ -195,12 +189,6 @@ public class OSSUtil {
         }
     }
 
-    /**
-     * 重载：无客户端传入时，使用单例客户端检查
-     */
-    public boolean doesObjectExist(String bucketName, String head_name) {
-        return doesObjectExist(getSingletonOssClient(), bucketName, head_name);
-    }
 
     /**
      * 获取OSS图片输入流（改造：复用单例客户端）
@@ -212,15 +200,8 @@ public class OSSUtil {
             URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, expiration);
             return url.openStream();
         } catch (OSSException oe) {
-             log.error("获取图片输入流失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
+            log.error("获取图片输入流失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
             throw oe;
         }
-    }
-
-    // ==================== 新增：清理指定稀有度的缓存（可选，如头像更新后调用）====================
-    public static void clearHeadImgCache(String rarity) {
-        HEAD_IMG_CACHE.remove(rarity);
-        CACHE_UPDATE_TIME.remove(rarity);
-         log.info("已清理稀有度[{}]的头像缓存", rarity);
     }
 }
