@@ -19,11 +19,11 @@ public class ScheduledTasks {
 
     @Scheduled(cron = "0 0 1 * * ?")
     public void ScheduledTaskForShikigami() {
-        String currentTime = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+//        String currentTime = LocalDateTime.now().format(DATE_TIME_FORMATTER);
         // log.info("开始执行获取式神数据的定时任务，当前时间: {}", currentTime);
         try {
             
-            int count = shikigamiService.fetchAndSaveShikigamiList();
+//            int count = shikigamiService.fetchAndSaveShikigamiList();
             String url = "https://yys.res.netease.com/pc/zt/20161108171335/data/shishen/";
             shikigamiService.findAllShikigami().forEach(shikigami -> shikigamiService.downloadAndUploadImageById(url+shikigami.getHead_image(), shikigami.getHead_image(), "triaura", shikigami.getRarity()));
             // log.info("获取并保存式神数据完成，保存数量: {}", count);

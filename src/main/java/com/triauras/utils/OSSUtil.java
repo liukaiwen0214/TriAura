@@ -9,6 +9,7 @@ import com.aliyun.oss.common.auth.CredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.*;
 import com.aliyuncs.exceptions.ClientException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * OSS图片工具类（优化：单例客户端复用 + 批量查询功能）
  */
+@Slf4j
 public class OSSUtil {
 
     // ==================== 新增：静态配置（请根据你的实际配置修改）====================
@@ -36,27 +38,6 @@ public class OSSUtil {
     // 缓存更新时间：key=稀有度，value=最后更新时间戳
     private static final Map<String, Long> CACHE_UPDATE_TIME = new ConcurrentHashMap<>();
 
-    // ==================== 原有成员变量（保留）====================
-    private String endpoint;
-    private String bucketName;
-    private String region;
-    private String objectName;
-
-    // ==================== 原有构造方法（保留，支持自定义配置）====================
-    public OSSUtil(String endpoint, String region, String bucketName, String objectName) {
-        this.endpoint = endpoint;
-        this.region = region;
-        this.bucketName = bucketName;
-        this.objectName = objectName;
-    }
-
-    public OSSUtil() {
-        // 默认构造：使用静态配置
-        this.endpoint = DEFAULT_ENDPOINT;
-        this.region = DEFAULT_REGION;
-        this.bucketName = DEFAULT_BUCKET_NAME;
-    }
-
     // ==================== 新增：单例客户端初始化（核心复用逻辑）====================
     /**
      * 获取单例OSS客户端（全局唯一，线程安全）
@@ -66,15 +47,6 @@ public class OSSUtil {
             synchronized (OSSUtil.class) {
                 if (ossClient == null) {
                     try {
-                        // 彻底禁用Apache HttpClient的DEBUG和wire日志
-                        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
-                        System.setProperty("org.apache.commons.logging.simplelog.defaultlog", "error");
-                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http", "error");
-                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.wire", "off");
-                        System.setProperty("org.apache.commons.logging.simplelog.log.httpclient.wire", "off");
-                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl", "error");
-                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl.conn", "error");
-
                         // 加载凭证（只初始化一次）
                         CredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
                         // 客户端配置
@@ -110,7 +82,7 @@ public class OSSUtil {
         if (ossClient != null) {
             ossClient.shutdown();
             ossClient = null;
-            // log.info("OSS 单例客户端已关闭");
+             log.info("OSS 单例客户端已关闭");
         }
     }
 
@@ -181,12 +153,11 @@ public class OSSUtil {
         OSS client = getSingletonOssClient();
         try {
             // 优先使用实例的bucketName，无则用默认
-            String bucket = this.bucketName != null ? this.bucketName : DEFAULT_BUCKET_NAME;
             Date expiration = new Date(System.currentTimeMillis() + 36000 * 1000L); // 10小时过期
-            URL url = client.generatePresignedUrl(bucket, this.objectName, expiration);
+            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME,HEAD_IMG_ROOT_DIR, expiration);
             return url.toString();
         } catch (OSSException oe) {
-            // log.error("生成预签名URL失败（bucket：{}，object：{}）", this.bucketName, this.objectName, oe);
+             log.error("生成预签名URL失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
             throw oe;
         }
     }
@@ -205,9 +176,9 @@ public class OSSUtil {
         // 上传逻辑
         URL url = new URL(imgUrl);
         try (InputStream inputStream = url.openStream()) { // 自动关闭流
-            PutObjectRequest putObjectRequest = new PutObjectRequest(targetBucket, this.objectName, inputStream);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(targetBucket, HEAD_IMG_ROOT_DIR + head_name, inputStream);
             client.putObject(putObjectRequest);
-            // log.info("图片上传成功：{}", this.objectName);
+             log.info("图片上传成功：{}", HEAD_IMG_ROOT_DIR + head_name);
         }
     }
 
@@ -237,12 +208,11 @@ public class OSSUtil {
     public InputStream getImageInputStream() throws ClientException, IOException {
         OSS client = getSingletonOssClient();
         try {
-            String bucket = this.bucketName != null ? this.bucketName : DEFAULT_BUCKET_NAME;
             Date expiration = new Date(System.currentTimeMillis() + 36000 * 1000L);
-            URL url = client.generatePresignedUrl(bucket, this.objectName, expiration);
+            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, expiration);
             return url.openStream();
         } catch (OSSException oe) {
-            // log.error("获取图片输入流失败（bucket：{}，object：{}）", this.bucketName, this.objectName, oe);
+             log.error("获取图片输入流失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
             throw oe;
         }
     }
@@ -251,10 +221,6 @@ public class OSSUtil {
     public static void clearHeadImgCache(String rarity) {
         HEAD_IMG_CACHE.remove(rarity);
         CACHE_UPDATE_TIME.remove(rarity);
-        // log.info("已清理稀有度[{}]的头像缓存", rarity);
-    }
-
-    public String getEndpoint() {
-        return endpoint;
+         log.info("已清理稀有度[{}]的头像缓存", rarity);
     }
 }
