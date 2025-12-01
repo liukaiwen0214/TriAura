@@ -40,12 +40,7 @@ public class UserServiceImpl implements UsersService {
         // 根据邮箱查询用户
         Users users = usersMapper.selectByEmail(email);
         // 初始化OSS图片工具，用于获取头像URL
-        OSSUtil ossUtil = new OSSUtil(
-                "https://oss-cn-beijing.aliyuncs.com",
-                "cn-beijing",
-                "triaura",
-                "Avatar/" + users.getAvatar_url()
-        );
+        OSSUtil ossUtil = new OSSUtil();
         String avatarUrl;
         try {
             // 获取OSS预签名URL

@@ -28,11 +28,7 @@ public class UtilController {
     public void proxyImage(@PathVariable String rarity, @PathVariable String fileName, HttpServletResponse response) {
         try {
             // 初始化OSS图片工具
-            OSSUtil ossUtil = new OSSUtil(
-                    "oss-cn-beijing.aliyuncs.com",
-                    "cn-beijing", "triaura",
-                    "Shikigami/HeadImg/" + rarity + "/" + fileName
-            );
+            OSSUtil ossUtil = new OSSUtil();
 
             // 获取图片输入流并写入响应
             try (InputStream in = ossUtil.getImageInputStream()) {

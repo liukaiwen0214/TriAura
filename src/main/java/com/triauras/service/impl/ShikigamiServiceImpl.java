@@ -207,12 +207,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
      */
     @Override
     public String downloadAndUploadImageById(String imgUrl, String head_name, String bucketName, String rarity) {
-        OSSUtil ossUtil = new OSSUtil(
-                "https://oss-cn-beijing.aliyuncs.com",
-                "cn-beijing",
-                bucketName,
-                "Shikigami/HeadImg/" + rarity + "/" + head_name
-        );
+        OSSUtil ossUtil = new OSSUtil();
         try {
             // 下载并上传图片到OSS
             ossUtil.uploadImage(imgUrl, head_name, bucketName);
