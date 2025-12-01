@@ -5,21 +5,18 @@ import com.triauras.entity.Users;
 import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
 import com.triauras.utils.OSSUtil;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.logging.Logger;
 
 /**
  * 用户服务实现类
  * 负责用户登录、注册等核心业务逻辑
  */
-@Slf4j
 @Service
 public class UserServiceImpl implements UsersService {
     private final UsersMapper usersMapper;
-    Logger logger = Logger.getLogger(this.getClass().getName());
 
     /**
      * 构造函数，依赖注入用户映射器
@@ -39,7 +36,7 @@ public class UserServiceImpl implements UsersService {
      */
     @Override
     public Users loginByEmail(String email, String password) {
-        log.debug("【业务处理】用户登录, email: {}",email);
+        // log.debug("【业务处理】用户登录, email: {}",email);
         // 根据邮箱查询用户
         Users users = usersMapper.selectByEmail(email);
         // 初始化OSS图片工具，用于获取头像URL
@@ -60,11 +57,11 @@ public class UserServiceImpl implements UsersService {
         users.setAvatar_url(avatarUrl);
         // 验证密码
         if (!users.getPassword().equals(password)) {
-            logger.log(java.util.logging.Level.INFO, "用户密码错误");
+            // log.info("用户密码错误");
             return null;
         }
         // 更新最后登录时间
-        log.debug("【业务完成】用户登录, email: {}", email);
+        // log.debug("【业务完成】用户登录, email: {}", email);
         return users;
     }
 
@@ -78,13 +75,13 @@ public class UserServiceImpl implements UsersService {
     public String registerUser(Users users) {
         // 检查用户名是否已存在
         if (usersMapper.selectByUsername(users.getUsername()) != null) {
-            logger.log(java.util.logging.Level.INFO, "用户名已存在");
+            // log.info("用户名已存在");
             return "用户名已存在";
         }
         
         // 检查邮箱是否已存在
         if (usersMapper.selectByEmail(users.getEmail()) != null) {
-            logger.log(java.util.logging.Level.INFO, "邮箱已存在");
+            // log.info("邮箱已存在");
             return "邮箱已存在";
         }
         
@@ -99,10 +96,10 @@ public class UserServiceImpl implements UsersService {
         // 插入用户数据
         int rowsAffected = usersMapper.insertUser(users);
         if (rowsAffected == 0) {
-            logger.log(java.util.logging.Level.INFO, "注册用户失败");
+            // log.info("注册用户失败");
             return "注册失败，请稍后重试";
         }
-        log.debug("【业务完成】用户注册, email: {}", users.getEmail());
+        // log.debug("【业务完成】用户注册, email: {}", users.getEmail());
         return "注册成功";
     }
 }

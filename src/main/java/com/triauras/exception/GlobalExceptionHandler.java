@@ -3,7 +3,7 @@ package com.triauras.exception;
 import com.triauras.vo.ResultVO;
 import com.triauras.vo.ResultCode;
 import jakarta.validation.ConstraintViolation;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * 全局异常处理类
  * 用于统一处理系统中的各种异常，包括参数校验异常、业务异常、运行时异常和系统异常
  */
-@Slf4j
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
                     .collect(Collectors.joining(", "));
         }
         
-        log.warn("参数校验失败 - URL: {}, 错误: {}", request.getRequestURI(), errorMessage);
+        // log.warn("参数校验失败 - URL: {}, 错误: {}", request.getRequestURI(), errorMessage);
         return ResultVO.error(ResultCode.BAD_REQUEST.getCode(), errorMessage);
     }
     
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
                 .map(ConstraintViolation::getMessage)
                 .collect(Collectors.joining(", "));
         
-        log.warn("约束违反异常 - URL: {}, 错误: {}", request.getRequestURI(), errorMessage);
+        // log.warn("约束违反异常 - URL: {}, 错误: {}", request.getRequestURI(), errorMessage);
         return ResultVO.error(ResultCode.BAD_REQUEST.getCode(), errorMessage);
     }
     
@@ -85,8 +85,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BusinessException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResultVO<Void> handleBusinessException(BusinessException ex, HttpServletRequest request) {
-        log.warn("业务异常 - URL: {}, 错误码: {}, 错误信息: {}", 
-                request.getRequestURI(), ex.getCode(), ex.getMessage());
+        // log.warn("业务异常 - URL: {}, 错误码: {}, 错误信息: {}", 
+        //         request.getRequestURI(), ex.getCode(), ex.getMessage());
         return ResultVO.error(ex.getCode(), ex.getMessage());
     }
     
@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResultVO<Void> handleRuntimeException(RuntimeException ex, HttpServletRequest request) {
-        log.error("运行时异常 - URL: {}, 错误: {}", request.getRequestURI(), ex.getMessage(), ex);
+        // log.error("运行时异常 - URL: {}, 错误: {}", request.getRequestURI(), ex.getMessage(), ex);
         return ResultVO.error(ResultCode.ERROR.getCode(), "系统繁忙，请稍后重试");
     }
     
@@ -114,7 +114,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResultVO<Void> handleException(Exception ex, HttpServletRequest request) {
-        log.error("系统异常 - URL: {}, 错误: {}", request.getRequestURI(), ex.getMessage(), ex);
+        // log.error("系统异常 - URL: {}, 错误: {}", request.getRequestURI(), ex.getMessage(), ex);
         return ResultVO.error(ResultCode.ERROR.getCode(), "系统异常，请联系管理员");
     }
 }

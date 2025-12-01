@@ -106,11 +106,11 @@ public class ShikigamiServiceImpl implements ShikigamiService {
                 }
             } else {
                 // 兼容旧格式的处理逻辑
-                System.out.println("JSON不是数组格式，可能是旧格式");
+                logger.info("JSON不是数组格式，可能是旧格式");
             }
 
-            System.out.println("解析完成，共获取到 " + shikigamis.size() + " 条式神数据");
-            System.out.println("开始保存到数据库");
+            logger.info("解析完成，共获取到 {} 条式神数据", shikigamis.size());
+            logger.info("开始保存到数据库");
             if (!shikigamis.isEmpty()) {
                 return batchSaveShikigamis(shikigamis);
             }
@@ -188,7 +188,6 @@ public class ShikigamiServiceImpl implements ShikigamiService {
             // 检查式神是否已存在，避免重复插入
             if (shikigamiMapper.findShikigamiById(shikigami.getShikigami_id()) != 0) {
                 logger.info("重复式神ID: {} 不添加到数据库", shikigami.getShikigami_id());
-                System.out.println("重复式神ID: " + shikigami.getShikigami_id() + "不添加到数据库");
             } else {
                 // 单个插入，避免批量插入的复杂性
                 shikigamiMapper.batchInsertShikigami(List.of(shikigami));

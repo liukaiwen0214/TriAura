@@ -3,7 +3,6 @@ package com.triauras.controller;
 import com.aliyun.oss.ClientException;
 import com.triauras.utils.OSSUtil;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +14,6 @@ import java.io.OutputStream;
  * 工具控制器
  * 负责处理通用工具相关的HTTP请求，如图片代理服务
  */
-@Slf4j
 @Controller
 @RequestMapping("/util")
 public class UtilController {
@@ -53,11 +51,11 @@ public class UtilController {
             }
         } catch (ClientException e) {
             // 处理OSS客户端异常
-            log.error("从OSS获取图片时出错: {}", fileName, e);
+            // log.error("从OSS获取图片时出错: {}", fileName, e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (IOException | com.aliyuncs.exceptions.ClientException e) {
             // 处理IO异常或阿里云客户端异常
-            log.error("IOException或ClientException: {}", fileName, e);
+            // log.error("IOException或ClientException: {}", fileName, e);
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
     }

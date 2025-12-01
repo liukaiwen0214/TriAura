@@ -3,7 +3,6 @@ package com.triauras.controller;
 import com.triauras.entity.Users;
 import com.triauras.exception.BusinessException;
 import com.triauras.service.UsersService;
-import com.triauras.utils.LogUtil;
 import com.triauras.vo.ResultCode;
 import com.triauras.vo.ResultVO;
 import jakarta.servlet.http.HttpSession;
@@ -19,7 +18,6 @@ import java.util.Map;
  * 用户控制器
  * 负责处理用户相关的HTTP请求，包括登录、注册、获取用户信息和退出登录等
  */
-@Slf4j
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -46,14 +44,14 @@ public class UserController {
     @ResponseBody
     public ResultVO<Map<String, Object>> login(@Valid @RequestBody Users users, HttpSession session) {
         // 请求入口日志
-        log.info("【请求开始】用户登录, 参数: {}", users.toString());
+        // log.info("【请求开始】用户登录, 参数: {}", users.toString());
         long startTime = System.currentTimeMillis();
         try {
-            log.info("用户登录请求 - 邮箱: {}", users.getEmail());
+            // log.info("用户登录请求 - 邮箱: {}", users.getEmail());
             // 调用用户服务进行登录验证
             Users loginUser = userService.loginByEmail(users.getEmail(), users.getPassword());
             if (loginUser == null) {
-                log.warn("用户登录失败 - 邮箱: {}", users.getEmail());
+                // log.warn("用户登录失败 - 邮箱: {}", users.getEmail());
                 throw new BusinessException(ResultCode.PASSWORD_ERROR.getCode(), "邮箱或密码错误");
             }
             
@@ -63,13 +61,13 @@ public class UserController {
             result.put("user", loginUser);
             result.put("sessionId", session.getId());
             
-            log.info("用户登录成功 - 用户ID: {}, 用户名: {}", loginUser.getId(), loginUser.getUsername());
-            LogUtil.logBusinessOperation("用户登录", loginUser.getUsername(), "登录成功");
+            // log.info("用户登录成功 - 用户ID: {}, 用户名: {}", loginUser.getId(), loginUser.getUsername());
+            // LogUtil.logBusinessOperation("用户登录", loginUser.getUsername(), "登录成功");
             
             return ResultVO.success(result);
         } finally {
             // 记录方法执行时间
-            LogUtil.logExecutionTime("UserController.login", startTime);
+            // LogUtil.logExecutionTime("UserController.login", startTime);
         }
     }
     
@@ -84,7 +82,7 @@ public class UserController {
     public ResultVO<Map<String, Object>> adduser(@Valid @RequestBody Users users) {
         long startTime = System.currentTimeMillis();
         try {
-            log.info("用户注册请求 - 用户名: {}, 邮箱: {}", users.getUsername(), users.getEmail());
+            // log.info("用户注册请求 - 用户名: {}, 邮箱: {}", users.getUsername(), users.getEmail());
             
             // 调用用户服务进行注册
             String result = userService.registerUser(users);
@@ -95,8 +93,8 @@ public class UserController {
                 response.put("username", users.getUsername());
                 response.put("email", users.getEmail());
                 
-                log.info("用户注册成功 - 用户ID: {}, 用户名: {}", users.getId(), users.getUsername());
-                LogUtil.logBusinessOperation("用户注册", users.getUsername(), "注册成功");
+                // log.info("用户注册成功 - 用户ID: {}, 用户名: {}", users.getId(), users.getUsername());
+                // LogUtil.logBusinessOperation("用户注册", users.getUsername(), "注册成功");
                 
                 return ResultVO.success(response);
             } else {
@@ -115,7 +113,7 @@ public class UserController {
             }
         } finally {
             // 记录方法执行时间
-            LogUtil.logExecutionTime("UserController.adduser", startTime);
+            // LogUtil.logExecutionTime("UserController.adduser", startTime);
         }
     }
 
@@ -146,10 +144,10 @@ public class UserController {
     public ResultVO<Void> logout(HttpSession session) {
         Users user = (Users) session.getAttribute("user");
         if (user != null) {
-            LogUtil.logBusinessOperation("用户退出", user.getUsername(), "退出登录");
+            // LogUtil.logBusinessOperation("用户退出", user.getUsername(), "退出登录");
             // 使会话失效
             session.invalidate();
-            log.info("用户退出成功 - 用户名: {}", user.getUsername());
+            // log.info("用户退出成功 - 用户名: {}", user.getUsername());
         }
         return ResultVO.success();
     }

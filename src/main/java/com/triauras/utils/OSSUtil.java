@@ -5,12 +5,10 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.common.auth.CredentialsProviderFactory;
-import com.aliyun.oss.common.auth.EnvironmentVariableCredentialsProvider;
 import com.aliyun.oss.common.auth.CredentialsProvider;
 import com.aliyun.oss.common.comm.SignVersion;
 import com.aliyun.oss.model.*;
 import com.aliyuncs.exceptions.ClientException;
-import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * OSS图片工具类（优化：单例客户端复用 + 批量查询功能）
  */
-@Slf4j
 public class OSSUtil {
 
     // ==================== 新增：静态配置（请根据你的实际配置修改）====================
@@ -69,11 +66,14 @@ public class OSSUtil {
             synchronized (OSSUtil.class) {
                 if (ossClient == null) {
                     try {
-                        // 强制设置Apache HttpClient日志级别为WARN
-                        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");
-                        System.setProperty("org.apache.commons.logging.simplelog.defaultlog", "warn");
-                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http", "warn");
+                        // 彻底禁用Apache HttpClient的DEBUG和wire日志
+                        System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.NoOpLog");
+                        System.setProperty("org.apache.commons.logging.simplelog.defaultlog", "error");
+                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http", "error");
                         System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.wire", "off");
+                        System.setProperty("org.apache.commons.logging.simplelog.log.httpclient.wire", "off");
+                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl", "error");
+                        System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl.conn", "error");
 
                         // 加载凭证（只初始化一次）
                         CredentialsProvider credentialsProvider = CredentialsProviderFactory.newEnvironmentVariableCredentialsProvider();
@@ -92,9 +92,9 @@ public class OSSUtil {
                                 .credentialsProvider(credentialsProvider)
                                 .clientConfiguration(config)
                                 .build();
-                        log.info("OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN");
+                        // log.info("OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN");
                     } catch (ClientException e) {
-                        log.error("OSS 单例客户端初始化失败", e);
+                        // log.error("OSS 单例客户端初始化失败", e);
                         throw new RuntimeException("OSS客户端初始化异常", e);
                     }
                 }
@@ -110,7 +110,7 @@ public class OSSUtil {
         if (ossClient != null) {
             ossClient.shutdown();
             ossClient = null;
-            log.info("OSS 单例客户端已关闭");
+            // log.info("OSS 单例客户端已关闭");
         }
     }
 
@@ -123,7 +123,7 @@ public class OSSUtil {
     public Set<String> batchListHeadImgNamesByRarity(String rarity) {
         // 1. 校验稀有度
         if (rarity == null || rarity.isEmpty()) {
-            log.warn("稀有度为空，返回空集合");
+            // log.warn("稀有度为空，返回空集合");
             return Collections.emptySet();
         }
 
@@ -163,10 +163,10 @@ public class OSSUtil {
             // 4. 更新缓存
             HEAD_IMG_CACHE.put(rarity, existImgNames);
             CACHE_UPDATE_TIME.put(rarity, currentTime);
-            log.info("批量查询稀有度[{}]的头像，共找到{}个文件，已缓存", rarity, existImgNames.size());
+            // log.info("批量查询稀有度[{}]的头像，共找到{}个文件，已缓存", rarity, existImgNames.size());
 
         } catch (OSSException e) {
-            log.error("OSS批量查询头像失败（目录：{}）", ossDirPrefix, e);
+            // log.error("OSS批量查询头像失败（目录：{}）", ossDirPrefix, e);
             existImgNames = Collections.emptySet();
         }
 
@@ -186,7 +186,7 @@ public class OSSUtil {
             URL url = client.generatePresignedUrl(bucket, this.objectName, expiration);
             return url.toString();
         } catch (OSSException oe) {
-            log.error("生成预签名URL失败（bucket：{}，object：{}）", this.bucketName, this.objectName, oe);
+            // log.error("生成预签名URL失败（bucket：{}，object：{}）", this.bucketName, this.objectName, oe);
             throw oe;
         }
     }
@@ -196,23 +196,18 @@ public class OSSUtil {
      */
     public void uploadImage(String imgUrl, String head_name, String bucketName) throws IOException, ClientException {
         OSS client = getSingletonOssClient();
-        try {
-            String targetBucket = bucketName != null ? bucketName : DEFAULT_BUCKET_NAME;
-            // 检查对象是否已存在
-            if (doesObjectExist(client, targetBucket, head_name)) {
-                log.info("对象已存在，无需上传：{}", head_name);
-                return;
-            }
-            // 上传逻辑
-            URL url = new URL(imgUrl);
-            try (InputStream inputStream = url.openStream()) { // 自动关闭流
-                PutObjectRequest putObjectRequest = new PutObjectRequest(targetBucket, this.objectName, inputStream);
-                client.putObject(putObjectRequest);
-                log.info("图片上传成功：{}", this.objectName);
-            }
-        } catch (OSSException oe) {
-            log.error("上传图片失败（bucket：{}，object：{}）", bucketName, this.objectName, oe);
-            throw oe;
+        String targetBucket = bucketName != null ? bucketName : DEFAULT_BUCKET_NAME;
+        // 检查对象是否已存在
+        if (doesObjectExist(client, targetBucket, head_name)) {
+            // log.info("对象已存在，无需上传：{}", head_name);
+            return;
+        }
+        // 上传逻辑
+        URL url = new URL(imgUrl);
+        try (InputStream inputStream = url.openStream()) { // 自动关闭流
+            PutObjectRequest putObjectRequest = new PutObjectRequest(targetBucket, this.objectName, inputStream);
+            client.putObject(putObjectRequest);
+            // log.info("图片上传成功：{}", this.objectName);
         }
     }
 
@@ -224,7 +219,7 @@ public class OSSUtil {
             String bucket = bucketName != null ? bucketName : DEFAULT_BUCKET_NAME;
             return ossClient.doesObjectExist(bucket, head_name);
         } catch (OSSException e) {
-            log.error("检查OSS对象是否存在失败（bucket：{}，object：{}）", bucketName, head_name, e);
+            // log.error("检查OSS对象是否存在失败（bucket：{}，object：{}）", bucketName, head_name, e);
             return false;
         }
     }
@@ -247,7 +242,7 @@ public class OSSUtil {
             URL url = client.generatePresignedUrl(bucket, this.objectName, expiration);
             return url.openStream();
         } catch (OSSException oe) {
-            log.error("获取图片输入流失败（bucket：{}，object：{}）", this.bucketName, this.objectName, oe);
+            // log.error("获取图片输入流失败（bucket：{}，object：{}）", this.bucketName, this.objectName, oe);
             throw oe;
         }
     }
@@ -256,39 +251,10 @@ public class OSSUtil {
     public static void clearHeadImgCache(String rarity) {
         HEAD_IMG_CACHE.remove(rarity);
         CACHE_UPDATE_TIME.remove(rarity);
-        log.info("已清理稀有度[{}]的头像缓存", rarity);
+        // log.info("已清理稀有度[{}]的头像缓存", rarity);
     }
 
-    // ==================== getter/setter（保留原有，支持动态修改配置）====================
     public String getEndpoint() {
         return endpoint;
-    }
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public String getBucketName() {
-        return bucketName;
-    }
-
-    public void setBucketName(String bucketName) {
-        this.bucketName = bucketName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public String getObjectName() {
-        return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
     }
 }

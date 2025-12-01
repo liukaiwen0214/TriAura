@@ -26,7 +26,8 @@ public class TEST {
                 .region("cn-beijing")
                 .build();
         OSSUtil ossUtil = new OSSUtil();
-        System.out.println(ossUtil.doesObjectExist(ossClient,"triaura","Shikigami/HeadImg/UR/1.png"));
+        boolean exists = ossUtil.doesObjectExist(ossClient,"triaura","Shikigami/HeadImg/UR/1.png");
+        // 可以在这里添加适当的日志记录，而不是直接输出到控制台
     }
 
 }
