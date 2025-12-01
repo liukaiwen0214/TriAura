@@ -245,6 +245,7 @@
                     <option value="SR">SR</option>
                     <option value="SSR">SSR</option>
                     <option value="SP">SP</option>
+                    <option value="UR">UR</option>
                 </select>
             </div>
 

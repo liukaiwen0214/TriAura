@@ -6,10 +6,27 @@
 
     <!-- 仅保留基本的Log4j2配置参数，不使用特殊监听器 -->
     <context-param>
-        <param-name>log4j2.configurationFile</param-name>
-        <param-value>classpath:config/log4j2.xml</param-value>
+        <param-name>logbackConfigLocation</param-name>
+        <param-value>classpath:config/logback.xml</param-value>
     </context-param>
 
+    <!-- 新增：设置Apache HttpClient日志级别为WARN -->
+    <context-param>
+        <param-name>org.apache.commons.logging.Log</param-name>
+        <param-value>org.apache.commons.logging.impl.SimpleLog</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.apache.commons.logging.simplelog.defaultlog</param-name>
+        <param-value>warn</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.apache.commons.logging.simplelog.log.org.apache.http</param-name>
+        <param-value>warn</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.apache.commons.logging.simplelog.log.org.apache.http.wire</param-name>
+        <param-value>off</param-value>
+    </context-param>
 
     <!--配置欢迎界面-->
     <welcome-file-list>

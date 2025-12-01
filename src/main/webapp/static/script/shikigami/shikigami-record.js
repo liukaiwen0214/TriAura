@@ -553,7 +553,6 @@ const ShikigamiTable = {
     showEditDialog(id) {
         const shikigami = this.state.data.find(item => item.shikigami_id === parseInt(id));
         if (!shikigami) return;
-
         this.currentEditId = shikigami.shikigami_id; // 保存当前编辑ID
 
         // 填充表单数据
@@ -572,13 +571,22 @@ const ShikigamiTable = {
         }
 
         // 设置头像
-        if (shikigami.head_image) {
-            const avatarUrl = shikigami.head_image.startsWith('http')
-                ? shikigami.head_image
-                : `${this.state.baseUrl}${shikigami.head_image}`;
-            this.editAvatarImage.src = avatarUrl;
-        } else {
-            this.editAvatarImage.src = `${this.state.baseUrl}/static/images/default-avatar.png`;
+        // if (shikigami.head_image) {
+        //     const avatarUrl = shikigami.head_image.startsWith('http')
+        //         ? shikigami.head_image
+        //         : `${this.state.baseUrl}${shikigami.head_image}`;
+        //     this.editAvatarImage.src = avatarUrl;
+        //     console.log('设置头像URL:', shikigami.head_image);
+        // } else {
+        //     this.editAvatarImage.src = `${this.state.baseUrl}/static/images/default-avatar.png`;
+        // }
+        if(shikigami.head_image && shikigami.head_image !== 'null' && shikigami.head_image !== ''){
+            this.editAvatarImage.src = requestUrl+shikigami.head_image;
+        }else {
+            // 如果是空使用名称第一个字作为头像
+            const firstChar = shikigami.name ? shikigami.name[0] : 'A';
+            // 生成文字头像
+            this.editAvatarImage.src = this.generateTextAvatar(firstChar, shikigami.rarity);
         }
 
         // 重置文件上传
@@ -645,11 +653,24 @@ const ShikigamiTable = {
 
         // 模拟保存操作（实际项目中替换为API调用）
         setTimeout(() => {
-            this.updateShikigamiData(formData); // 更新数据
-            this.renderTable();                 // 刷新表格
-            this.hideEditDialog();              // 隐藏对话框
-            this.hideLoading();                 // 隐藏加载状态
-            alert('保存成功！');
+            fetch(requestUrl + '/shikigami/shikigami-update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            }).then(response => response.json())
+            .then(data => {
+                if (data.code === 200) {
+                    this.updateShikigamiData(formData); // 更新数据
+                    this.renderTable();                 // 刷新表格
+                    this.hideEditDialog();              // 隐藏对话框
+                    this.hideLoading();                 // 隐藏加载状态
+                    alert('保存成功！');
+                } else {
+                    alert('保存失败：' + data.msg);
+                }
+            });
         }, 500);
     },
 
@@ -752,6 +773,62 @@ const ShikigamiTable = {
                 </div>
             `;
         }
+    },
+    // ------------------------------
+    // 工具函数 - 辅助功能
+    // ------------------------------
+
+    /**
+     * 生成文字头像
+     * @param {String} text - 要显示的文字
+     * @param {String} rarity - 稀有度，用于确定背景颜色
+     * @returns {String} Base64格式的图片URL
+     */
+    generateTextAvatar(text, rarity) {
+        // 创建Canvas元素
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // 设置画布尺寸
+        canvas.width = 120;
+        canvas.height = 120;
+
+        // 根据稀有度设置背景颜色
+        const bgColor = this.getRarityColor(rarity);
+
+        // 绘制背景
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // 设置文字样式
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 100px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        // 绘制文字
+        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+        // 转换为Base64
+        return canvas.toDataURL('image/png');
+    },
+
+    /**
+     * 根据稀有度获取颜色
+     * @param {String} rarity - 稀有度
+     * @returns {String} 十六进制颜色值
+     */
+    getRarityColor(rarity) {
+        const rarityColors = {
+            'N': '#9E9E9E',    // 灰色
+            'R': '#4CAF50',    // 绿色
+            'SR': '#2196F3',   // 蓝色
+            'SSR': '#9C27B0',  // 紫色
+            'SP': '#FF9800',   // 橙色
+            'UR': '#F44336'    // 红色
+        };
+
+        return rarityColors[rarity] || '#607D8B'; // 默认蓝灰色
     },
 
     /**

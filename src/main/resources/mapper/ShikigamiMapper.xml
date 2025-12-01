@@ -16,12 +16,17 @@
         <result property="update_time" column="update_time"/>
     </resultMap>
     <insert id="batchInsertShikigami" parameterType="java.util.List">
-        insert into shikigami (shikigami_id, name, rarity,cv, release_date, head_image, create_time, update_time)
+        insert into shikigami (shikigami_id, name, rarity,cv, release_date, head_image, create_time, update_time, interactive, material_type)
         values
         <foreach collection="shikigamis" item="shikigami" separator=",">
-            (#{shikigami.shikigami_id}, #{shikigami.name}, #{shikigami.rarity}, #{shikigami.cv}, #{shikigami.release_date}, #{shikigami.head_image}, #{shikigami.create_time}, #{shikigami.update_time})
+            (#{shikigami.shikigami_id}, #{shikigami.name}, #{shikigami.rarity}, #{shikigami.cv}, #{shikigami.release_date}, #{shikigami.head_image}, #{shikigami.create_time}, #{shikigami.update_time}, #{shikigami.interactive}, #{shikigami.material_type})
         </foreach>
     </insert>
+    <update id="updateShikigami" parameterType="com.triauras.entity.Shikigami">
+        update shikigami
+        set name = #{name}, rarity = #{rarity}, cv = #{cv}, release_date = #{release_date}, update_time = #{update_time}
+        where shikigami_id = #{shikigami_id}
+    </update>
     <select id="findShikigamiById" resultType="java.lang.Integer">
         select count(*) from shikigami where shikigami_id = #{shikigamiId}
     </select>

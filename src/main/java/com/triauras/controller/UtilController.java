@@ -1,7 +1,7 @@
 package com.triauras.controller;
 
 import com.aliyun.oss.ClientException;
-import com.triauras.utils.OSSImageUtil;
+import com.triauras.utils.OSSUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,18 +30,18 @@ public class UtilController {
     public void proxyImage(@PathVariable String rarity, @PathVariable String fileName, HttpServletResponse response) {
         try {
             // 初始化OSS图片工具
-            OSSImageUtil ossImageUtil = new OSSImageUtil(
+            OSSUtil ossUtil = new OSSUtil(
                     "oss-cn-beijing.aliyuncs.com",
                     "cn-beijing", "triaura",
                     "Shikigami/HeadImg/" + rarity + "/" + fileName
             );
-            
+
             // 获取图片输入流并写入响应
-            try (InputStream in = ossImageUtil.getImageInputStream()) {
+            try (InputStream in = ossUtil.getImageInputStream()) {
                 // 设置响应内容类型
                 String contentType = getContentType(fileName);
                 response.setContentType(contentType);
-                
+
                 // 将图片数据写入响应输出流
                 OutputStream out = response.getOutputStream();
                 byte[] buffer = new byte[4096];
@@ -53,7 +53,6 @@ public class UtilController {
             }
         } catch (ClientException e) {
             // 处理OSS客户端异常
-            System.out.println("ClientException: " + e.getMessage());
             log.error("从OSS获取图片时出错: {}", fileName, e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } catch (IOException | com.aliyuncs.exceptions.ClientException e) {

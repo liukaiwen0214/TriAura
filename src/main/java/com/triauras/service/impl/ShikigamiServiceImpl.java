@@ -7,9 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.triauras.entity.Shikigami;
 import com.triauras.mapper.ShikigamiMapper;
 import com.triauras.service.ShikigamiService;
-import com.triauras.utils.OSSImageUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.triauras.utils.OSSUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -28,8 +28,9 @@ import java.io.*;
  */
 @Service
 public class ShikigamiServiceImpl implements ShikigamiService {
-    private static final Logger logger = LogManager.getLogger(ShikigamiServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShikigamiServiceImpl.class);
     private final ShikigamiMapper shikigamiMapper;
+
     /**
      * 构造函数，依赖注入式神映射器
      *
@@ -46,11 +47,13 @@ public class ShikigamiServiceImpl implements ShikigamiService {
      */
     @Override
     public int fetchAndSaveShikigamiList() {
-        String StoryUrlStr = "https://yys.res.netease.com/pc/zt/20161108171335/data/shishen/";
+        String ShisHenUrl = "https://yys.res.netease.com/pc/zt/20161108171335/js/app/all_shishen.json";
+        String StoryUrlStr = "https://g37simulator.webapp.163.com/get_hero_story?heroid=";
+        String InteractiveMaterial_typeUrl = "https://g37simulator.webapp.163.com/get_heroid_list?rarity=0&page=1&per_page=500";
         try {
             logger.info("开始获取式神信息");
             // 发送HTTP请求获取式神列表数据
-            String response = sendGetRequest(StoryUrlStr);
+            String response = sendGetRequest(ShisHenUrl);
             ObjectMapper mapper = new ObjectMapper();
             ObjectMapper storyMapper = new ObjectMapper();
             JsonNode node = mapper.readTree(response);
@@ -61,11 +64,11 @@ public class ShikigamiServiceImpl implements ShikigamiService {
                 // 遍历每个式神节点，构建式神对象
                 for (JsonNode item : node) {
                     Shikigami shikigami = new Shikigami();
-                    
+
                     // 设置式神基本信息
                     if (item.has("id")) {
                         shikigami.setShikigami_id(Integer.parseInt(item.get("id").asText()));
-                        shikigami.setHead_image(Integer.parseInt(item.get("id").asText()) + ".png"); 
+                        shikigami.setHead_image(Integer.parseInt(item.get("id").asText()) + ".png");
                     }
                     if (item.has("name")) {
                         shikigami.setName(item.get("name").asText());
@@ -74,7 +77,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
                         String level = item.get("level").asText();
                         shikigami.setRarity(level);
                     }
-                    
+
                     // 获取式神详细信息（声优）
                     String storyResponse = sendGetRequest(StoryUrlStr + shikigami.getShikigami_id());
                     JsonNode storyNode = storyMapper.readTree(storyResponse);
@@ -84,9 +87,19 @@ public class ShikigamiServiceImpl implements ShikigamiService {
                             shikigami.setCv(dataNode.get("cv").asText());
                         }
                     }
-
+                    String interactiveMaterial_typeResponse = sendGetRequest(InteractiveMaterial_typeUrl);
+                    JsonNode interactiveMaterial_typeNode = storyMapper.readTree(interactiveMaterial_typeResponse);
+                    if (interactiveMaterial_typeNode.has("data")) {
+                        JsonNode dataNode = interactiveMaterial_typeNode.get("data").get(shikigami.getShikigami_id().toString());
+                        if (dataNode.has("interactive")) {
+                            shikigami.setInteractive(dataNode.get("interactive").asInt());
+                        }
+                        if (dataNode.has("material_type")) {
+                            shikigami.setMaterial_type(dataNode.get("material_type").asInt());
+                        }
+                    }
                     // 设置默认值和时间戳
-                    shikigami.setRelease_date(LocalDate.now()); 
+                    shikigami.setRelease_date(LocalDate.now());
                     shikigami.setCreate_time(LocalDateTime.now());
                     shikigami.setUpdate_time(LocalDateTime.now());
                     shikigamis.add(shikigami);
@@ -127,6 +140,14 @@ public class ShikigamiServiceImpl implements ShikigamiService {
     @Override
     public List<Shikigami> findAllShikigami() {
         return shikigamiMapper.findAllShikigami();
+    }
+
+    @Override
+    public int updateShikigami(Shikigami shikigami) {
+        logger.info("执行更新式神操作，式神ID: {}", shikigami.getShikigami_id());
+        // 设置更新时间
+        shikigami.setUpdate_time(LocalDateTime.now());
+        return shikigamiMapper.updateShikigami(shikigami);
     }
 
     /**
@@ -187,7 +208,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
      */
     @Override
     public String downloadAndUploadImageById(String imgUrl, String head_name, String bucketName, String rarity) {
-        OSSImageUtil ossImageUtil = new OSSImageUtil(
+        OSSUtil ossUtil = new OSSUtil(
                 "https://oss-cn-beijing.aliyuncs.com",
                 "cn-beijing",
                 bucketName,
@@ -195,7 +216,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
         );
         try {
             // 下载并上传图片到OSS
-            ossImageUtil.uploadImage(imgUrl, head_name, bucketName);
+            ossUtil.uploadImage(imgUrl, head_name, bucketName);
         } catch (IOException | ClientException e) {
             throw new RuntimeException(e);
         }

@@ -53,4 +53,12 @@ public class Shikigami extends BaseEntity {
      * 记录更新时间
      */
     private LocalDateTime update_time;
+    /**
+     * 式神是否可交互
+     */
+    private Integer interactive;
+    /**
+     * 式神素材类型
+     */
+    private Integer material_type;
 }

@@ -45,6 +45,8 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public ResultVO<Map<String, Object>> login(@Valid @RequestBody Users users, HttpSession session) {
+        // 请求入口日志
+        log.info("【请求开始】用户登录, 参数: {}", users.toString());
         long startTime = System.currentTimeMillis();
         try {
             log.info("用户登录请求 - 邮箱: {}", users.getEmail());

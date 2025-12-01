@@ -7,10 +7,6 @@
         <!-- 开启驼峰命名转换 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!-- 开启日志，使用Log4j2 -->
-        <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <setting name="logImpl" value="SLF4J"/>
     </settings>
-    <!-- 实体类别名配置 -->
-    <typeAliases>
-        <package name="com.triauras.entity"/>
-    </typeAliases>
 </configuration>

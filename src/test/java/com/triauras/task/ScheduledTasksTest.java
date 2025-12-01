@@ -1,6 +1,6 @@
 package com.triauras.task;
 
-import org.apache.logging.log4j.core.config.Scheduled;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
@@ -11,7 +11,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 
 
 /**
@@ -29,6 +28,7 @@ class ScheduledTasksTest {
 
     @Test
     public void testRunScheduledTask() {
+        logger.info("Running test");
         // 立即执行定时任务
         shikigamiScheduledTask.ScheduledTaskForShikigami();
     }

@@ -4,7 +4,8 @@ import com.aliyuncs.exceptions.ClientException;
 import com.triauras.entity.Users;
 import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
-import com.triauras.utils.OSSImageUtil;
+import com.triauras.utils.OSSUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
  * 用户服务实现类
  * 负责用户登录、注册等核心业务逻辑
  */
+@Slf4j
 @Service
 public class UserServiceImpl implements UsersService {
     private final UsersMapper usersMapper;
@@ -37,10 +39,11 @@ public class UserServiceImpl implements UsersService {
      */
     @Override
     public Users loginByEmail(String email, String password) {
+        log.debug("【业务处理】用户登录, email: {}",email);
         // 根据邮箱查询用户
         Users users = usersMapper.selectByEmail(email);
         // 初始化OSS图片工具，用于获取头像URL
-        OSSImageUtil ossImageUtil = new OSSImageUtil(
+        OSSUtil ossUtil = new OSSUtil(
                 "https://oss-cn-beijing.aliyuncs.com",
                 "cn-beijing",
                 "triaura",
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UsersService {
         String avatarUrl;
         try {
             // 获取OSS预签名URL
-            avatarUrl = ossImageUtil.getImageUrl();
+            avatarUrl = ossUtil.getImageUrl();
         } catch (ClientException e) {
             throw new RuntimeException(e);
         }
@@ -60,7 +63,8 @@ public class UserServiceImpl implements UsersService {
             logger.log(java.util.logging.Level.INFO, "用户密码错误");
             return null;
         }
-        System.out.println(users.getAvatar_url());
+        // 更新最后登录时间
+        log.debug("【业务完成】用户登录, email: {}", email);
         return users;
     }
 
@@ -98,6 +102,7 @@ public class UserServiceImpl implements UsersService {
             logger.log(java.util.logging.Level.INFO, "注册用户失败");
             return "注册失败，请稍后重试";
         }
+        log.debug("【业务完成】用户注册, email: {}", users.getEmail());
         return "注册成功";
     }
 }
