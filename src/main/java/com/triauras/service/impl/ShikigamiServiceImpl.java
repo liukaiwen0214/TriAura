@@ -1,13 +1,11 @@
 package com.triauras.service.impl;
 
 
-import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.triauras.entity.Shikigami;
 import com.triauras.mapper.ShikigamiMapper;
 import com.triauras.service.ShikigamiService;
-import com.triauras.utils.OSSUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.io.*;
 
 /**
  * 式神服务实现类
@@ -128,7 +125,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
      * @return 1表示存在，0表示不存在
      */
     @Override
-    public int findShikigamiById(int shikigamiId) {
+    public Shikigami findShikigamiById(int shikigamiId) {
         return shikigamiMapper.findShikigamiById(shikigamiId);
     }
 
@@ -186,7 +183,7 @@ public class ShikigamiServiceImpl implements ShikigamiService {
     public int batchSaveShikigamis(List<Shikigami> shikigamis) {
         for (Shikigami shikigami : shikigamis) {
             // 检查式神是否已存在，避免重复插入
-            if (shikigamiMapper.findShikigamiById(shikigami.getShikigami_id()) != 0) {
+            if (shikigamiMapper.findShikigamiById(shikigami.getShikigami_id()) != null) {
                 logger.info("重复式神ID: {} 不添加到数据库", shikigami.getShikigami_id());
             } else {
                 // 单个插入，避免批量插入的复杂性
@@ -207,13 +204,9 @@ public class ShikigamiServiceImpl implements ShikigamiService {
      */
     @Override
     public String downloadAndUploadImageById(String imgUrl, String head_name, String bucketName, String rarity) {
-        OSSUtil ossUtil = new OSSUtil();
-        try {
-            // 下载并上传图片到OSS
-            ossUtil.uploadImage(imgUrl, head_name, bucketName);
-        } catch (IOException | ClientException e) {
-            throw new RuntimeException(e);
-        }
+//        OSSUtils ossUtil = new OSSUtils();
+        // 下载并上传图片到OSS
+//            ossUtil.uploadImage(imgUrl, head_name, bucketName);
         return null;
     }
 }

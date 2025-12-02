@@ -6,7 +6,7 @@
     <settings>
         <!-- 开启驼峰命名转换 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
-        <!-- 开启日志，使用Log4j2 -->
+        <!-- 开启日志，使用SLF4J -->
         <setting name="logImpl" value="SLF4J"/>
     </settings>
 </configuration>

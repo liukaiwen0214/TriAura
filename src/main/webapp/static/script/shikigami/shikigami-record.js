@@ -358,7 +358,6 @@ const ShikigamiTable = {
         const startIndex = (this.state.currentPage - 1) * this.state.pageSize;
         const endIndex = Math.min(startIndex + this.state.pageSize, this.state.data.length);
         const pageData = this.state.data.slice(startIndex, endIndex);
-
         pageData.forEach(item => {
             const row = document.createElement('tr');
             row.className = `rarity-${item.rarity.toLowerCase()}`;
@@ -369,7 +368,7 @@ const ShikigamiTable = {
                 <td>${item.type}</td>
                 <td>${item.cv}</td>
                 <td>${item.region}</td>
-                <td>${item.release_date.split(' ')[0]}</td>
+                <td>${item.release_date ? item.release_date.split(' ')[0] : '-'}</td>
                 <td class="action-cell">
                     <button class="action-btn view" data-id="${item.shikigami_id}">查看</button>
                     <button class="action-btn edit" data-id="${item.shikigami_id}">编辑</button>
@@ -640,15 +639,14 @@ const ShikigamiTable = {
 
         // 收集表单数据
         const formData = {
-            shikigami_id: this.currentEditId,
-            name: this.editName.value.trim(),
-            rarity: this.editRarity.value,
-            type: this.editType.value,
-            cv: this.editCv.value.trim(),
-            region: this.editRegion.value.trim(),
-            releaseDate: this.editReleaseDate.value
+            shikigami_id: this.currentEditId,//式神ID
+            name: this.editName.value.trim(),//式神名称
+            rarity: this.editRarity.value,//稀有度
+            type: this.editType.value,//式神类型
+            cv: this.editCv.value.trim(),//声优
+            region: this.editRegion.value.trim(),//地区
+            release_date: this.editReleaseDate.value//发布日期
         };
-
         this.showLoading();
 
         // 模拟保存操作（实际项目中替换为API调用）
@@ -662,13 +660,14 @@ const ShikigamiTable = {
             }).then(response => response.json())
             .then(data => {
                 if (data.code === 200) {
-                    this.updateShikigamiData(formData); // 更新数据
-                    this.renderTable();                 // 刷新表格
-                    this.hideEditDialog();              // 隐藏对话框
-                    this.hideLoading();                 // 隐藏加载状态
+                    this.loadData();
+                    this.hideEditDialog();
                     alert('保存成功！');
                 } else {
                     alert('保存失败：' + data.msg);
+                    this.renderTable();                 // 刷新表格
+                    this.hideEditDialog();              // 隐藏对话框
+                    this.hideLoading();                 // 隐藏加载状态
                 }
             });
         }, 500);

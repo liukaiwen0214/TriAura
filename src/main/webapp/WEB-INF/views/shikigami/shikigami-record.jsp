@@ -26,7 +26,7 @@
 </div>
 
 <%-- 设置当前活动页面为生活管理 --%>
-<% request.setAttribute("activePage", "life"); %>
+<% request.setAttribute("activePage", "game"); %>
 
 <%-- 引入导航栏组件 --%>
 <%@ include file="/WEB-INF/views/navbar.jsp" %>

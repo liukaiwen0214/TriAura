@@ -3,7 +3,7 @@ package com.triauras.controller;
 
 import com.triauras.entity.Shikigami;
 import com.triauras.service.ShikigamiService;
-import com.triauras.utils.OSSUtil;
+import com.triauras.utils.OSSUtils;
 import com.triauras.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -48,28 +48,20 @@ public class ShikigamiController {
      * 获取所有式神信息
      */
 
-    private final OSSUtil ossUtil = new OSSUtil();
+    private final OSSUtils ossUtil = new OSSUtils();
 
     @RequestMapping("/all-content")
     @ResponseBody
     public ResultVO<List<Shikigami>> getAllShikigami() {
         long startTime = System.currentTimeMillis();
-        // 1. 数据库查询所有式神（建议优化：分页/索引）
+        // 1. 数据库查询所有式神
         List<Shikigami> shikigamis = shikigamiService.findAllShikigami();
-        log.info("查询式神数量：{}，耗时：{}ms", shikigamis.size(), System.currentTimeMillis() - startTime);
-
         if (shikigamis.isEmpty()) {
-             log.info("无式神数据，直接返回");
+            log.info("无式神数据，直接返回");
             return ResultVO.success(shikigamis);
         }
-
         // 2. 提取所有不重复的稀有度（减少批量查询次数）
-        Set<String> rarities = shikigamis.stream()
-                .map(Shikigami::getRarity)
-                .filter(Objects::nonNull)
-                .filter(rarity -> !rarity.isEmpty())
-                .collect(Collectors.toSet());
-
+        Set<String> rarities = shikigamis.stream().map(Shikigami::getRarity).filter(Objects::nonNull).filter(rarity -> !rarity.isEmpty()).collect(Collectors.toSet());
         // 3. 批量查询每个稀有度下的存在的头像（1次/稀有度，缓存1小时）
         Map<String, Set<String>> rarityImgMap = new HashMap<>();
         for (String rarity : rarities) {
@@ -77,12 +69,10 @@ public class ShikigamiController {
             rarityImgMap.put(rarity, existImgNames);
         }
         log.info("批量查询OSS头像（稀有度数量：{}），耗时：{}ms", rarities.size(), System.currentTimeMillis() - System.currentTimeMillis());
-
         // 4. 遍历式神，本地判断头像是否存在（无远程调用）
         shikigamis.forEach(shikigami -> {
             String rarity = shikigami.getRarity();
             String headImg = shikigami.getHead_image();
-
             // 头像为空，直接设为null
             if (headImg == null || headImg.isEmpty()) {
                 shikigami.setHead_image(null);
@@ -97,12 +87,11 @@ public class ShikigamiController {
             } else {
                 // 头像不存在：设为null并日志
                 shikigami.setHead_image(null);
-                log.info("式神ID为{}的头像不存在（稀有度：{}，文件名：{}）",
-                        shikigami.getShikigami_id(), rarity, headImg);
+                log.info("式神ID为{}的头像不存在（稀有度：{}，文件名：{}）", shikigami.getShikigami_id(), rarity, headImg);
             }
         });
 
-         log.info("获取所有式神总耗时：{}ms", System.currentTimeMillis() - startTime);
+        log.info("获取所有式神总耗时：{}ms", System.currentTimeMillis() - startTime);
         return ResultVO.success(shikigamis);
     }
 
@@ -114,23 +103,45 @@ public class ShikigamiController {
      */
     @RequestMapping(value = "/shikigami-update", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVO<Integer> updateShikigami(@RequestBody Shikigami shikigami) {
-         log.info("接收到更新式神请求，式神ID: {}, 名称: {}, 稀有度: {}",
-                 shikigami.getShikigami_id(), shikigami.getName(), shikigami.getRarity());
-
+    public ResultVO<Shikigami> updateShikigami(@RequestBody Shikigami shikigami) {
+        log.info("接收到更新式神请求，式神ID: {}, 名称: {}, 稀有度: {},声优: {},发布日期: {}",
+                shikigami.getShikigami_id(), shikigami.getName(), shikigami.getRarity(),
+                shikigami.getCv(), shikigami.getRelease_date());
         // 验证必要字段
         if (shikigami.getShikigami_id() == null) {
-            // log.error("更新式神失败：式神ID不能为空");
+            log.error("更新式神失败：式神ID不能为空");
             return ResultVO.error("式神ID不能为空");
         }
-
+        Shikigami existingShikigami = shikigamiService.findShikigamiById(shikigami.getShikigami_id());
+        log.info("查询到的式神信息：{}", existingShikigami);
+        if (existingShikigami == null) {
+            log.error("更新式神失败：式神ID不存在");
+            return ResultVO.error("式神ID不存在");
+        }
+        if (shikigami.getInteractive() == null) {
+            log.info("更新式神：{}，未指定互动状态，保持原状态：{}", shikigami.getShikigami_id(), existingShikigami.getInteractive());
+            shikigami.setInteractive(existingShikigami.getInteractive());
+        }
+        if (shikigami.getMaterial_type() == null) {
+            log.info("更新式神：{}，未指定素材类型，保持原类型：{}", shikigami.getShikigami_id(), existingShikigami.getMaterial_type());
+            shikigami.setMaterial_type(existingShikigami.getMaterial_type());
+        }
+        if (shikigami.getCreate_time() == null) {
+            log.info("更新式神：{}，未指定创建时间，保持原时间：{}", shikigami.getShikigami_id(), existingShikigami.getCreate_time());
+            shikigami.setCreate_time(existingShikigami.getCreate_time());
+        }
         try {
             // 更新式神信息
             int updatedRows = shikigamiService.updateShikigami(shikigami);
-             log.info("更新式神成功，影响行数: {}", updatedRows);
-            return ResultVO.success(updatedRows);
+            if (updatedRows > 0) {
+                log.info("更新式神成功，式神ID: {}", shikigami.getShikigami_id());
+            } else {
+                log.info("更新式神失败，未影响任何行，式神ID: {}", shikigami.getShikigami_id());
+                return ResultVO.error("更新式神失败：未影响任何行");
+            }
+            return ResultVO.success(shikigami);
         } catch (Exception e) {
-             log.error("更新式神失败，式神ID: {}", shikigami.getShikigami_id(), e);
+            log.error("更新式神失败，式神ID: {}", shikigami.getShikigami_id(), e);
             return ResultVO.error("更新式神失败: " + e.getMessage());
         }
     }

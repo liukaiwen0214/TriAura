@@ -17,7 +17,7 @@ public interface ShikigamiService {
     * @param shikigamiId 式神ID
     * @return 式神对象
     */
-   int findShikigamiById(int shikigamiId);
+   Shikigami findShikigamiById(int shikigamiId);
    /**
     * 查询所有式神信息
     *

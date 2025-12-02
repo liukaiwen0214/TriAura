@@ -4,17 +4,11 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <!-- Logback配置会自动加载，无需手动配置 -->
-
-
-
     <!--配置欢迎界面-->
     <welcome-file-list>
-        <!--                            <welcome-file>index.jsp</welcome-file>-->
+        <!--<welcome-file>index.jsp</welcome-file>-->
         <welcome-file>/WEB-INF/views/login.jsp</welcome-file>
     </welcome-file-list>
-
-
 
     <!-- 加载Spring容器 -->
     <context-param>

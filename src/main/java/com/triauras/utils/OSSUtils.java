@@ -4,10 +4,12 @@ import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
-import com.aliyun.oss.common.auth.CredentialsProviderFactory;
 import com.aliyun.oss.common.auth.CredentialsProvider;
+import com.aliyun.oss.common.auth.CredentialsProviderFactory;
 import com.aliyun.oss.common.comm.SignVersion;
-import com.aliyun.oss.model.*;
+import com.aliyun.oss.model.ListObjectsRequest;
+import com.aliyun.oss.model.OSSObjectSummary;
+import com.aliyun.oss.model.ObjectListing;
 import com.aliyuncs.exceptions.ClientException;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,20 +19,18 @@ import java.net.URL;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * OSS图片工具类（优化：单例客户端复用 + 批量查询功能）
- */
+
 @Slf4j
-public class OSSUtil {
-
-    // ==================== 新增：静态配置（请根据你的实际配置修改）====================
+public class OSSUtils {
+    // ==================== 新增：静态配置 ====================
+    // ENDPOINT：对象存储服务的访问域名
     private static final String DEFAULT_ENDPOINT = "https://oss-cn-beijing.aliyuncs.com";
+    // REGION：OSS区域ID
     private static final String DEFAULT_REGION = "cn-beijing";
+    // BUCKET_NAME：默认存储桶名称
     private static final String DEFAULT_BUCKET_NAME = "triaura";
+    // HEAD_IMG_ROOT_DIR：头像存储根目录（OSS路径）
     private static final String HEAD_IMG_ROOT_DIR = "Shikigami/HeadImg/"; // 头像根目录
-
-    // ==================== 新增：单例OSS客户端（线程安全，全局复用）====================
-    private static volatile OSS ossClient;
     // 缓存：稀有度 -> 存在的头像文件名集合（避免重复批量查询）
     private static final Map<String, Set<String>> HEAD_IMG_CACHE = new ConcurrentHashMap<>();
     // 缓存过期时间：1小时（3600秒，可调整）
@@ -38,14 +38,16 @@ public class OSSUtil {
     // 缓存更新时间：key=稀有度，value=最后更新时间戳
     private static final Map<String, Long> CACHE_UPDATE_TIME = new ConcurrentHashMap<>();
 
-    // ==================== 新增：单例客户端初始化（核心复用逻辑）====================
+    private static OSS ossClient;
 
     /**
      * 获取单例OSS客户端（全局唯一，线程安全）
+     *
+     * @return OSS客户端实例
      */
-    private static OSS getSingletonOssClient() {
+    public static OSS getSingletonOssClient() {
         if (ossClient == null) {
-            synchronized (OSSUtil.class) {
+            synchronized (OSSUtils.class) {
                 if (ossClient == null) {
                     try {
                         // 加载凭证（只初始化一次）
@@ -65,9 +67,9 @@ public class OSSUtil {
                                 .credentialsProvider(credentialsProvider)
                                 .clientConfiguration(config)
                                 .build();
-                        // log.info("OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN");
+                        log.info("OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN");
                     } catch (ClientException e) {
-                        // log.error("OSS 单例客户端初始化失败", e);
+                        log.error("OSS 单例客户端初始化失败", e);
                         throw new RuntimeException("OSS客户端初始化异常", e);
                     }
                 }
@@ -76,8 +78,22 @@ public class OSSUtil {
         return ossClient;
     }
 
-
-    // ==================== 新增：批量查询指定稀有度的所有头像文件名（核心优化）====================
+    /**
+     * 根据传入的对象名称（包含路径），生成对应的对象URL
+     * 如：/Avatar/IMG_5423.jpeg
+     *
+     * @param objectName 对象名称（包含路径）
+     * @return 对象URL
+     */
+    public String getObjectUrl(String objectName) {
+        // 设置预签名URL过期时间，单位为毫秒。本示例以设置过期时间为1小时为例。
+        Date expiration = new Date(new Date().getTime() + 3600 * 1000L);
+        // 生成以GET方法访问的预签名URL。本示例没有额外请求头，其他人可以直接通过浏览器访问相关内容。
+        URL url = getSingletonOssClient().generatePresignedUrl(DEFAULT_BUCKET_NAME, objectName, expiration);
+        System.out.println(url);
+        log.info("获取{}的URL成功,url:{}", objectName, url.toString());
+        return url.toString();
+    }
 
     /**
      * 批量查询 OSS 中「指定稀有度」目录下的所有头像文件名（缓存优化）
@@ -88,6 +104,7 @@ public class OSSUtil {
     public Set<String> batchListHeadImgNamesByRarity(String rarity) {
         // 1. 校验稀有度
         if (rarity == null || rarity.isEmpty()) {
+            log.warn("稀有度为空，返回空集合");
             // log.warn("稀有度为空，返回空集合");
             return Collections.emptySet();
         }
@@ -103,7 +120,6 @@ public class OSSUtil {
         Set<String> existImgNames = new HashSet<>();
         String ossDirPrefix = HEAD_IMG_ROOT_DIR + rarity + "/"; // OSS目录前缀（如：Shikigami/HeadImg/SSR/）
         OSS client = getSingletonOssClient();
-
         try {
             ListObjectsRequest request = new ListObjectsRequest(DEFAULT_BUCKET_NAME)
                     .withPrefix(ossDirPrefix) // 只查询该目录下的文件
@@ -128,79 +144,26 @@ public class OSSUtil {
             // 4. 更新缓存
             HEAD_IMG_CACHE.put(rarity, existImgNames);
             CACHE_UPDATE_TIME.put(rarity, currentTime);
-            // log.info("批量查询稀有度[{}]的头像，共找到{}个文件，已缓存", rarity, existImgNames.size());
+            log.info("批量查询稀有度[{}]的头像，共找到{}个文件，已缓存", rarity, existImgNames.size());
 
         } catch (OSSException e) {
-            // log.error("OSS批量查询头像失败（目录：{}）", ossDirPrefix, e);
+            log.error("OSS批量查询头像失败（目录：{}）", ossDirPrefix, e);
             existImgNames = Collections.emptySet();
         }
-
         return existImgNames;
     }
-
-    // ==================== 改造原有方法：复用单例客户端（不再每次创建/关闭）====================
-
-    /**
-     * 获取OSS图片预签名URL（改造：复用单例客户端）
-     */
-    public String getImageUrl() throws ClientException {
-        OSS client = getSingletonOssClient();
-        try {
-            // 优先使用实例的bucketName，无则用默认
-            Date expiration = new Date(System.currentTimeMillis() + 36000 * 1000L); // 10小时过期
-            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, expiration);
-            return url.toString();
-        } catch (OSSException oe) {
-            log.error("生成预签名URL失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
-            throw oe;
-        }
-    }
-
-    /**
-     * 从指定URL下载图片并上传到OSS（改造：复用单例客户端）
-     */
-    public void uploadImage(String imgUrl, String head_name, String bucketName) throws IOException, ClientException {
-        OSS client = getSingletonOssClient();
-        String targetBucket = bucketName != null ? bucketName : DEFAULT_BUCKET_NAME;
-        // 检查对象是否已存在
-        if (doesObjectExist(client, targetBucket, head_name)) {
-            // log.info("对象已存在，无需上传：{}", head_name);
-            return;
-        }
-        // 上传逻辑
-        URL url = new URL(imgUrl);
-        try (InputStream inputStream = url.openStream()) { // 自动关闭流
-            PutObjectRequest putObjectRequest = new PutObjectRequest(targetBucket, HEAD_IMG_ROOT_DIR + head_name, inputStream);
-            client.putObject(putObjectRequest);
-            log.info("图片上传成功：{}", HEAD_IMG_ROOT_DIR + head_name);
-        }
-    }
-
-    /**
-     * 检查OSS对象是否存在（保留原有逻辑，支持外部传入客户端）
-     */
-    public boolean doesObjectExist(OSS ossClient, String bucketName, String head_name) {
-        try {
-            String bucket = bucketName != null ? bucketName : DEFAULT_BUCKET_NAME;
-            return ossClient.doesObjectExist(bucket, head_name);
-        } catch (OSSException e) {
-            // log.error("检查OSS对象是否存在失败（bucket：{}，object：{}）", bucketName, head_name, e);
-            return false;
-        }
-    }
-
 
     /**
      * 获取OSS图片输入流（改造：复用单例客户端）
      */
-    public InputStream getImageInputStream() throws ClientException, IOException {
+    public InputStream getImageInputStream(String objectName) throws ClientException, IOException {
         OSS client = getSingletonOssClient();
         try {
             Date expiration = new Date(System.currentTimeMillis() + 36000 * 1000L);
-            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, expiration);
+            URL url = client.generatePresignedUrl(DEFAULT_BUCKET_NAME, objectName, expiration);
             return url.openStream();
         } catch (OSSException oe) {
-            log.error("获取图片输入流失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, HEAD_IMG_ROOT_DIR, oe);
+            log.error("获取图片输入流失败（bucket：{}，object：{}）", DEFAULT_BUCKET_NAME, objectName, oe);
             throw oe;
         }
     }
