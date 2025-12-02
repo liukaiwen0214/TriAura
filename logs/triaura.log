@@ -1,0 +1,133 @@
+2025-12-02 09:44:37.862 [main] INFO  com.triauras.LogTest - 测试SLF4J日志 - 信息级别
+2025-12-02 09:44:37.862 [main] DEBUG com.triauras.LogTest - 测试SLF4J日志 - 调试级别
+2025-12-02 09:44:37.862 [main] WARN  com.triauras.LogTest - 测试SLF4J日志 - 警告级别
+2025-12-02 09:44:37.862 [main] ERROR com.triauras.LogTest - 测试SLF4J日志 - 错误级别
+2025-12-02 09:44:37.862 [main] ERROR com.triauras.LogTest - 发生除零错误
+java.lang.ArithmeticException: / by zero
+	at com.triauras.LogTest.main(LogTest.java:17)
+2025-12-02 09:44:37.863 [main] INFO  com.triauras.LogTest - 日志测试完成
+2025-12-02 09:45:00.930 [main] INFO  com.triauras.LogTest - 测试SLF4J日志 - 信息级别
+2025-12-02 09:45:00.931 [main] DEBUG com.triauras.LogTest - 测试SLF4J日志 - 调试级别
+2025-12-02 09:45:00.931 [main] WARN  com.triauras.LogTest - 测试SLF4J日志 - 警告级别
+2025-12-02 09:45:00.931 [main] ERROR com.triauras.LogTest - 测试SLF4J日志 - 错误级别
+2025-12-02 09:45:00.931 [main] ERROR com.triauras.LogTest - 发生除零错误
+java.lang.ArithmeticException: / by zero
+	at com.triauras.LogTest.main(LogTest.java:17)
+2025-12-02 09:45:00.932 [main] INFO  com.triauras.LogTest - 日志测试完成
+2025-12-02 09:46:40.369 [com.triauras.LogTest.main()] INFO  com.triauras.LogTest - 测试SLF4J日志 - 信息级别
+2025-12-02 09:46:40.369 [com.triauras.LogTest.main()] DEBUG com.triauras.LogTest - 测试SLF4J日志 - 调试级别
+2025-12-02 09:46:40.369 [com.triauras.LogTest.main()] WARN  com.triauras.LogTest - 测试SLF4J日志 - 警告级别
+2025-12-02 09:46:40.369 [com.triauras.LogTest.main()] ERROR com.triauras.LogTest - 测试SLF4J日志 - 错误级别
+2025-12-02 09:46:40.369 [com.triauras.LogTest.main()] ERROR com.triauras.LogTest - 发生除零错误
+java.lang.ArithmeticException: / by zero
+	at com.triauras.LogTest.main(LogTest.java:17)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.executeMainMethod(AbstractExecJavaBase.java:402)
+	at org.codehaus.mojo.exec.ExecJavaMojo.executeMainMethod(ExecJavaMojo.java:142)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.doExecClassLoader(AbstractExecJavaBase.java:377)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.lambda$execute$0(AbstractExecJavaBase.java:287)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+2025-12-02 09:46:40.370 [com.triauras.LogTest.main()] INFO  com.triauras.LogTest - 日志测试完成
+2025-12-02 09:46:52.791 [main] INFO  com.triauras.LogTest - 测试SLF4J日志 - 信息级别
+2025-12-02 09:46:52.792 [main] DEBUG com.triauras.LogTest - 测试SLF4J日志 - 调试级别
+2025-12-02 09:46:52.792 [main] WARN  com.triauras.LogTest - 测试SLF4J日志 - 警告级别
+2025-12-02 09:46:52.792 [main] ERROR com.triauras.LogTest - 测试SLF4J日志 - 错误级别
+2025-12-02 09:46:52.792 [main] ERROR com.triauras.LogTest - 发生除零错误
+java.lang.ArithmeticException: / by zero
+	at com.triauras.LogTest.main(LogTest.java:17)
+2025-12-02 09:46:52.792 [main] INFO  com.triauras.LogTest - 日志测试完成
+2025-12-02 10:34:52.245 [main] INFO  com.triauras.utils.OSSUtils - OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN
+2025-12-02 10:34:52.278 [main] INFO  com.triauras.utils.OSSUtils - 获取/Avatar/IMG_5423.jpeg的URL成功,url:https://triaura.oss-cn-beijing.aliyuncs.com/%2FAvatar%2FIMG_5423.jpeg?x-oss-date=20251202T023452Z&x-oss-expires=3598&x-oss-signature-version=OSS4-HMAC-SHA256&x-oss-credential=LTAI5tRLxNYh5CzVApnp3ARX%2F20251202%2Fcn-beijing%2Foss%2Faliyun_v4_request&x-oss-signature=fe09ed941bbf26c484c341aeb119a95cb671bc5830723ad51485e744d4cd9954
+2025-12-02 10:34:52.278 [main] INFO  com.triauras.LogTest - Generated Object URL: https://triaura.oss-cn-beijing.aliyuncs.com/%2FAvatar%2FIMG_5423.jpeg?x-oss-date=20251202T023452Z&x-oss-expires=3598&x-oss-signature-version=OSS4-HMAC-SHA256&x-oss-credential=LTAI5tRLxNYh5CzVApnp3ARX%2F20251202%2Fcn-beijing%2Foss%2Faliyun_v4_request&x-oss-signature=fe09ed941bbf26c484c341aeb119a95cb671bc5830723ad51485e744d4cd9954
+2025-12-02 10:36:06.320 [main] INFO  com.triauras.utils.OSSUtils - OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN
+2025-12-02 10:36:06.351 [main] INFO  com.triauras.utils.OSSUtils - 获取Avatar/IMG_5423.jpeg的URL成功,url:https://triaura.oss-cn-beijing.aliyuncs.com/Avatar/IMG_5423.jpeg?x-oss-date=20251202T023606Z&x-oss-expires=3598&x-oss-signature-version=OSS4-HMAC-SHA256&x-oss-credential=LTAI5tRLxNYh5CzVApnp3ARX%2F20251202%2Fcn-beijing%2Foss%2Faliyun_v4_request&x-oss-signature=92100ef7e87fb892c87b3ec1ab8d7b2d7432aced9c6b527e7a6a61849f6014dd
+2025-12-02 10:40:42.455 [main] INFO  com.triauras.utils.OSSUtils - OSS 单例客户端初始化成功，已强制设置Apache HttpClient日志级别为WARN
+2025-12-02 10:40:42.467 [main] INFO  com.triauras.utils.OSSUtils - 获取Avatar/IMG_5423.jpeg的URL成功,url:https://triaura.oss-cn-beijing.aliyuncs.com/Avatar/IMG_5423.jpeg?x-oss-date=20251202T024042Z&x-oss-expires=3599&x-oss-signature-version=OSS4-HMAC-SHA256&x-oss-credential=LTAI5tRLxNYh5CzVApnp3ARX%2F20251202%2Fcn-beijing%2Foss%2Faliyun_v4_request&x-oss-signature=8697e75a75b40a2e6d46027b4417ddca75e70b4b5cd85ece6eda5d43011de768
+2025-12-02 12:52:03.466 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/com/triauras/mapper/ShikigamiMapper.class]
+2025-12-02 12:52:03.467 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/com/triauras/mapper/UsersMapper.class]
+2025-12-02 12:52:03.468 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'shikigamiMapper' and 'com.triauras.mapper.ShikigamiMapper' mapperInterface
+2025-12-02 12:52:03.469 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'shikigamiMapper'.
+2025-12-02 12:52:03.469 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'usersMapper' and 'com.triauras.mapper.UsersMapper' mapperInterface
+2025-12-02 12:52:03.470 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'usersMapper'.
+2025-12-02 12:52:03.614 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [config/mybatis-config.xml]'
+2025-12-02 12:52:03.643 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/mapper/ShikigamiMapper.xml]'
+2025-12-02 12:52:03.648 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/mapper/UsersMapper.xml]'
+2025-12-02 12:52:03.739 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 16 mappings in 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping'
+2025-12-02 12:52:03.756 [main] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-02 12:52:03.923 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-02 12:52:03.942 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-02 12:52:03.953 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-02 12:52:03.968 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/**] in 'org.springframework.web.servlet.handler.SimpleUrlHandlerMapping#0'
+2025-12-02 12:52:03.977 [main] INFO  o.s.s.config.TaskSchedulerRouter - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-02 12:52:04.388 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2025-12-02 12:52:04.390 [main] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@660b1a9d] was not registered for synchronization because synchronization is not active
+2025-12-02 12:52:04.420 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-12-02 12:52:05.830 [main] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [com.alibaba.druid.pool.DruidStatementConnection@4e4894d] will not be managed by Spring
+2025-12-02 12:52:05.835 [main] DEBUG c.t.m.S.findShikigamiById - ==>  Preparing: select * from shikigami where shikigami_id = ?
+2025-12-02 12:52:05.849 [main] DEBUG c.t.m.S.findShikigamiById - ==> Parameters: 1(Integer)
+2025-12-02 12:52:05.896 [main] DEBUG c.t.m.S.findShikigamiById - <==      Total: 1
+2025-12-02 12:52:05.897 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@660b1a9d]
+2025-12-02 12:52:05.897 [main] INFO  c.t.s.impl.ShikigamiServiceImpl - 执行更新式神操作，式神ID: 1
+2025-12-02 12:52:05.897 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2025-12-02 12:52:05.897 [main] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6121a7dd] was not registered for synchronization because synchronization is not active
+2025-12-02 12:52:05.898 [main] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [com.alibaba.druid.pool.DruidStatementConnection@4e4894d] will not be managed by Spring
+2025-12-02 12:52:05.898 [main] DEBUG c.t.m.S.updateShikigami - ==>  Preparing: update shikigami set name = ?, rarity = ?, cv = ?, release_date = ?, create_time = ?, interactive = ?, material_type = ?, update_time = ? where shikigami_id = ?;
+2025-12-02 12:52:05.899 [main] DEBUG c.t.m.S.updateShikigami - ==> Parameters: 测试(String), SSR(String), 悠木碧/栾祥瑾(String), 2025-12-01(LocalDate), 2025-12-01T12:14:46(LocalDateTime), 1(Integer), null, 2025-12-02T12:52:05.897856(LocalDateTime), 1(Integer)
+2025-12-02 12:52:06.329 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@6121a7dd]
+2025-12-02 12:52:06.358 [SpringContextShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-12-02 12:52:06.373 [SpringContextShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-12-02 12:53:27.885 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/com/triauras/mapper/ShikigamiMapper.class]
+2025-12-02 12:53:27.887 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/com/triauras/mapper/UsersMapper.class]
+2025-12-02 12:53:27.887 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'shikigamiMapper' and 'com.triauras.mapper.ShikigamiMapper' mapperInterface
+2025-12-02 12:53:27.888 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'shikigamiMapper'.
+2025-12-02 12:53:27.888 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'usersMapper' and 'com.triauras.mapper.UsersMapper' mapperInterface
+2025-12-02 12:53:27.888 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'usersMapper'.
+2025-12-02 12:53:28.014 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [config/mybatis-config.xml]'
+2025-12-02 12:53:28.037 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/mapper/ShikigamiMapper.xml]'
+2025-12-02 12:53:28.042 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/mapper/UsersMapper.xml]'
+2025-12-02 12:53:28.122 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 16 mappings in 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping'
+2025-12-02 12:53:28.139 [main] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-02 12:53:28.282 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-02 12:53:28.303 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-02 12:53:28.312 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-02 12:53:28.318 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/**] in 'org.springframework.web.servlet.handler.SimpleUrlHandlerMapping#0'
+2025-12-02 12:53:28.325 [main] INFO  o.s.s.config.TaskSchedulerRouter - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-02 12:53:28.583 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2025-12-02 12:53:28.585 [main] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@200d1a3d] was not registered for synchronization because synchronization is not active
+2025-12-02 12:53:28.601 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-12-02 12:53:29.537 [main] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [com.alibaba.druid.pool.DruidStatementConnection@6682e6a5] will not be managed by Spring
+2025-12-02 12:53:29.542 [main] DEBUG c.t.m.S.findShikigamiById - ==>  Preparing: select * from shikigami where shikigami_id = ?
+2025-12-02 12:53:29.563 [main] DEBUG c.t.m.S.findShikigamiById - ==> Parameters: 1(Integer)
+2025-12-02 12:53:29.669 [main] DEBUG c.t.m.S.findShikigamiById - <==      Total: 1
+2025-12-02 12:53:29.669 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@200d1a3d]
+2025-12-02 12:53:29.671 [main] INFO  c.t.s.impl.ShikigamiServiceImplTest - 查询到的式神信息: Shikigami(shikigami_id=1, name=测试, rarity=UR, cv=悠木碧/栾祥瑾, release_date=2025-12-01, head_image=1.png, create_time=2025-12-01T12:14:46, update_time=2025-12-01T12:14:46, interactive=1, material_type=null)
+2025-12-02 12:53:29.679 [SpringContextShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-12-02 12:53:29.682 [SpringContextShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-12-02 12:55:13.945 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/com/triauras/mapper/ShikigamiMapper.class]
+2025-12-02 12:55:13.946 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Identified candidate component class: file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/com/triauras/mapper/UsersMapper.class]
+2025-12-02 12:55:13.947 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'shikigamiMapper' and 'com.triauras.mapper.ShikigamiMapper' mapperInterface
+2025-12-02 12:55:13.947 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'shikigamiMapper'.
+2025-12-02 12:55:13.947 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Creating MapperFactoryBean with name 'usersMapper' and 'com.triauras.mapper.UsersMapper' mapperInterface
+2025-12-02 12:55:13.947 [main] DEBUG o.m.s.mapper.ClassPathMapperScanner - Enabling autowire by type for MapperFactoryBean with name 'usersMapper'.
+2025-12-02 12:55:14.075 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed configuration file: 'class path resource [config/mybatis-config.xml]'
+2025-12-02 12:55:14.099 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/mapper/ShikigamiMapper.xml]'
+2025-12-02 12:55:14.104 [main] DEBUG o.m.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/Users/liukaiwen/Documents/个人文件/网站内容/TriAura/target/classes/mapper/UsersMapper.xml]'
+2025-12-02 12:55:14.187 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 16 mappings in 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping'
+2025-12-02 12:55:14.205 [main] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-02 12:55:14.352 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-02 12:55:14.373 [main] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2025-12-02 12:55:14.382 [main] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2025-12-02 12:55:14.388 [main] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/**] in 'org.springframework.web.servlet.handler.SimpleUrlHandlerMapping#0'
+2025-12-02 12:55:14.398 [main] INFO  o.s.s.config.TaskSchedulerRouter - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-02 12:55:14.659 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Creating a new SqlSession
+2025-12-02 12:55:14.660 [main] DEBUG org.mybatis.spring.SqlSessionUtils - SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1796b2d4] was not registered for synchronization because synchronization is not active
+2025-12-02 12:55:14.675 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-12-02 12:55:15.080 [main] DEBUG o.m.s.t.SpringManagedTransaction - JDBC Connection [com.alibaba.druid.pool.DruidStatementConnection@50f4b83d] will not be managed by Spring
+2025-12-02 12:55:15.084 [main] DEBUG c.t.m.S.findShikigamiById - ==>  Preparing: select * from shikigami where shikigami_id = ?
+2025-12-02 12:55:15.099 [main] DEBUG c.t.m.S.findShikigamiById - ==> Parameters: 1(Integer)
+2025-12-02 12:55:15.147 [main] DEBUG c.t.m.S.findShikigamiById - <==      Total: 1
+2025-12-02 12:55:15.148 [main] DEBUG org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@1796b2d4]
+2025-12-02 12:55:15.149 [main] INFO  c.t.s.impl.ShikigamiServiceImplTest - 查询到的式神信息: Shikigami(shikigami_id=1, name=测试, rarity=UR, cv=悠木碧/栾祥瑾, release_date=2025-12-01, head_image=1.png, create_time=2025-12-01T12:14:46, update_time=2025-12-01T12:14:46, interactive=1, material_type=101)
+2025-12-02 12:55:15.158 [SpringContextShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-12-02 12:55:15.164 [SpringContextShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
