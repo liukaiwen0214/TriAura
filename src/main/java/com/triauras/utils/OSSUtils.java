@@ -38,7 +38,7 @@ public class OSSUtils {
     // 缓存更新时间：key=稀有度，value=最后更新时间戳
     private static final Map<String, Long> CACHE_UPDATE_TIME = new ConcurrentHashMap<>();
 
-    private static OSS ossClient;
+    private static volatile OSS ossClient;
 
     /**
      * 获取单例OSS客户端（全局唯一，线程安全）
