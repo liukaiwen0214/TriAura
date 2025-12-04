@@ -1078,8 +1078,8 @@ const API_MONITOR = {
     // 输出统计信息
     logStats() {
         console.log('📊 API统计:', {
-            总请求: this.stats.total,
-            成功: this.stats.success,
+            TOTAL_REQUEST: this.stats.total,
+            SUCCESS: this.stats.success,
             失败: this.stats.failed,
             降级: this.stats.fallback,
             成功率: `${this.getSuccessRate()}%`,
@@ -2365,6 +2365,7 @@ async function exportResourceData() {
 
 // 更新洞察卡片
 function closeResourceModal() {
+    console.info('关闭资源详情弹窗');
     const modal = document.getElementById('resourceDetailModal');
     modal.classList.remove('show');
 
