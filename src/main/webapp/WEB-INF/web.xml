@@ -51,4 +51,11 @@
         <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- 配置web片段绝对排序，解决spring_web片段冲突 -->
+    <absolute-ordering>
+        <name>spring_web</name>
+        <others/>
+    </absolute-ordering>
+
 </web-app>

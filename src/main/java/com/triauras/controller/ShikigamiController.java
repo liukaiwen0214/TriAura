@@ -145,4 +145,14 @@ public class ShikigamiController {
             return ResultVO.error("更新式神失败: " + e.getMessage());
         }
     }
+
+    /**
+     * 跳转到式神首页
+     *
+     * @return 式神首页视图名称
+     */
+    @RequestMapping(value = "/home")
+    public String shikigamiHome() {
+        return "shikigami/shikigami-home";
+    }
 }

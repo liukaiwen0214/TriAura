@@ -14,8 +14,8 @@
 
     <!-- ==================== 版本属性配置 ==================== -->
     <properties>
-        <!-- Spring Framework 6.2.11（修复CVE-2025-41242路径遍历漏洞和CVE-2025-41249注解检测漏洞） -->
-        <spring.version>6.2.11</spring.version>
+        <!-- Spring Framework 6.1.17（修复CVE-2025系列漏洞） -->
+        <spring.version>6.1.17</spring.version>
         <spring.security.version>6.4.6</spring.security.version>
 
         <!-- MyBatis 持久层框架 -->
@@ -40,15 +40,14 @@
         <lombok.version>1.18.30</lombok.version>
         <fastjson2.version>2.0.59</fastjson2.version>
 
+
         <!-- AOP相关：升级AspectJ到最新版 -->
         <aspectj.version>1.9.21</aspectj.version>
 
         <!-- 测试框架 -->
         <junit.version>5.10.0</junit.version>
         <mockito.version>5.8.0</mockito.version>
-        <!-- 日志框架 -->
-        <slf4j.version>2.0.16</slf4j.version>
-        <logback.version>1.5.19</logback.version>
+
         <!-- 编译配置 -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -231,45 +230,6 @@
             <version>3.0.0</version>
         </dependency>
 
-        <!-- ========== 日志框架 ========== -->
-        <!-- SLF4J API -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- Logback 实现 -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <!-- 桥接：将commons-logging重定向到SLF4J -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- 桥接：将java.util.logging重定向到SLF4J -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
-
-        <!-- 桥接：将log4j重定向到SLF4J -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
         <!-- ========== AOP相关：升级AspectJ到最新版 ========== -->
         <dependency>
             <groupId>org.aspectj</groupId>
@@ -308,7 +268,6 @@
         </dependency>
 
         <!-- 修复漏洞：强制指定安全版本的commons-lang3 -->
-        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -367,14 +326,6 @@
                 <exclusion>
                     <groupId>com.aliyun</groupId>
                     <artifactId>aliyun-java-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.ini4j</groupId>
-                    <artifactId>ini4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.bouncycastle</groupId>
-                    <artifactId>bcprov-jdk15on</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

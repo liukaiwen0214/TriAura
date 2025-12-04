@@ -76,6 +76,10 @@
                     <i class="fas fa-chevron-down dropdown-icon"></i>
                 </a>
                 <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item" data-url="/shikigami/home">
+                        <i class="fas fa-coins"></i>
+                        <span>首页</span>
+                    </a>
                     <a href="#" class="dropdown-item"  data-url="/shikigami/record">
                         <i class="fas fa-list"></i>
                         <span>式神录</span>
@@ -91,10 +95,6 @@
                     <a href="#" class="dropdown-item">
                         <i class="fas fa-dungeon"></i>
                         <span>副本管理</span>
-                    </a>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-coins"></i>
-                        <span>资源收益</span>
                     </a>
                 </div>
             </div>
