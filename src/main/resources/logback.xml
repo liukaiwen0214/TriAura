@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!-- 定义变量 -->
-    <property name="LOG_HOME" value="./logs" />
-    <property name="CONSOLE_LOG_PATTERN" value="${CONSOLE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight([%thread]) %highlight(%-5level) %cyan(%logger{36}) - %msg%n}" />
+    <!-- 定义变量 - 使用绝对路径避免路径问题 -->
+    <property name="LOG_HOME" value="/Users/liukaiwen/Desktop/个人文件/网站内容/TriAura/logs"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n}"/>
     <property name="FILE_LOG_PATTERN" value="${FILE_LOG_PATTERN:-%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n}" />
 
-    <!-- 控制台输出 - 带颜色 -->
+    <!-- 控制台输出 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
@@ -13,7 +14,7 @@
         </encoder>
     </appender>
 
-    <!-- 文件输出 - 无颜色 -->
+    <!-- 文件输出 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/triaura.log</file>
         <encoder>
@@ -28,28 +29,38 @@
         </rollingPolicy>
     </appender>
 
-    <!-- 配置日志级别 -->
+    <!-- Tomcat相关包的日志配置 -->
+    <logger name="org.apache.catalina" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="org.apache.coyote" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <logger name="org.apache.tomcat" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <!-- Spring相关包的日志配置 -->
+    <logger name="org.springframework" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <!-- 业务包日志配置 -->
     <logger name="com.triauras" level="DEBUG" additivity="false">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </logger>
 
-    <!-- Spring框架日志 -->
-    <logger name="org.springframework" level="INFO" />
-    <logger name="org.springframework.web" level="DEBUG" />
-    <logger name="org.springframework.security" level="DEBUG" />
-
-    <!-- MyBatis日志 -->
-    <logger name="org.mybatis" level="DEBUG" />
-    <logger name="java.sql" level="DEBUG" />
-    <logger name="java.sql.Connection" level="DEBUG" />
-    <logger name="java.sql.Statement" level="DEBUG" />
-    <logger name="java.sql.PreparedStatement" level="DEBUG" />
-    <logger name="java.sql.ResultSet" level="DEBUG" />
-
-    <!-- 根日志配置 -->
+    <!-- 根日志配置 - 确保所有日志都输出到文件 -->
     <root level="INFO">
         <appender-ref ref="CONSOLE" />
         <appender-ref ref="FILE" />
     </root>
+
 </configuration>

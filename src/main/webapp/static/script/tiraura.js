@@ -710,7 +710,9 @@ async function getCurrentUserInfo() {
 
     window._lastUserInfoRequest = Date.now();
     try {
-        const response = await fetch(requestUrl + '/user/info');
+        const response = await fetch(requestUrl + '/user/info', {
+            credentials: 'include' // 允许浏览器发送cookie
+        });
         const data = await response.json();
         if (data.code === 200) {
             const user = data.data;

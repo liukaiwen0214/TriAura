@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 测试控制器
  * 用于开发环境下的快速测试，提供模拟登录等功能
@@ -30,25 +33,27 @@ public class TestController {
     /**
      * 模拟用户登录（用于测试）
      */
-    @PostMapping("/mock-logins")
+    @PostMapping("/mock-login")
     @ResponseBody
-    public ResultVO<Users> mockLogin(HttpSession session) {
-        // 创建模拟用户
-        Users mockUser = new Users();
-        mockUser.setId(1L);
-        mockUser.setUsername("testuser");
-        mockUser.setEmail("test@example.com");
-        mockUser.setAvatar_url("default_avatar.png");
-        mockUser.setCreated_at(java.time.LocalDateTime.now());
-        mockUser.setUpdated_at(java.time.LocalDateTime.now());
-        mockUser.setIs_active(true);
-
-        // 将模拟用户存入会话
-        session.setAttribute("user", mockUser);
-        System.out.println("模拟用户登录成功 - 用户名: " + mockUser.getUsername());
-        log.info("模拟用户登录成功 - 用户名: {}", mockUser.getUsername());
-
-        return ResultVO.success(mockUser);
+    public ResultVO<Map<String, Object>> mockLogin(HttpSession session) {
+        Users user = new Users();
+        // 更新用户头像URL
+        user.setId(1L);
+        user.setUsername("测试");
+        user.setEmail("test@example.com");
+        user.setPassword("123456");
+        user.setAvatar_url("https://c-ssl.duitang.com/uploads/blog/202207/09/20220709150824_97667.jpg");
+        user.setTimezone("Asia/Shanghai");
+        user.setCurrency("CNY");
+        user.setLast_login_at(java.sql.Timestamp.valueOf(java.time.LocalDateTime.now()));
+        user.setIs_active(true);
+        // 将用户信息存入会话
+        session.setAttribute("user", user);
+        Map<String, Object> result = new HashMap<>();
+        result.put("user", user);
+        result.put("sessionId", session.getId());
+        log.info("用户登录成功 - 用户ID: {}, 用户名: {}", user.getId(), user.getUsername());
+        return ResultVO.success(result);
     }
 
     /**

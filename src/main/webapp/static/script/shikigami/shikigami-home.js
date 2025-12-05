@@ -1,15 +1,8 @@
-// 游戏管理首页JavaScript
-
-// ------------------------ 全局变量 ------------------------
-
 // 活动数据 - 更新为当前时间附近
 const today = new Date();
-const currentYear = today.getFullYear();
-const currentMonth = today.getMonth();
 
 // 彩虹色系定义 - 10种不同颜色，包含黑色
-const rainbowColors = [
-    '#000000', // 黑色
+const rainbowColors = ['#000000', // 黑色
     '#FF6B6B', // 红色
     '#4ECDC4', // 青色
     '#45B7D1', // 蓝色
@@ -21,65 +14,118 @@ const rainbowColors = [
     '#FFA07A'  // 浅鲑鱼色
 ];
 
-// 活动数组
-const activities = [
-    {
-        id: 'bai gui ye xing',
-        name: '百鬼夜行祭',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-08`,
-        color: rainbowColors[0]
-    },
-    {
-        id: 'shi shen ji jie',
-        name: '式神集结',
-        startDate: `${currentYear}-${String(currentMonth).padStart(2, '0')}-20`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-02`,
-        color: rainbowColors[1]
-    },
-    {
-        id: 'yu hun qiang hua',
-        name: '御魂强化',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-05`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-15`,
-        color: rainbowColors[2]
-    },
-    {
-        id: 'yin men tiao zhan',
-        name: '阴门挑战',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-10`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-20`,
-        color: rainbowColors[3]
-    },
-    {
-        id: 'jue xing ren wu',
-        name: '觉醒任务',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-12`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-18`,
-        color: rainbowColors[4]
-    },
-    {
-        id: 'dou ji sai ji',
-        name: '斗技赛季',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-01`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-25`,
-        color: rainbowColors[5]
-    },
-    {
-        id: 'yao guai tui zhi',
-        name: '妖怪退治',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-08`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-14`,
-        color: rainbowColors[6]
-    },
-    {
-        id: 'ting yuan tan suo',
-        name: '庭院探索',
-        startDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-15`,
-        endDate: `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-22`,
-        color: rainbowColors[7]
-    }
-];
+// 活动数组 - 更新为当前时间附近
+let activities = [{
+    activity_id: 111,
+    activity_name: '神眷召唤·新春限定',
+    activity_type: '限时召唤',
+    description: '新春特别召唤活动，限定SSR/SP式神概率UP，还有机会获得新年限定皮肤！',
+    activity_color: '#000000',
+    start_time: '2025-12-01 00:00:00',
+    end_time: '2025-12-15 23:59:59',
+    status: '进行中',
+    level_required: 15,
+    stamina_cost: 0,
+    cover_image: 'newyear_summon.jpg',
+    detail_image: 'newyear_summon_detail.jpg',
+    rule_text: '1. 活动期间所有玩家均可参与；2. 限定SSR/SP式神概率提升至2.5倍；3. 每100抽必得至少一个SP/SSR；4. 累计召唤次数可领取额外奖励',
+    reward_info: '{"召唤奖励": ["勾玉x1000", "蓝票x10", "御行达摩x1", "皮肤券x50"], "累计奖励": {"100抽": "随机SSR", "300抽": "指定SSR", "500抽": "限定皮肤"}}',
+    dungeon_id: 1,
+    is_repeatable: false,
+    max_participation: 100,
+    sort_order: 1,
+    is_hot: true,
+    create_time: '2025-11-25 10:00:00',
+    update_time: '2025-11-25 10:00:00'
+}, {
+    activity_id: 22222,
+    activity_name: '鬼王之宴·第二章',
+    activity_type: '剧情活动',
+    description: '续写京都传说，揭开鬼族背后的秘密，参与活动可获得限定头像框和插画',
+    activity_color: '#4600ff',
+    start_time: '2025-12-10 00:00:00',
+    end_time: '2025-12-25 23:59:59',
+    status: '未开始',
+    level_required: 20,
+    stamina_cost: null,
+    cover_image: 'story_chapter2.jpg',
+    detail_image: null,
+    rule_text: '1. 完成剧情任务解锁新章节；2. 收集活动道具兑换奖励；3. 每日完成指定任务可获得额外奖励',
+    reward_info: '{"任务奖励": ["御魂礼盒x5", "金币x50000", "五星白蛋x1"], "兑换商店": ["限定头像框", "插画·鬼王", "黑蛋碎片x10"]}',
+    dungeon_id: null,
+    is_repeatable: true,
+    max_participation: null,
+    sort_order: 2,
+    is_hot: false,
+    create_time: '2025-12-05 14:30:00',
+    update_time: '2025-12-05 14:30:00'
+}, {
+    activity_id: 333333,
+    activity_name: '妖气狂潮·百鬼塔',
+    activity_type: '爬塔活动',
+    description: '挑战百层妖塔，击败层层强敌，获取丰厚御魂和觉醒材料奖励',
+    activity_color: '#FFEAA7',
+    start_time: '2025-12-20 00:00:00',
+    end_time: '2026-01-05 23:59:59',
+    status: '未开始',
+    level_required: 25,
+    stamina_cost: 3,
+    cover_image: 'tower_challenge.jpg',
+    detail_image: 'tower_challenge_detail.jpg',
+    rule_text: '1. 每日可挑战10次；2. 每层挑战成功可获得奖励；3. 每10层有BOSS关卡；4. 首次通关可获得特殊奖励',
+    reward_info: '{"通关奖励": ["六星御魂", "金币x100000", "青吉鬼x50"], "排行榜奖励": {"前10名": "限定头像框", "前100名": "黑蛋x1", "前1000名": "勾玉x500"}}',
+    dungeon_id: 2,
+    is_repeatable: true,
+    max_participation: null,
+    sort_order: 3,
+    is_hot: true,
+    create_time: '2025-12-10 09:15:00',
+    update_time: '2025-12-10 09:15:00'
+}, {
+    activity_id: 44444,
+    activity_name: '超鬼王·铃鹿山来袭',
+    activity_type: '超鬼王',
+    description: '铃鹿山妖气冲天，超强鬼王降临！集结寮友共同讨伐，赢取丰厚奖励',
+    activity_color: '#DDA0DD',
+    start_time: '2025-12-08 00:00:00',
+    end_time: '2025-12-22 23:59:59',
+    status: '进行中',
+    level_required: 30,
+    stamina_cost: 30,
+    cover_image: 'super_demon.jpg',
+    detail_image: null,
+    rule_text: '1. 发现鬼王后可与寮友共享；2. 根据伤害量获得积分；3. 积分可兑换奖励；4. 个人和寮排名均有奖励',
+    reward_info: '{"积分兑换": ["黑蛋x1", "皮肤券x100", "六星太鼓x1", "勾玉x2000"], "排名奖励": {"个人前100": "限定头像框", "寮前10": "寮资金x50000"}}',
+    dungeon_id: 3,
+    is_repeatable: true,
+    max_participation: 50,
+    sort_order: 0,
+    is_hot: true,
+    create_time: '2025-12-01 16:45:00',
+    update_time: '2025-12-01 16:45:00'
+}, {
+    activity_id: 555555,
+    activity_name: '周年庆登录福利',
+    activity_type: '福利活动',
+    description: '庆祝阴阳师七周年，每日登录领取丰厚奖励',
+    activity_color: '#FFA07A',
+    start_time: '2025-11-20 00:00:00',
+    end_time: '2025-12-31 23:59:59',
+    status: '进行中',
+    level_required: 5,
+    stamina_cost: 0,
+    cover_image: 'anniversary_login.jpg',
+    detail_image: null,
+    rule_text: '活动期间每日登录游戏即可领取奖励，连续登录奖励更丰厚',
+    reward_info: '{"每日奖励": ["勾玉x100", "体力x100", "金币x10000"], "累计奖励": {"7天": "蓝票x3", "14天": "黑蛋碎片x5", "21天": "限定头像框"}}',
+    dungeon_id: null,
+    is_repeatable: true,
+    max_participation: null,
+    sort_order: 5,
+    is_hot: false,
+    create_time: '2025-11-15 11:20:00',
+    update_time: '2025-11-15 11:20:00'
+}];
 
 // 滑动相关变量
 let currentOffset = 0; // 当前偏移天数
@@ -99,37 +145,40 @@ let closeBtn = null;
 let cancelBtn = null;
 let saveBtn = null;
 
-// ------------------------ 页面初始化 ------------------------
+// =========================================
+// 系统初始化
+// =========================================
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function () {
-    // 异步执行健康检查，不阻塞页面初始化
-    performSystemHealthCheck().then(() => {
-        console.log('🎉 页面和API系统初始化完成');
-    });
-
     // 原有初始化逻辑
-    initializeGanttChart();
-    generateActivityList();
-    initializeCountdowns();
-    initializeTaskInteractions();
-    updateMonthDisplay();
-    initializeActivityInteractions();
-    initializeTaskModal();
-    initializeResourceModal();
-    initializeResourceCardEvents();
-    initializeResourceTabEvents();
+    initializeGanttChart();           // 初始化甘特图，显示活动时间轴
+    generateActivityList();           // 生成活动列表，展示所有式神活动
+    initializeCountdowns();           // 初始化倒计时功能，显示活动剩余时间
+    initializeTaskInteractions();     // 初始化任务交互功能，处理任务操作
+    updateMonthDisplay();             // 更新月份显示，同步当前时间信息
+    initializeActivityInteractions(); // 初始化活动交互功能，处理活动操作
+    initializeTaskModal();            // 初始化任务弹窗，用于添加/编辑任务
+    initializeResourceModal();        // 初始化资源弹窗，用于管理资源
+    initializeResourceCardEvents();   // 初始化资源卡片事件，处理卡片交互
+    initializeResourceTabEvents();    // 初始化资源标签页事件，处理标签切换
 });
 
 
-// ------------------------ 甘特图相关 ------------------------
+// =========================================
+// 1. 甘特图活动管理模块
+// 时间轴显示和活动调度
+// =========================================
 
 // 初始化甘特图
 function initializeGanttChart() {
+    retrieveAllActivities();
     generateTimelineHeader();
     generateActivityRows();
-    updateActivityBars();
+    updateActivityBars(); // 添加活动条位置更新
 }
+
+let startDate = new Date(today);
 
 // 生成时间轴头部
 function generateTimelineHeader() {
@@ -142,22 +191,22 @@ function generateTimelineHeader() {
     const days = [];
     const monthLabels = [];
 
-    // 计算起始日期
-    let startDate = new Date(today);
+    // 计算起始日期 - 创建新的日期对象避免修改全局变量
+    let viewStartDate = new Date(today);
     if (currentView === 'week') {
         // 周视图显示本周的7天，从周一到周日
         const dayOfWeek = today.getDay(); // 0是周日，1是周一
         const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-        startDate.setDate(today.getDate() - daysToMonday);
+        viewStartDate.setDate(today.getDate() - daysToMonday);
     } else {
-        // 月视图显示前后15天
-        startDate.setDate(today.getDate() - 15 + currentOffset);
+        // 月视图显示前后15天，加上当前偏移
+        viewStartDate.setDate(today.getDate() - 15 + currentOffset);
     }
 
     // 先生成月份标签数组
     for (let i = 0; i < daysToShow; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
+        const date = new Date(viewStartDate);
+        date.setDate(viewStartDate.getDate() + i);
         const dayNum = date.getDate();
         const month = date.getMonth();
         const year = date.getFullYear();
@@ -172,8 +221,8 @@ function generateTimelineHeader() {
 
     // 生成日期
     for (let i = 0; i < daysToShow; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
+        const date = new Date(viewStartDate);
+        date.setDate(viewStartDate.getDate() + i);
         const dayNum = date.getDate();
         const month = date.getMonth();
         const year = date.getFullYear();
@@ -209,31 +258,18 @@ function generateActivityRows() {
     let rowsHTML = '';
     activities.forEach((activity, index) => {
         // 为每个活动生成唯一ID
-        const activityId = activity.id || `activity-${index}`;
-        const start = new Date(activity.startDate);
-        const end = new Date(activity.endDate);
-        const startMonth = start.getMonth() + 1;
-        const startDay = start.getDate();
-        const endMonth = end.getMonth() + 1;
-        const endDay = end.getDate();
+        const activityId = activity.activity_id;
 
         rowsHTML += `
             <div class="activity-row">
                 <div class="timeline-track">
                     <div class="activity-bar" 
-                         style="background: ${activity.color};" 
+                         style="background: ${activity.activity_color};" 
                          data-id="${activityId}"
-                         data-start="${activity.startDate}" 
-                         data-end="${activity.endDate}" 
-                         data-name="${activity.name}">
-                        <span class="activity-bar-text">${activity.name}</span>
-                        <div class="activity-tooltip">
-                            <div class="tooltip-header">${activity.name}</div>
-                            <div class="tooltip-content">
-                                <p>开始时间：${startMonth}月${startDay}日</p>
-                                <p>结束时间：${endMonth}月${endDay}日</p>
-                            </div>
-                        </div>
+                         data-start="${activity.start_time}" 
+                         data-end="${activity.end_time}" 
+                         data-name="${activity.activity_name}">
+                        <span class="activity-bar-text">${activity.activity_name}</span>
                     </div>
                 </div>
             </div>
@@ -247,48 +283,93 @@ function generateActivityRows() {
 function updateActivityBars() {
     const today = new Date();
 
-    // 计算起始日期
-    let startDate = new Date(today);
+    // 计算起始日期 - 与 generateTimelineHeader 保持一致的逻辑
+    let viewStartDate = new Date(today);
     if (currentView === 'week') {
         // 周视图显示本周的7天，从周一到周日
         const dayOfWeek = today.getDay(); // 0是周日，1是周一
         const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-        startDate.setDate(today.getDate() - daysToMonday);
+        viewStartDate.setDate(today.getDate() - daysToMonday);
     } else {
-        // 月视图显示前后15天
-        startDate.setDate(today.getDate() - 15 + currentOffset);
+        // 月视图显示前后15天，加上当前偏移
+        viewStartDate.setDate(today.getDate() - 15 + currentOffset);
     }
 
     activities.forEach((activity, index) => {
-        const start = new Date(activity.startDate);
-        const end = new Date(activity.endDate);
+        // 将字符串日期转换为Date对象
+        const start = new Date(activity.start_time);
+        const end = new Date(activity.end_time);
 
-        // 计算活动持续天数（已注释，因为当前未使用）
-        // const daysDiff = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1; // +1 包含结束日
-        const startDiff = Math.max(0, Math.floor((start - startDate) / (1000 * 60 * 60 * 24)));
-        const endDiff = Math.min(daysToShow, Math.ceil((end - startDate) / (1000 * 60 * 60 * 24)));
+        // 计算活动相对于起始日期的天数差
+        const startDiff = Math.floor((start - viewStartDate) / (1000 * 60 * 60 * 24));
+        const endDiff = Math.ceil((end - viewStartDate) / (1000 * 60 * 60 * 24));
 
         // 计算活动条位置和宽度
-        let leftPercent = (startDiff / daysToShow) * 100;
-        let widthPercent = Math.max(1, ((endDiff - startDiff) / daysToShow) * 100);
+        let leftPercent, widthPercent;
 
-        // 确保活动条在可视范围内
-        if (startDiff < 0) {
+        if (startDiff >= daysToShow) {
+            // 活动在显示范围之后，不显示
             leftPercent = 0;
-            widthPercent = Math.max(1, ((endDiff) / daysToShow) * 100);
-        }
-        if (endDiff > daysToShow) {
-            widthPercent = Math.max(1, ((daysToShow - startDiff) / daysToShow) * 100);
+            widthPercent = 0;
+        } else if (endDiff <= 0) {
+            // 活动在显示范围之前，不显示
+            leftPercent = 0;
+            widthPercent = 0;
+        } else {
+            // 计算在可视范围内的位置和宽度
+            leftPercent = Math.max(0, startDiff / daysToShow) * 100;
+            widthPercent = Math.min(daysToShow, endDiff) / daysToShow * 100 - leftPercent;
+
+            // 如果活动开始时在显示范围之前
+            if (startDiff < 0) {
+                leftPercent = 0;
+                widthPercent = Math.min(daysToShow, endDiff) / daysToShow * 100;
+            }
+
+            // 确保宽度至少为1%（可见性）
+            widthPercent = Math.max(1, widthPercent);
         }
 
         // 使用唯一ID选择活动条
-        const activityId = activity.id || `activity-${index}`;
+        const activityId = activity.activity_id;
         const activityBar = document.querySelector(`[data-id="${activityId}"]`);
         if (activityBar) {
-            activityBar.style.left = `${leftPercent}%`;
-            activityBar.style.width = `${widthPercent}%`;
+            if (widthPercent > 0) {
+                activityBar.style.left = `${leftPercent}%`;
+                activityBar.style.width = `${widthPercent}%`;
+            } else {
+                // 如果活动不在当前显示范围内，隐藏活动条
+                activityBar.parentElement.parentElement.style.display = 'none';
+            }
         }
     });
+}
+
+//后端获取所有活动
+function retrieveAllActivities() {
+    fetch(requestUrl + '/shikigami/activities')
+        .then(response => response.json())
+        .then(data => {
+            // 检查数据是否为空
+            if (data && Array.isArray(data.data) && data.data.length > 0) {
+                // 如果后端返回的数据不为空，使用后端数据
+                activities = data.data;
+
+            } else {
+                // 如果后端返回的数据为空，保持原来地默认数据
+                console.info('后端数据为空，使用默认活动数据');
+            }
+            // 重新生成甘特图以反映数据变化
+            generateTimelineHeader();
+            generateActivityRows();
+            updateActivityBars();
+            generateActivityList();
+        })
+        .catch(error => {
+            console.error('获取活动失败:', error);
+            // 发生错误时也使用默认数据
+            console.info('获取活动失败，使用默认活动数据');
+        });
 }
 
 // 生成活动列表
@@ -296,16 +377,41 @@ function generateActivityList() {
     const listContainer = document.getElementById('activityListContainer');
     if (!listContainer) return;
 
+    // 计算当前视图的时间范围（与 updateActivityBars 保持一致）
+    const today = new Date();
+    let viewStartDate = new Date(today);
+
+    if (currentView === 'week') {
+        // 周视图显示本周的7天，从周一到周日
+        const dayOfWeek = today.getDay(); // 0是周日，1是周一
+        const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+        viewStartDate.setDate(today.getDate() - daysToMonday);
+    } else {
+        // 月视图显示前后15天，加上当前偏移
+        viewStartDate.setDate(today.getDate() - 15 + currentOffset);
+    }
+
+    const viewEndDate = new Date(viewStartDate.getTime() + (daysToShow - 1) * 24 * 60 * 60 * 1000);
+
+    // 过滤在当前视图时间范围内的活动
+    const visibleActivities = activities.filter(activity => {
+        const start = new Date(activity.start_time);
+        const end = new Date(activity.end_time);
+
+        // 活动开始时间在视图结束时间之前，且活动结束时间在视图开始时间之后
+        return start <= viewEndDate && end >= viewStartDate;
+    });
+
     let listHTML = '';
-    activities.forEach(activity => {
+    visibleActivities.forEach(activity => {
         listHTML += `
-            <div class="activity-list-item" data-id="${activity.id}" title="${activity.name}" style="background-color: ${activity.color};">
+            <div class="activity-list-item" data-id="${activity.activity_id}" title="${activity.activity_name}" style="background-color: ${activity.activity_color};">
                 <div class="activity-list-info">
                     <div class="activity-list-details">
-                        <h4 class="activity-list-name">${activity.name}</h4>
+                        <h4 class="activity-list-name">${activity.activity_name}</h4>
                     </div>
                     <div class="activity-list-actions">
-                        <button class="activity-delete-btn" onclick="deleteActivityFromList('${activity.id}')">
+                        <button class="activity-delete-btn" onclick="deleteActivityFromList('${activity.activity_id}')">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -345,28 +451,45 @@ function refreshGanttChart() {
     generateTimelineHeader();
     updateActivityBars();
     updateScrollbar();
+
+    // 为时间轴添加微动画
+    const timelineDays = document.querySelector('.timeline-days');
+    if (timelineDays) {
+        timelineDays.classList.add('fade-in');
+        setTimeout(() => {
+            timelineDays.classList.remove('fade-in');
+        }, 400);
+    }
 }
 
+// 更新进度条位置
 // 更新进度条位置
 function updateScrollbar() {
     const scrollbarThumb = document.getElementById('scrollbarThumb');
     if (!scrollbarThumb) return;
 
-    // 计算滑块位置和宽度
-    const totalRange = maxOffset * 2 + daysToShow;
-    const visibleRatio = daysToShow / totalRange;
-    const thumbWidth = Math.max(30, visibleRatio * 100);
+    // 确保currentOffset在有效范围内
+    if (currentOffset < -maxOffset) currentOffset = -maxOffset;
+    if (currentOffset > maxOffset) currentOffset = maxOffset;
 
-    // 计算滑块位置
-    const offsetRatio = (currentOffset + maxOffset) / (totalRange - daysToShow);
+    // 计算滑块位置和宽度
+    const totalRange = maxOffset * 2;
+    const visibleRatio = daysToShow / (totalRange + daysToShow);
+    const thumbWidth = Math.max(10, visibleRatio * 100);
+
+    // 计算滑块位置 (0%到100%)
+    const offsetRatio = (currentOffset + maxOffset) / totalRange;
     const thumbLeft = offsetRatio * (100 - thumbWidth);
 
     // 设置滑块样式
     scrollbarThumb.style.width = `${thumbWidth}%`;
-    scrollbarThumb.style.left = `${thumbLeft}%`;
+    scrollbarThumb.style.left = `${Math.max(0, Math.min(100 - thumbWidth, thumbLeft))}%`;
 }
 
-// ------------------------ 事件处理 ------------------------
+// =========================================
+// 甘特图事件处理
+// 拖拽、滚动、触摸等交互
+// =========================================
 
 // 进度条鼠标按下事件
 function handleScrollbarMouseDown(e) {
@@ -385,8 +508,8 @@ function handleScrollbarMouseMove(e) {
     if (!isDraggingScrollbar) return;
 
     const deltaX = e.clientX - startX;
-    const totalRange = maxOffset * 2 + daysToShow;
-    const deltaDays = Math.round(deltaX / scrollbarTrackWidth * (totalRange - daysToShow));
+    const totalRange = maxOffset * 2; // 总范围是120天（-60到+60）
+    const deltaDays = Math.round(deltaX / scrollbarTrackWidth * totalRange);
 
     // 计算新的偏移量
     let newOffset = startOffset + deltaDays;
@@ -421,8 +544,8 @@ function handleMouseMove(e) {
     const deltaX = e.clientX - startX;
     const deltaDays = Math.round(deltaX / 10); // 每10px对应1天
 
-    // 计算新的偏移量，应用回弹效果
-    let newOffset = startOffset - deltaDays;
+    // 计算新的偏移量，应用回弹效果（向右拖拽查看未来）
+    let newOffset = startOffset + deltaDays;
 
     // 边界回弹效果
     if (newOffset < -maxOffset) {
@@ -466,8 +589,8 @@ function handleTouchMove(e) {
     const deltaX = e.touches[0].clientX - startX;
     const deltaDays = Math.round(deltaX / 10); // 每10px对应1天
 
-    // 计算新的偏移量，应用回弹效果
-    let newOffset = startOffset - deltaDays;
+    // 计算新的偏移量，应用回弹效果（向右拖拽查看未来）
+    let newOffset = startOffset + deltaDays;
 
     // 边界回弹效果
     if (newOffset < -maxOffset) {
@@ -499,23 +622,13 @@ function handleTouchEnd() {
 
 // 回到当天
 function goToToday() {
-    // 平滑过渡到当天
-    const animateToToday = () => {
-        const targetOffset = 0;
-        const delta = targetOffset - currentOffset;
+    // 直接重置偏移量为0，立即回到当天
+    currentOffset = 0;
 
-        if (Math.abs(delta) < 1) {
-            currentOffset = targetOffset;
-            refreshGanttChart();
-            return;
-        }
+    // 刷新所有组件
+    refreshGanttChart();
 
-        currentOffset += delta * 0.2; // 缓动效果
-        refreshGanttChart();
-        requestAnimationFrame(animateToToday);
-    };
 
-    animateToToday();
 }
 
 
@@ -528,10 +641,10 @@ function handleWheel(e) {
         // 主要使用水平滚动
         const deltaX = e.deltaX;
 
-        // 计算滑动天数，调整灵敏度
-        const deltaDays = Math.round(deltaX / 20);
+        // 计算滑动天数，调整灵敏度（向右滑动查看未来）
+        const deltaDays = Math.round(deltaX / 10);
 
-        // 计算新的偏移量
+        // 计算新的偏移量（向右滑动显示未来，所以用加法）
         let newOffset = currentOffset + deltaDays;
 
         // 边界约束，无回弹效果，直接限制在范围内
@@ -547,7 +660,10 @@ function handleWheel(e) {
     // 垂直滚动不处理，保持默认行为
 }
 
-// ------------------------ 倒计时相关 ------------------------
+// =========================================
+// 2. 任务管理系统模块
+// 每日/每周任务追踪和倒计时
+// =========================================
 
 // 初始化倒计时
 function initializeCountdowns() {
@@ -609,7 +725,10 @@ function updateMonthDisplay() {
     }
 }
 
-// ------------------------ 任务相关 ------------------------
+// =========================================
+// 任务交互和处理
+// 任务状态管理和进度追踪
+// =========================================
 
 // 初始化任务交互
 function initializeTaskInteractions() {
@@ -789,18 +908,57 @@ function showEditTaskDialog(taskItem) {
     }
 }
 
-// ------------------------ 活动交互 ------------------------
+// =========================================
+// 活动交互管理
+// 视图切换和活动操作
+// =========================================
 
 // 初始化活动交互
 function initializeActivityInteractions() {
     // 视图切换
     document.querySelectorAll('.view-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+        btn.addEventListener('click', async function () {
+            // 防止重复点击
+            if (this.classList.contains('switching')) return;
+
+            document.querySelectorAll('.view-btn').forEach(b => {
+                b.classList.remove('active', 'switching');
+            });
+            this.classList.add('active', 'switching');
+
+            // 添加按钮点击波纹效果
+            const ripple = document.createElement('span');
+            ripple.className = 'btn-ripple';
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.6);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = '50%';
+            ripple.style.top = '50%';
+            ripple.style.marginLeft = -size / 2 + 'px';
+            ripple.style.marginTop = -size / 2 + 'px';
+
+            this.style.position = 'relative';
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+
             // 视图切换逻辑
             const view = this.dataset.view;
-            switchView(view);
+            await switchView(view);
+
+            // 移除切换状态
+            setTimeout(() => {
+                this.classList.remove('switching');
+            }, 500);
         });
     });
 
@@ -858,8 +1016,8 @@ function initializeActivityInteractions() {
                 const clickX = e.clientX - trackRect.left;
                 const clickRatio = clickX / trackRect.width;
 
-                const totalRange = maxOffset * 2 + daysToShow;
-                const newOffset = Math.round(clickRatio * (totalRange - daysToShow) - maxOffset);
+                const totalRange = maxOffset * 2; // 总范围是120天
+                const newOffset = Math.round(clickRatio * totalRange - maxOffset);
 
                 currentOffset = Math.max(-maxOffset, Math.min(maxOffset, newOffset));
                 refreshGanttChart();
@@ -878,7 +1036,42 @@ function initializeActivityInteractions() {
 }
 
 // 切换视图
-function switchView(view) {
+async function switchView(view) {
+    if (currentView === view) return; // 如果是相同视图，不执行切换
+
+
+    // 添加过渡动画类
+    const ganttContainer = document.querySelector('.gantt-container');
+    const timelineDays = document.querySelector('.timeline-days');
+    const activityBars = document.querySelectorAll('.activity-bar');
+    const activityListItems = document.querySelectorAll('.activity-list-item');
+
+    // 添加退出动画
+    ganttContainer?.classList.add('view-transition');
+    timelineDays?.classList.add('view-transition');
+    activityBars.forEach(bar => bar.classList.add('view-transition'));
+    activityListItems.forEach(item => item.classList.add('view-transition'));
+
+    // 淡出当前元素
+    activityBars.forEach((bar, index) => {
+        setTimeout(() => {
+            bar.style.opacity = '0';
+            bar.style.transform = 'scaleX(0)';
+        }, index * 50); // 错开动画时间
+    });
+
+    activityListItems.forEach((item, index) => {
+        setTimeout(() => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(10px) scale(0.95)';
+        }, index * 50);
+    });
+
+    // 等待退出动画完成
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // 更新视图状态
+    const previousView = currentView;
     currentView = view;
 
     // 重置偏移量
@@ -895,11 +1088,55 @@ function switchView(view) {
         enableScrolling();
     }
 
-    // 重新生成甘特图
+    // 重新生成甘特图（此时元素是隐藏的）
     initializeGanttChart();
 
     // 更新进度条
     updateScrollbar();
+
+    // 等待DOM更新完成
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // 获取新生成的元素
+    const newActivityBars = document.querySelectorAll('.activity-bar');
+    const newActivityListItems = document.querySelectorAll('.activity-list-item');
+
+    // 添加进入动画
+    newActivityBars.forEach((bar, index) => {
+        // 初始状态
+        bar.style.opacity = '0';
+        bar.style.transform = 'scaleX(0) translateX(-20px)';
+        bar.classList.add('view-transition');
+
+        // 进入动画
+        setTimeout(() => {
+            bar.style.opacity = '1';
+            bar.style.transform = 'scaleX(1) translateX(0)';
+        }, index * 80); // 错开动画时间，创造流畅效果
+    });
+
+    newActivityListItems.forEach((item, index) => {
+        // 初始状态
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(-10px) scale(0.95)';
+        item.classList.add('view-transition');
+
+        // 进入动画
+        setTimeout(() => {
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0) scale(1)';
+        }, index * 60);
+    });
+
+    // 移除过渡动画类
+    setTimeout(() => {
+        ganttContainer?.classList.remove('view-transition');
+        timelineDays?.classList.remove('view-transition');
+        newActivityBars.forEach(bar => bar.classList.remove('view-transition'));
+        newActivityListItems.forEach(item => item.classList.remove('view-transition'));
+    }, 800);
+
+
 }
 
 // 启用滑动功能
@@ -932,332 +1169,6 @@ function disableScrolling() {
     }
 }
 
-
-// ------------------------ 资源详情弹窗相关 ------------------------
-
-
-// API配置 - 增强版
-const API_CONFIG = {
-    // 动态API基础URL配置
-    BASE_URL: (() => {
-        const hostname = window.location.hostname;
-
-        if (hostname === 'localhost' || hostname.includes('127.0.0.1')) {
-            return 'http://localhost:3000/api'; // 本地开发API
-        } else if (hostname.includes('dev') || hostname.includes('staging')) {
-            return 'https://dev-api.yourdomain.com/api'; // 测试环境API
-        } else if (hostname.includes('test')) {
-            return 'https://test-api.yourdomain.com/api'; // 测试环境API
-        } else {
-            return 'https://api.yourdomain.com/api'; // 生产环境API
-        }
-    })(),
-
-    // API端点配置
-    ENDPOINTS: {
-        // 资源相关接口
-        RESOURCE_DATA: '/resource/data',
-        RESOURCE_RECORDS: '/resource/records',
-        RESOURCE_SOURCES: '/resource/sources',
-        RESOURCE_TRENDS: '/resource/trends',
-        RESOURCE_SUMMARY: '/resource/summary',
-
-        // 导出相关接口
-        EXPORT_DATA: '/export/data',
-        EXPORT_REPORT: '/export/report',
-
-        // 用户相关接口
-        USER_PROFILE: '/user/profile',
-        USER_PREFERENCES: '/user/preferences',
-
-        // 统计相关接口
-        STATISTICS_DASHBOARD: '/statistics/dashboard',
-        STATISTICS_REALTIME: '/statistics/realtime',
-
-        // 系统相关接口
-        SYSTEM_HEALTH: '/system/health',
-        SYSTEM_CONFIG: '/system/config'
-    },
-
-    // API版本配置
-    VERSION: 'v1',
-
-    // 超时配置（毫秒）
-    TIMEOUT: 10000,
-
-    // 重试配置
-    RETRY_ATTEMPTS: 3,
-    RETRY_DELAY: 1000,
-
-    // 缓存配置
-    CACHE_ENABLED: true,
-    CACHE_DURATION: 5 * 60 * 1000, // 5分钟
-
-    // 认证配置
-    AUTH_REQUIRED: false,
-    TOKEN_KEY: 'auth_token'
-};
-
-// API环境检测和配置
-const API_ENVIRONMENT = {
-    isDevelopment: window.location.hostname === 'localhost',
-    isStaging: window.location.hostname.includes('dev') || window.location.hostname.includes('staging'),
-    isProduction: !window.location.hostname.includes('localhost') &&
-        !window.location.hostname.includes('dev') &&
-        !window.location.hostname.includes('staging'),
-
-    // 根据环境配置API服务
-    configure() {
-        if (this.isDevelopment) {
-            ResourceApiService.setConfig({
-                API_ENABLED: true,
-                MOCK_MODE: true, // 开发环境默认使用模拟数据
-                TIMEOUT: 5000,
-                RETRY_ATTEMPTS: 2
-            });
-            console.log('🔧 开发环境：启用模拟数据模式');
-        } else if (this.isStaging) {
-            ResourceApiService.setConfig({
-                API_ENABLED: true,
-                MOCK_MODE: false,
-                TIMEOUT: 8000,
-                RETRY_ATTEMPTS: 3
-            });
-            console.log('🧪 测试环境：启用真实API');
-        } else {
-            ResourceApiService.setConfig({
-                API_ENABLED: true,
-                MOCK_MODE: false,
-                TIMEOUT: 10000,
-                RETRY_ATTEMPTS: 3
-            });
-            console.log('🚀 生产环境：启用真实API');
-        }
-    }
-};
-
-// API状态监控
-const API_MONITOR = {
-    // 请求统计
-    stats: {
-        total: 0,
-        success: 0,
-        failed: 0,
-        fallback: 0
-    },
-
-    // 记录请求
-    record(success, usedFallback = false) {
-        this.stats.total++;
-        if (success && !usedFallback) {
-            this.stats.success++;
-        } else if (usedFallback) {
-            this.stats.fallback++;
-        } else {
-            this.stats.failed++;
-        }
-
-        // 每10次请求输出统计
-        if (this.stats.total % 10 === 0) {
-            this.logStats();
-        }
-    },
-
-    // 获取成功率
-    getSuccessRate() {
-        if (this.stats.total === 0) return 0;
-        return ((this.stats.success + this.stats.fallback) / this.stats.total * 100).toFixed(1);
-    },
-
-    // 获取降级率
-    getFallbackRate() {
-        if (this.stats.total === 0) return 0;
-        return (this.stats.fallback / this.stats.total * 100).toFixed(1);
-    },
-
-    // 输出统计信息
-    logStats() {
-        console.log('📊 API统计:', {
-            TOTAL_REQUEST: this.stats.total,
-            SUCCESS: this.stats.success,
-            失败: this.stats.failed,
-            降级: this.stats.fallback,
-            成功率: `${this.getSuccessRate()}%`,
-            降级率: `${this.getFallbackRate()}%`
-        });
-    }
-};
-
-// API接口调用示例和工具函数
-const API_UTILS = {
-    /**
-     * 批量获取多个资源数据
-     */
-    async batchGetResources(resourceNames) {
-        const promises = resourceNames.map(name =>
-            ResourceApiService.getResourceData(name)
-                .catch(error => {
-                    console.error(`获取${name}数据失败:`, error);
-                    return null;
-                })
-        );
-
-        const results = await Promise.allSettled(promises);
-        return results.map((result, index) => ({
-            resource: resourceNames[index],
-            success: result.status === 'fulfilled',
-            data: result.status === 'fulfilled' ? result.value : null,
-            error: result.status === 'rejected' ? result.reason : null
-        }));
-    },
-
-    /**
-     * 带加载状态的API调用
-     */
-    async withLoading(apiCall, loadingElement) {
-        if (loadingElement) {
-            loadingElement.style.display = 'block';
-        }
-
-        try {
-            const result = await apiCall();
-            return result;
-        } finally {
-            if (loadingElement) {
-                loadingElement.style.display = 'none';
-            }
-        }
-    },
-
-    /**
-     * 检查API健康状态
-     */
-    async checkApiHealth() {
-        try {
-            const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.SYSTEM_HEALTH}`, {
-                method: 'GET',
-                timeout: 3000
-            });
-
-            if (response.ok) {
-                const health = await response.json();
-                console.log('💚 API健康检查通过:', health);
-                return true;
-            } else {
-                console.warn('🟡 API健康检查失败:', response.status);
-                return false;
-            }
-        } catch (error) {
-            console.error('🔴 API健康检查异常:', error);
-            return false;
-        }
-    },
-
-    /**
-     * 获取系统配置
-     */
-    async getSystemConfig() {
-        try {
-            const config = await ResourceApiService.makeRequest(
-                API_CONFIG.ENDPOINTS.SYSTEM_CONFIG,
-                {},
-                false // 不使用缓存
-            );
-            return config;
-        } catch (error) {
-            console.error('获取系统配置失败:', error);
-            return null;
-        }
-    }
-};
-
-// 初始化API配置
-API_ENVIRONMENT.configure();
-
-// 系统初始化时的健康检查
-async function performSystemHealthCheck() {
-    console.log('🔍 执行系统健康检查...');
-
-    // 检查API连接
-    const apiHealthy = await API_UTILS.checkApiHealth();
-
-    if (apiHealthy) {
-        console.log('✅ 系统健康检查通过');
-    } else {
-        console.warn('⚠️ API连接异常，将使用模拟数据模式');
-        ResourceApiService.setConfig({MOCK_MODE: true});
-    }
-
-    return apiHealthy;
-}
-
-// 调试工具 - 开发环境使用
-if (API_ENVIRONMENT.isDevelopment) {
-    // 将调试函数暴露到全局作用域
-    window.API_DEBUG = {
-        // 强制启用/禁用API
-        toggleAPI: (enabled) => {
-            ResourceApiService.setConfig({API_ENABLED: enabled});
-            console.log(`API已${enabled ? '启用' : '禁用'}`);
-        },
-
-        // 强制使用模拟模式
-        toggleMock: (enabled) => {
-            ResourceApiService.setConfig({MOCK_MODE: enabled});
-            console.log(`模拟模式已${enabled ? '启用' : '禁用'}`);
-        },
-
-        // 清除缓存
-        clearCache: () => {
-            ResourceApiService.clearCache();
-        },
-
-        // 查看API统计
-        getStats: () => {
-            API_MONITOR.logStats();
-            return API_MONITOR.stats;
-        },
-
-        // 手动健康检查
-        healthCheck: performSystemHealthCheck,
-
-        // 批量获取资源数据
-        batchTest: async (resources = ['勾玉', '金币', '神秘符咒', '御魂']) => {
-            console.log('🧪 开始批量API测试...');
-            const results = await API_UTILS.batchGetResources(resources);
-            console.table(results);
-            return results;
-        },
-
-        // 测试特定资源API
-        testResource: async (resourceName) => {
-            console.log(`🧪 测试${resourceName}API...`);
-            try {
-                const data = await ResourceApiService.getResourceData(resourceName);
-                console.log('✅ API调用成功:', data);
-                return data;
-            } catch (error) {
-                console.error('❌ API调用失败:', error);
-                return null;
-            }
-        },
-
-        // 获取当前配置
-        getConfig: () => ({
-            API_CONFIG,
-            ResourceApiService: {
-                API_ENABLED: ResourceApiService.API_ENABLED,
-                MOCK_MODE: ResourceApiService.MOCK_MODE,
-                TIMEOUT: ResourceApiService.TIMEOUT,
-                RETRY_ATTEMPTS: ResourceApiService.RETRY_ATTEMPTS
-            },
-            API_ENVIRONMENT
-        })
-    };
-
-    console.log('🛠️ API调试工具已加载，使用 API_DEBUG 对象进行调试');
-}
-
 // 模拟数据生成器
 class MockDataGenerator {
     static generateResourceData(resourceName, days = 30) {
@@ -1277,25 +1188,20 @@ class MockDataGenerator {
 
     static generateSources(resourceName) {
         const sourceTemplates = {
-            '勾玉': [
-                {name: '周任务', basePercentage: 40, color: '#28a745'},
-                {name: '每日任务', basePercentage: 25, color: '#17a2b8'},
-                {name: '活动奖励', basePercentage: 20, color: '#FFB6C1'},
-                {name: '斗技场', basePercentage: 10, color: '#ffc107'},
-                {name: '其他', basePercentage: 5, color: '#6c757d'}
-            ],
-            '金币': [
-                {name: '周任务', basePercentage: 60, color: '#28a745'},
-                {name: '日常', basePercentage: 40, color: '#87CEEB'}
-            ],
-            '神秘符咒': [
-                {name: '周任务', basePercentage: 80, color: '#28a745'},
-                {name: '活动', basePercentage: 20, color: '#FFB6C1'}
-            ],
-            '御魂': [
-                {name: '周任务', basePercentage: 50, color: '#28a745'},
-                {name: '探索', basePercentage: 50, color: '#87CEEB'}
-            ]
+            '勾玉': [{name: '周任务', basePercentage: 40, color: '#28a745'}, {
+                name: '每日任务', basePercentage: 25, color: '#17a2b8'
+            }, {name: '活动奖励', basePercentage: 20, color: '#FFB6C1'}, {
+                name: '斗技场', basePercentage: 10, color: '#ffc107'
+            }, {name: '其他', basePercentage: 5, color: '#6c757d'}],
+            '金币': [{name: '周任务', basePercentage: 60, color: '#28a745'}, {
+                name: '日常', basePercentage: 40, color: '#87CEEB'
+            }],
+            '神秘符咒': [{name: '周任务', basePercentage: 80, color: '#28a745'}, {
+                name: '活动', basePercentage: 20, color: '#FFB6C1'
+            }],
+            '御魂': [{name: '周任务', basePercentage: 50, color: '#28a745'}, {
+                name: '探索', basePercentage: 50, color: '#87CEEB'
+            }]
         };
 
         const templates = sourceTemplates[resourceName] || sourceTemplates['勾玉'];
@@ -1332,10 +1238,7 @@ class MockDataGenerator {
             const amount = this.getRandomAmount(resourceName);
 
             records.push({
-                time: this.formatDateTime(date),
-                source: source.name,
-                amount,
-                type: source.type
+                time: this.formatDateTime(date), source: source.name, amount, type: source.type
             });
         }
 
@@ -1360,8 +1263,7 @@ class MockDataGenerator {
         // 生成周趋势
         for (let i = 0; i < 4; i++) {
             weekly.push({
-                week: `第${48 + i}周`,
-                amount: Math.floor(Math.random() * 5000) + 1000
+                week: `第${48 + i}周`, amount: Math.floor(Math.random() * 5000) + 1000
             });
         }
 
@@ -1369,8 +1271,7 @@ class MockDataGenerator {
         const months = ['10月', '11月', '12月'];
         months.forEach(month => {
             monthly.push({
-                month,
-                amount: Math.floor(Math.random() * 10000) + 2000
+                month, amount: Math.floor(Math.random() * 10000) + 2000
             });
         });
 
@@ -1379,32 +1280,19 @@ class MockDataGenerator {
 
     static getRecordSources(resourceName) {
         const sources = {
-            '勾玉': [
-                {name: '每日任务', type: '日常'},
-                {name: '周任务', type: '周常'},
-                {name: '活动奖励', type: '活动'},
-                {name: '斗技场', type: 'PVP'},
-                {name: '寮务', type: '社交'},
-                {name: '探索副本', type: 'PVE'}
-            ],
-            '金币': [
-                {name: '每日任务', type: '日常'},
-                {name: '探索副本', type: 'PVE'},
-                {name: '御魂挑战', type: 'PVE'},
-                {name: '寮道馆', type: '社交'},
-                {name: '结界突破', type: 'PVP'},
-                {name: '周任务', type: '周常'}
-            ]
+            '勾玉': [{name: '每日任务', type: '日常'}, {name: '周任务', type: '周常'}, {
+                name: '活动奖励', type: '活动'
+            }, {name: '斗技场', type: 'PVP'}, {name: '寮务', type: '社交'}, {name: '探索副本', type: 'PVE'}],
+            '金币': [{name: '每日任务', type: '日常'}, {name: '探索副本', type: 'PVE'}, {
+                name: '御魂挑战', type: 'PVE'
+            }, {name: '寮道馆', type: '社交'}, {name: '结界突破', type: 'PVP'}, {name: '周任务', type: '周常'}]
         };
         return sources[resourceName] || sources['勾玉'];
     }
 
     static getRandomAmount(resourceName) {
         const ranges = {
-            '勾玉': [50, 500],
-            '金币': [1000, 20000],
-            '神秘符咒': [1, 10],
-            '御魂': [20, 200]
+            '勾玉': [50, 500], '金币': [1000, 20000], '神秘符咒': [1, 10], '御魂': [20, 200]
         };
         const [min, max] = ranges[resourceName] || [50, 500];
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -1412,20 +1300,14 @@ class MockDataGenerator {
 
     static getResourceIcon(resourceName) {
         const icons = {
-            '勾玉': 'fa-gem',
-            '金币': 'fa-coins',
-            '神秘符咒': 'fa-scroll',
-            '御魂': 'fa-dice'
+            '勾玉': 'fa-gem', '金币': 'fa-coins', '神秘符咒': 'fa-scroll', '御魂': 'fa-dice'
         };
         return icons[resourceName] || 'fa-gem';
     }
 
     static getResourceColor(resourceName) {
         const colors = {
-            '勾玉': '#4169E1',
-            '金币': '#FFD700',
-            '神秘符咒': '#FF6347',
-            '御魂': '#9370DB'
+            '勾玉': '#4169E1', '金币': '#FFD700', '神秘符咒': '#FF6347', '御魂': '#9370DB'
         };
         return colors[resourceName] || '#4169E1';
     }
@@ -1440,7 +1322,8 @@ class MockDataGenerator {
         const day = String(date.getDate()).padStart(2, '0');
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}`;
+        const seconds = String(date.getSeconds()).padStart(2, '0'); // 添加这行
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`; // 修改这里
     }
 }
 
@@ -1489,12 +1372,8 @@ class ResourceApiService {
                 const timeoutId = setTimeout(() => controller.abort(), this.TIMEOUT);
 
                 const response = await fetch(`${API_CONFIG.BASE_URL}${endpoint}`, {
-                    ...options,
-                    signal: controller.signal,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        ...options.headers
+                    ...options, signal: controller.signal, headers: {
+                        'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', ...options.headers
                     }
                 });
 
@@ -1509,8 +1388,7 @@ class ResourceApiService {
                 // 缓存成功响应
                 if (useCache) {
                     this.cache.set(cacheKey, {
-                        data,
-                        timestamp: Date.now()
+                        data, timestamp: Date.now()
                     });
                 }
 
@@ -1522,11 +1400,7 @@ class ResourceApiService {
                 console.error(`❌ API请求失败 (尝试 ${attempt}/${this.RETRY_ATTEMPTS}):`, error.message);
 
                 // 如果是网络错误或超时，继续重试
-                if (attempt < this.RETRY_ATTEMPTS && (
-                    error.name === 'AbortError' ||
-                    error.name === 'TypeError' ||
-                    error.message.includes('network')
-                )) {
+                if (attempt < this.RETRY_ATTEMPTS && (error.name === 'AbortError' || error.name === 'TypeError' || error.message.includes('network'))) {
                     // 指数退避延迟
                     await new Promise(resolve => setTimeout(resolve, Math.pow(2, attempt) * 1000));
                     continue;
@@ -1575,8 +1449,7 @@ class ResourceApiService {
     static async getResourceRecords(resourceName, startDate, endDate, limit = 100) {
         try {
             const params = new URLSearchParams({
-                resource: encodeURIComponent(resourceName),
-                limit: limit.toString()
+                resource: encodeURIComponent(resourceName), limit: limit.toString()
             });
 
             if (startDate) params.append('startDate', startDate);
@@ -1637,16 +1510,14 @@ class ResourceApiService {
     static async exportResourceData(resourceName, format = 'csv', startDate, endDate) {
         try {
             const params = new URLSearchParams({
-                resource: encodeURIComponent(resourceName),
-                format: format
+                resource: encodeURIComponent(resourceName), format: format
             });
 
             if (startDate) params.append('startDate', startDate);
             if (endDate) params.append('endDate', endDate);
 
             const response = await fetch(`${API_CONFIG.BASE_URL}${API_CONFIG.ENDPOINTS.EXPORT_DATA}?${params}`, {
-                method: 'POST',
-                headers: {
+                method: 'POST', headers: {
                     'Content-Type': 'application/json'
                 }
             });
@@ -1726,30 +1597,9 @@ class ResourceApiService {
      * 验证API返回数据结构
      */
     static validateResourceData(data) {
-        return data &&
-            typeof data === 'object' &&
-            data.icon &&
-            data.amount !== undefined &&
-            data.color &&
-            Array.isArray(data.records) &&
-            Array.isArray(data.sources);
+        return data && typeof data === 'object' && data.icon && data.amount !== undefined && data.color && Array.isArray(data.records) && Array.isArray(data.sources);
     }
 
-    /**
-     * 清除缓存
-     */
-    static clearCache() {
-        this.cache.clear();
-        console.log('🗑️ 缓存已清除');
-    }
-
-    /**
-     * 设置API配置
-     */
-    static setConfig(config) {
-        Object.assign(this, config);
-        console.log('⚙️ API配置已更新:', config);
-    }
 }
 
 // 资源数据 - 扩展版（保持向后兼容）
@@ -1758,116 +1608,94 @@ const resourceData = {
         icon: 'fa-gem',
         amount: '+2,456',
         color: '#4169E1',
-        records: [
-            {time: '2023-11-01 10:30', source: '每日任务', amount: 100, type: '日常'},
-            {time: '2023-11-02 15:45', source: '周任务', amount: 500, type: '周常'},
-            {time: '2023-11-05 09:15', source: '活动奖励', amount: 200, type: '活动'},
-            {time: '2023-11-08 20:30', source: '斗技场', amount: 150, type: 'PVP'},
-            {time: '2023-11-12 12:00', source: '每日任务', amount: 100, type: '日常'},
-            {time: '2023-11-15 18:20', source: '寮务', amount: 300, type: '社交'},
-            {time: '2023-11-18 14:30', source: '探索副本', amount: 50, type: 'PVE'},
-            {time: '2023-11-22 11:45', source: '周任务', amount: 500, type: '周常'},
-            {time: '2023-11-25 21:10', source: '活动奖励', amount: 156, type: '活动'},
-            {time: '2023-12-01 10:30', source: '每日任务', amount: 100, type: '日常'},
-            {time: '2023-12-01 15:45', source: '周任务', amount: 500, type: '周常'},
-            {time: '2023-12-02 09:15', source: '活动奖励', amount: 200, type: '活动'},
-            {time: '2023-12-02 20:30', source: '斗技场', amount: 150, type: 'PVP'},
-            {time: '2023-12-03 12:00', source: '每日任务', amount: 100, type: '日常'},
-            {time: '2023-12-03 18:20', source: '寮务', amount: 300, type: '社交'},
-            {time: '2023-12-04 14:30', source: '探索副本', amount: 50, type: 'PVE'},
-            {time: '2023-12-05 11:45', source: '周任务', amount: 500, type: '周常'},
-            {time: '2023-12-05 21:10', source: '活动奖励', amount: 156, type: '活动'},
-            {time: '2023-12-06 09:00', source: '每日任务', amount: 100, type: '日常'},
-            {time: '2023-12-07 16:30', source: '斗技场', amount: 120, type: 'PVP'}
-        ],
-        sources: [
-            {name: '周任务', percentage: 40, amount: 2000, color: '#28a745', trend: '+5%'},
-            {name: '每日任务', percentage: 25, amount: 500, color: '#17a2b8', trend: '+2%'},
-            {name: '活动奖励', percentage: 20, amount: 712, color: '#FFB6C1', trend: '+12%'},
-            {name: '斗技场', percentage: 10, amount: 270, color: '#ffc107', trend: '-3%'},
-            {name: '其他', percentage: 5, amount: 150, color: '#6c757d', trend: '0%'}
-        ],
+        records: [{time: '2023-11-01 10:30', source: '每日任务', amount: 100, type: '日常'}, {
+            time: '2023-11-02 15:45', source: '周任务', amount: 500, type: '周常'
+        }, {time: '2023-11-05 09:15', source: '活动奖励', amount: 200, type: '活动'}, {
+            time: '2023-11-08 20:30', source: '斗技场', amount: 150, type: 'PVP'
+        }, {time: '2023-11-12 12:00', source: '每日任务', amount: 100, type: '日常'}, {
+            time: '2023-11-15 18:20', source: '寮务', amount: 300, type: '社交'
+        }, {time: '2023-11-18 14:30', source: '探索副本', amount: 50, type: 'PVE'}, {
+            time: '2023-11-22 11:45', source: '周任务', amount: 500, type: '周常'
+        }, {time: '2023-11-25 21:10', source: '活动奖励', amount: 156, type: '活动'}, {
+            time: '2023-12-01 10:30', source: '每日任务', amount: 100, type: '日常'
+        }, {time: '2023-12-01 15:45', source: '周任务', amount: 500, type: '周常'}, {
+            time: '2023-12-02 09:15', source: '活动奖励', amount: 200, type: '活动'
+        }, {time: '2023-12-02 20:30', source: '斗技场', amount: 150, type: 'PVP'}, {
+            time: '2023-12-03 12:00', source: '每日任务', amount: 100, type: '日常'
+        }, {time: '2023-12-03 18:20', source: '寮务', amount: 300, type: '社交'}, {
+            time: '2023-12-04 14:30', source: '探索副本', amount: 50, type: 'PVE'
+        }, {time: '2023-12-05 11:45', source: '周任务', amount: 500, type: '周常'}, {
+            time: '2023-12-05 21:10', source: '活动奖励', amount: 156, type: '活动'
+        }, {time: '2023-12-06 09:00', source: '每日任务', amount: 100, type: '日常'}, {
+            time: '2023-12-07 16:30', source: '斗技场', amount: 120, type: 'PVP'
+        }],
+        sources: [{name: '周任务', percentage: 40, amount: 2000, color: '#28a745', trend: '+5%'}, {
+            name: '每日任务', percentage: 25, amount: 500, color: '#17a2b8', trend: '+2%'
+        }, {name: '活动奖励', percentage: 20, amount: 712, color: '#FFB6C1', trend: '+12%'}, {
+            name: '斗技场', percentage: 10, amount: 270, color: '#ffc107', trend: '-3%'
+        }, {name: '其他', percentage: 5, amount: 150, color: '#6c757d', trend: '0%'}],
         trends: {
-            daily: [
-                {date: '12-01', amount: 850},
-                {date: '12-02', amount: 450},
-                {date: '12-03', amount: 400},
-                {date: '12-04', amount: 550},
-                {date: '12-05', amount: 756},
-                {date: '12-06', amount: 100},
-                {date: '12-07', amount: 220}
-            ],
-            weekly: [
-                {week: '第48周', amount: 1456},
-                {week: '第49周', amount: 2832},
-                {week: '第50周', amount: 0}
-            ],
-            monthly: [
-                {month: '10月', amount: 2100},
-                {month: '11月', amount: 1956},
-                {month: '12月', amount: 2832}
-            ]
+            daily: [{date: '12-01', amount: 850}, {date: '12-02', amount: 450}, {
+                date: '12-03', amount: 400
+            }, {date: '12-04', amount: 550}, {date: '12-05', amount: 756}, {date: '12-06', amount: 100}, {
+                date: '12-07', amount: 220
+            }],
+            weekly: [{week: '第48周', amount: 1456}, {week: '第49周', amount: 2832}, {week: '第50周', amount: 0}],
+            monthly: [{month: '10月', amount: 2100}, {month: '11月', amount: 1956}, {month: '12月', amount: 2832}]
         }
-    },
-    '金币': {
+    }, '金币': {
         icon: 'fa-coins',
         amount: '+156.8K',
         color: '#FFD700',
-        records: [
-            {time: '2023-12-01 10:30', source: '每日任务', amount: 5000, type: '日常'},
-            {time: '2023-12-01 15:45', source: '探索副本', amount: 8000, type: 'PVE'},
-            {time: '2023-12-02 09:15', source: '御魂挑战', amount: 12000, type: 'PVE'},
-            {time: '2023-12-02 20:30', source: '寮道馆', amount: 3000, type: '社交'},
-            {time: '2023-12-03 12:00', source: '每日任务', amount: 5000, type: '日常'},
-            {time: '2023-12-03 18:20', source: '结界突破', amount: 4500, type: 'PVP'},
-            {time: '2023-12-04 14:30', source: '探索副本', amount: 8500, type: 'PVE'},
-            {time: '2023-12-05 11:45', source: '每日任务', amount: 5000, type: '日常'},
-            {time: '2023-12-05 21:10', source: '周任务', amount: 20000, type: '周常'}
-        ],
-        sources: [
-            {name: '周任务', percentage: 60, amount: 94100, color: '#28a745'},
-            {name: '日常', percentage: 40, amount: 62700, color: '#87CEEB'}
-        ]
-    },
-    '神秘符咒': {
+        records: [{time: '2023-12-01 10:30', source: '每日任务', amount: 5000, type: '日常'}, {
+            time: '2023-12-01 15:45', source: '探索副本', amount: 8000, type: 'PVE'
+        }, {time: '2023-12-02 09:15', source: '御魂挑战', amount: 12000, type: 'PVE'}, {
+            time: '2023-12-02 20:30', source: '寮道馆', amount: 3000, type: '社交'
+        }, {time: '2023-12-03 12:00', source: '每日任务', amount: 5000, type: '日常'}, {
+            time: '2023-12-03 18:20', source: '结界突破', amount: 4500, type: 'PVP'
+        }, {time: '2023-12-04 14:30', source: '探索副本', amount: 8500, type: 'PVE'}, {
+            time: '2023-12-05 11:45', source: '每日任务', amount: 5000, type: '日常'
+        }, {time: '2023-12-05 21:10', source: '周任务', amount: 20000, type: '周常'}],
+        sources: [{name: '周任务', percentage: 60, amount: 94100, color: '#28a745'}, {
+            name: '日常', percentage: 40, amount: 62700, color: '#87CEEB'
+        }]
+    }, '神秘符咒': {
         icon: 'fa-scroll',
         amount: '+45',
         color: '#FF6347',
-        records: [
-            {time: '2023-12-01 10:30', source: '每周任务', amount: 2, type: '周常'},
-            {time: '2023-12-02 15:45', source: '成就奖励', amount: 1, type: '成就'},
-            {time: '2023-12-03 09:15', source: '活动奖励', amount: 3, type: '活动'},
-            {time: '2023-12-04 12:30', source: '每周任务', amount: 2, type: '周常'},
-            {time: '2023-12-05 18:20', source: '神秘商店', amount: 1, type: '商店'},
-            {time: '2023-12-06 11:45', source: '活动奖励', amount: 5, type: '活动'},
-            {time: '2023-12-07 20:10', source: '每周任务', amount: 2, type: '周常'}
-        ],
-        sources: [
-            {name: '周任务', percentage: 80, amount: 36, color: '#28a745'},
-            {name: '活动', percentage: 20, amount: 9, color: '#FFB6C1'}
-        ]
-    },
-    '御魂': {
+        records: [{time: '2023-12-01 10:30', source: '每周任务', amount: 2, type: '周常'}, {
+            time: '2023-12-02 15:45', source: '成就奖励', amount: 1, type: '成就'
+        }, {time: '2023-12-03 09:15', source: '活动奖励', amount: 3, type: '活动'}, {
+            time: '2023-12-04 12:30', source: '每周任务', amount: 2, type: '周常'
+        }, {time: '2023-12-05 18:20', source: '神秘商店', amount: 1, type: '商店'}, {
+            time: '2023-12-06 11:45', source: '活动奖励', amount: 5, type: '活动'
+        }, {time: '2023-12-07 20:10', source: '每周任务', amount: 2, type: '周常'}],
+        sources: [{name: '周任务', percentage: 80, amount: 36, color: '#28a745'}, {
+            name: '活动', percentage: 20, amount: 9, color: '#FFB6C1'
+        }]
+    }, '御魂': {
         icon: 'fa-dice',
         amount: '+1,234',
         color: '#9370DB',
-        records: [
-            {time: '2023-12-01 10:30', source: '御魂挑战', amount: 120, type: 'PVE'},
-            {time: '2023-12-01 15:45', source: '每日任务', amount: 50, type: '日常'},
-            {time: '2023-12-02 09:15', source: '每周任务', amount: 200, type: '周常'},
-            {time: '2023-12-02 20:30', source: '探索副本', amount: 80, type: 'PVE'},
-            {time: '2023-12-03 12:00', source: '御魂挑战', amount: 150, type: 'PVE'},
-            {time: '2023-12-03 18:20', source: '每日任务', amount: 50, type: '日常'},
-            {time: '2023-12-04 14:30', source: '每周任务', amount: 200, type: '周常'},
-            {time: '2023-12-05 11:45', source: '探索副本', amount: 90, type: 'PVE'},
-            {time: '2023-12-05 21:10', source: '御魂挑战', amount: 144, type: 'PVE'}
-        ],
-        sources: [
-            {name: '周任务', percentage: 50, amount: 617, color: '#28a745'},
-            {name: '探索', percentage: 50, amount: 617, color: '#87CEEB'}
-        ]
+        records: [{time: '2023-12-01 10:30', source: '御魂挑战', amount: 120, type: 'PVE'}, {
+            time: '2023-12-01 15:45', source: '每日任务', amount: 50, type: '日常'
+        }, {time: '2023-12-02 09:15', source: '每周任务', amount: 200, type: '周常'}, {
+            time: '2023-12-02 20:30', source: '探索副本', amount: 80, type: 'PVE'
+        }, {time: '2023-12-03 12:00', source: '御魂挑战', amount: 150, type: 'PVE'}, {
+            time: '2023-12-03 18:20', source: '每日任务', amount: 50, type: '日常'
+        }, {time: '2023-12-04 14:30', source: '每周任务', amount: 200, type: '周常'}, {
+            time: '2023-12-05 11:45', source: '探索副本', amount: 90, type: 'PVE'
+        }, {time: '2023-12-05 21:10', source: '御魂挑战', amount: 144, type: 'PVE'}],
+        sources: [{name: '周任务', percentage: 50, amount: 617, color: '#28a745'}, {
+            name: '探索', percentage: 50, amount: 617, color: '#87CEEB'
+        }]
     }
 };
+
+// =========================================
+// 5. 弹窗系统模块
+// 模态对话框管理
+// =========================================
 
 // 初始化资源详情弹窗
 function initializeResourceModal() {
@@ -1899,11 +1727,17 @@ function initializeResourceModal() {
 }
 
 // 时间筛选功能
+/**
+ * 初始化时间筛选功能
+ * 修复：使用唯一ID避免与活动弹窗的ID冲突
+ * 资源筛选使用resourceStartDate/resourceEndDate
+ */
 function initializeTimeFilter() {
     const timeFilterBtns = document.querySelectorAll('.time-filter-btn');
     const applyDateBtn = document.getElementById('applyDateFilter');
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
+    // 修复：使用新的唯一ID避免冲突
+    const startDateInput = document.getElementById('resourceStartDate');
+    const endDateInput = document.getElementById('resourceEndDate');
 
     // 设置默认日期范围（当前月份）
     const today = new Date();
@@ -1933,11 +1767,16 @@ function initializeTimeFilter() {
     }
 }
 
-// 根据时间周期设置日期范围
+/**
+ * 根据时间周期设置日期范围
+ * @param {string} period - 时间周期 ('week', 'month', 'year', 'all')
+ * 修复：使用唯一ID避免ID冲突
+ */
 function setDateRangeByPeriod(period) {
     const today = new Date();
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
+    // 修复：使用新的唯一ID避免冲突
+    const startDateInput = document.getElementById('resourceStartDate');
+    const endDateInput = document.getElementById('resourceEndDate');
 
     let startDate, endDate;
 
@@ -2092,7 +1931,12 @@ function switchResourceTab(tabName) {
     }
 }
 
-// 显示资源记录（增强版 - 支持API调用和降级处理）
+/**
+ * 显示资源记录（增强版）
+ * @param {string} resourceName - 资源名称
+ * 功能：支持API调用和降级处理的时间筛选记录显示
+ * 修复：使用唯一ID避免ID冲突
+ */
 async function showResourceRecords(resourceName) {
     const tbody = document.getElementById('resourceRecordsBody');
     const loadingIndicator = document.getElementById('recordsLoading');
@@ -2105,8 +1949,9 @@ async function showResourceRecords(resourceName) {
 
     try {
         // 获取时间筛选范围
-        const startDateInput = document.getElementById('startDate');
-        const endDateInput = document.getElementById('endDate');
+        // 修复：使用新的唯一ID避免冲突
+        const startDateInput = document.getElementById('resourceStartDate');
+        const endDateInput = document.getElementById('resourceEndDate');
         const startDate = startDateInput ? startDateInput.value : null;
         const endDate = endDateInput ? endDateInput.value : null;
 
@@ -2331,41 +2176,9 @@ function drawSimpleChart(containerId, data) {
     container.innerHTML = `<div class="chart-container">${chartHTML}</div>`;
 }
 
-// 导出资源数据（增强版）
-async function exportResourceData() {
-    const resourceName = document.getElementById('resourceDetailName').textContent;
-    const format = 'csv';
-
-    // 获取时间筛选范围
-    const startDateInput = document.getElementById('startDate');
-    const endDateInput = document.getElementById('endDate');
-    const startDate = startDateInput ? startDateInput.value : null;
-    const endDate = endDateInput ? endDateInput.value : null;
-
-    try {
-        // 显示导出中状态
-        console.log(`📤 开始导出${resourceName}数据...`);
-
-        // 调用API导出
-        await ResourceApiService.exportResourceData(resourceName, format, startDate, endDate);
-
-        // 记录API调用结果
-        API_MONITOR.record(true, !ResourceApiService.API_ENABLED || ResourceApiService.MOCK_MODE);
-
-        console.log('✅ 导出完成');
-
-    } catch (error) {
-        console.error('导出资源数据失败:', error);
-        API_MONITOR.record(false);
-
-        // 显示错误提示
-        alert('导出失败，请稍后重试');
-    }
-}
 
 // 更新洞察卡片
 function closeResourceModal() {
-    console.info('关闭资源详情弹窗');
     const modal = document.getElementById('resourceDetailModal');
     modal.classList.remove('show');
 
@@ -2578,7 +2391,7 @@ function handleTaskFormSubmit(e) {
 
 // ------------------------ 弹窗相关 ------------------------
 
-// 初始化弹窗
+// 修复ID冲突：初始化弹窗 - 使用唯一ID避免与资源筛选冲突
 function initializeModal() {
     addActivityModal = document.getElementById('addActivityModal');
     addActivityForm = document.getElementById('addActivityForm');
@@ -2593,8 +2406,9 @@ function initializeModal() {
     const oneWeekLater = new Date(today);
     oneWeekLater.setDate(today.getDate() + 7);
 
-    document.getElementById('startDate').value = formatDate(today);
-    document.getElementById('endDate').value = formatDate(oneWeekLater);
+    // 修复：使用新的唯一ID避免冲突
+    document.getElementById('activityStartDate').value = formatDate(today);
+    document.getElementById('activityEndDate').value = formatDate(oneWeekLater);
 
     // 添加事件监听器
     closeBtn.addEventListener('click', closeModal);
@@ -2609,7 +2423,11 @@ function initializeModal() {
     });
 }
 
-// 显示添加活动弹窗
+/**
+ * 显示添加活动弹窗
+ * 修复：使用唯一ID避免与资源筛选的ID冲突
+ * 活动弹窗使用activityStartDate/activityEndDate
+ */
 function showAddActivityDialog() {
     if (!addActivityModal) {
         initializeModal();
@@ -2618,11 +2436,17 @@ function showAddActivityDialog() {
         const today = new Date();
         const oneWeekLater = new Date(today);
         oneWeekLater.setDate(today.getDate() + 7);
-        document.getElementById('startDate').value = formatDate(today);
-        document.getElementById('endDate').value = formatDate(oneWeekLater);
+        // 修复：使用新的唯一ID避免冲突
+        document.getElementById('activityStartDate').value = formatDate(today);
+        document.getElementById('activityEndDate').value = formatDate(oneWeekLater);
     }
     addActivityModal.classList.add('show');
 }
+
+// =========================================
+// 6. 工具函数模块
+// 通用辅助方法
+// =========================================
 
 // 格式化日期为YYYY-MM-DD格式
 function formatDate(date) {
@@ -2642,12 +2466,13 @@ function closeModal() {
         if (firstColorOption) {
             firstColorOption.checked = true;
         }
+        // 修复：使用新的唯一ID避免冲突
         // 重置默认日期：当天开始至一周后结束
         const today = new Date();
         const oneWeekLater = new Date(today);
         oneWeekLater.setDate(today.getDate() + 7);
-        document.getElementById('startDate').value = formatDate(today);
-        document.getElementById('endDate').value = formatDate(oneWeekLater);
+        document.getElementById('activityStartDate').value = formatDate(today);
+        document.getElementById('activityEndDate').value = formatDate(oneWeekLater);
     }
 }
 

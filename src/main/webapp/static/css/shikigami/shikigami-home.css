@@ -1,37 +1,55 @@
-/* 游戏管理首页样式 */
+/**
+ * TriAura 游戏管理首页样式 - 优化版本
+ *
+ * 架构设计:
+ * 1. 全局基础样式与布局 - 定义页面基础结构和变量
+ * 2. 中央主视觉区域 - Hero Section 主视觉展示
+ * 3. 活动甘特图区域 - 核心功能区域，活动时间轴管理
+ * 4. 任务管理区域 - 每日/每周任务卡片
+ * 5. 月度资源统计 - 资源数据可视化
+ * 6. 式神统计区域 - 收集进度展示
+ * 7. 弹窗系统 - 模态框和表单样式
+ * 8. 活动列表 - 简化版活动展示
+ * 9. 动画效果 - 页面交互动画
+ * 10. 响应式设计 - 移动端适配
+ * 11. 辅助工具类 - 通用样式和工具类
+ */
 
 /* =========================================
    1. 全局基础样式与布局
+   定义页面整体结构、色彩体系和基础组件样式
 ========================================= */
 
-/* 主体内容区域 */
+/* 主体内容区域 - 页面主要内容容器 */
 .main-content {
-    margin-top: 76px;
-    min-height: calc(100vh - 76px);
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    position: relative;
+    margin-top: 76px; /* 为导航栏预留空间 */
+    min-height: calc(100vh - 76px); /* 全屏高度减去导航栏 */
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* 渐变背景 */
+    position: relative; /* 为子元素定位提供参考 */
 }
 
+/* 内容容器 - 限制最大宽度并提供居中布局 */
 .content-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 1400px; /* 最大宽度限制，适配大屏 */
+    margin: 0 auto; /* 水平居中 */
+    padding: 20px; /* 内边距 */
 }
-
 
 /* =========================================
-   2. 中央主视觉区 (Hero Section)
+   2. 中央主视觉区域 (Hero Section)
+   提供视觉冲击力和核心信息展示
 ========================================= */
 
 .hero-section {
-    position: relative;
+    position: relative; /* 为内部绝对定位元素提供参考 */
     margin-bottom: 40px;
     border-radius: 16px;
-    overflow: hidden;
+    overflow: hidden; /* 隐藏超出边界的元素 */
     min-height: 400px;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(40, 40, 40, 0.6) 50%, rgba(0, 0, 0, 0.8) 100%);
 }
 
+/* 背景图片层 */
 .hero-background {
     position: absolute;
     top: 0;
@@ -39,9 +57,10 @@
     right: 0;
     bottom: 0;
     background: url('https://via.placeholder.com/1400x400/000000/FFFFFF?text=平安京夜景') center/cover;
-    opacity: 0.3;
+    opacity: 0.3; /* 半透明效果 */
 }
 
+/* 动态粒子效果 */
 .hero-particles {
     position: absolute;
     top: 0;
@@ -51,9 +70,10 @@
     background-image: radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.3) 1px, transparent 1px),
     radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.2) 2px, transparent 2px),
     radial-gradient(circle at 50% 80%, rgba(255, 215, 0, 0.3) 1px, transparent 1px);
-    animation: floatingParticles 10s ease-in-out infinite;
+    animation: floatingParticles 10s ease-in-out infinite; /* 持续动画 */
 }
 
+/* 粒子浮动动画 */
 @keyframes floatingParticles {
     0%, 100% {
         transform: translateY(0px);
@@ -61,22 +81,26 @@
     50% {
         transform: translateY(-20px);
     }
+    /* 向上浮动20px */
 }
 
+/* Hero内容区域 */
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 2; /* 确保在背景层之上 */
     padding: 40px;
     display: flex;
     align-items: center;
     min-height: 400px;
 }
 
+/* 特色活动展示 */
 .featured-activity {
     flex: 1;
     max-width: 600px;
 }
 
+/* 活动徽章 */
 .activity-badge {
     display: inline-flex;
     align-items: center;
@@ -90,21 +114,24 @@
     box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
 }
 
+/* 活动标题 */
 .activity-title {
     font-size: 3em;
-    color: #FFD700;
+    color: #FFD700; /* 金色突出 */
     margin-bottom: 16px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     font-weight: bold;
 }
 
+/* 活动描述 */
 .activity-description {
     font-size: 1.2em;
-    color: #FFF8DC;
+    color: #FFF8DC; /* 温暖的米色 */
     margin-bottom: 24px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
 
+/* 活动计时器 */
 .activity-timer {
     display: flex;
     align-items: center;
@@ -118,17 +145,19 @@
     border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
+/* 特色角色展示 */
 .featured-character {
     display: flex;
     align-items: center;
     gap: 20px;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px); /* 背景模糊效果 */
     padding: 20px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* 角色图片 */
 .character-image {
     width: 100px;
     height: 100px;
@@ -137,6 +166,7 @@
     box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
 }
 
+/* 角色信息 */
 .character-info h3 {
     color: #FFD700;
     margin-bottom: 8px;
@@ -148,11 +178,12 @@
     margin: 0;
 }
 
-
 /* =========================================
    3. 活动甘特图区域
+   核心功能模块：活动时间轴管理和可视化
 ========================================= */
 
+/* 甘特图区域容器 */
 .activity-gantt-section {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(8px);
@@ -163,7 +194,7 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* 甘特图头部 */
+/* 区块标题头部 */
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -184,12 +215,13 @@
     color: #000000;
 }
 
-/* 视图控制 */
+/* 视图控制组 */
 .view-controls {
     display: flex;
     gap: 8px;
 }
 
+/* 视图切换按钮 */
 .view-btn {
     padding: 6px 12px;
     border: 1px solid #dee2e6;
@@ -236,7 +268,7 @@
     background: #138496;
 }
 
-/* 甘特图容器 */
+/* 甘特图容器 - 处理横向滚动 */
 .gantt-container {
     overflow-x: auto;
     overflow-y: visible;
@@ -244,6 +276,7 @@
     z-index: 1;
 }
 
+/* 甘特图头部 */
 .gantt-header {
     display: grid;
     grid-template-columns: 1fr;
@@ -252,10 +285,12 @@
     margin-bottom: 10px;
 }
 
+/* 时间轴头部 */
 .timeline-header {
     position: relative;
 }
 
+/* 时间轴日期显示 */
 .timeline-days {
     font-size: 0.85em;
     color: #000000;
@@ -274,7 +309,7 @@
     background: rgba(40, 167, 69, 0.1);
 }
 
-/* 固定高度，避免布局变化 */
+/* 月份标签固定高度 */
 .timeline-days .month-labels {
     height: 20px;
     min-height: 20px;
@@ -284,13 +319,14 @@
     padding: 4px 2px;
 }
 
-/* 甘特图主体 */
+/* 甘特图主体 - 活动行容器 */
 .gantt-body {
     max-height: 200px;
     overflow-y: auto;
     overflow-x: visible;
 }
 
+/* 活动行 */
 .activity-row {
     display: grid;
     grid-template-columns: 1fr;
@@ -299,34 +335,203 @@
     align-items: center;
 }
 
+/* 时间轨道 */
 .timeline-track {
     position: relative;
     background: #f8f9fa;
     border-radius: 4px;
     height: 24px;
     overflow: hidden;
-    cursor: grab;
+    cursor: grab; /* 抓取手势 */
 }
 
 .timeline-track:active {
-    cursor: grabbing;
+    cursor: grabbing; /* 抓取中手势 */
 }
 
-/* 活动条样式 */
+/* 活动条 */
 .activity-bar {
     position: absolute;
     height: 20px;
     top: 2px;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
     overflow: hidden;
+    transform-origin: left center;
 }
 
+/* 视图转换动画 */
+.activity-bar.view-transition {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 活动条进入动画 */
+@keyframes activityBarSlideIn {
+    from {
+        opacity: 0;
+        transform: scaleX(0) translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1) translateX(0);
+    }
+}
+
+/* 活动条退出动画 */
+@keyframes activityBarSlideOut {
+    from {
+        opacity: 1;
+        transform: scaleX(1) translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: scaleX(0) translateX(20px);
+    }
+}
+
+/* 活动列表项动画 */
+.activity-list-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top center;
+}
+
+.activity-list-item.view-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 活动列表进入动画 */
+@keyframes activityListSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 活动列表退出动画 */
+@keyframes activityListSlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+}
+
+/* 甘特图容器动画 */
+.gantt-container {
+    overflow-x: auto;
+    overflow-y: visible;
+    position: relative;
+    z-index: 1;
+}
+
+.gantt-container.view-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 时间轴动画 */
+.timeline-days {
+    font-size: 0.85em;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.timeline-days.view-transition {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 视图切换按钮动画 */
+.view-btn {
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.view-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+.view-btn:hover::before {
+    width: 100%;
+    height: 100%;
+}
+
+.view-btn.switching {
+    pointer-events: none;
+    transform: scale(0.95);
+}
+
+/* 按钮波纹效果 */
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+.btn-ripple {
+    position: absolute !important;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6) !important;
+    transform: scale(0) !important;
+    animation: ripple 0.6s linear !important;
+    pointer-events: none !important;
+}
+
+/* 淡入淡出动画 */
+.fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+.fade-out {
+    animation: fadeOut 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* 活动条文字 */
 .activity-bar-text {
     color: white;
     font-size: 0.7em;
@@ -340,8 +545,11 @@
     letter-spacing: 0.5px;
 }
 
+/* =========================================
+   甘特图进度条
+   提供拖拽和快速导航功能
+========================================= */
 
-/* 甘特图进度条 */
 .gantt-scrollbar {
     margin-top: 12px;
     margin-bottom: 8px;
@@ -376,7 +584,10 @@
     background: #212529;
 }
 
-/* 活动详情提示框 */
+/* =========================================
+   活动详情提示框
+========================================= */
+
 .activity-tooltip {
     display: none;
     position: absolute;
@@ -398,6 +609,7 @@
     text-align: left;
 }
 
+/* 提示框箭头 */
 .activity-tooltip::after {
     content: '';
     position: absolute;
@@ -429,36 +641,125 @@
     margin-bottom: 0;
 }
 
-
 /* =========================================
-   4. 任务与资源区域
+   4. 活动列表
+   简化版活动展示区域
 ========================================= */
 
-.tasks-resources-section {
-    margin-bottom: 40px;
+.activity-list-section {
+    background-color: transparent;
+    border-radius: 8px;
+    padding: 10px 0;
+    margin-top: 15px;
+    box-shadow: none;
+    border: none;
 }
 
-/* 卡片网格布局 */
-.section-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
+/* 活动列表容器 */
+.activity-list-container {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 10px;
 }
+
+/* 活动列表项 */
+.activity-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background-color: currentColor; /* 使用CSS变量 */
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+}
+
+.activity-list-item:hover {
+    opacity: 0.8;
+    box-shadow: none;
+    transform: none;
+}
+
+/* 活动列表信息 */
+.activity-list-info {
+    display: flex;
+    align-items: center;
+}
+
+.activity-list-details {
+    flex: 1;
+}
+
+/* 活动列表名称 */
+.activity-list-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 隐藏不需要的元素 */
+.activity-color-indicator,
+.activity-list-dates {
+    display: none;
+}
+
+/* 活动列表操作 */
+.activity-list-actions {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+}
+
+/* 活动删除按钮 */
+.activity-delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    color: white;
+    background: transparent;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.activity-delete-btn:hover {
+    color: #dc3545;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.activity-delete-btn i {
+    margin-right: 0;
+    font-size: 12px;
+}
+
+/* =========================================
+   5. 任务管理区域
+   每日/每周任务卡片和交互
+========================================= */
 
 /* 任务管理区域 */
 .task-management-section {
     margin-bottom: 24px;
 }
 
-/* 任务卡片网格 */
+/* 任务卡片网格布局 */
 .task-cards-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-/* 通用卡片样式 */
-.task-card, .resource-card {
+/* 通用卡片样式 - 应用于任务卡片 */
+.task-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
     border-radius: 16px;
@@ -468,8 +769,8 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.task-card:hover, .resource-card:hover {
-    transform: translateY(-4px);
+.task-card:hover {
+    transform: translateY(-4px); /* 悬停上浮效果 */
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -496,166 +797,7 @@
     color: #000000;
 }
 
-/* 进度指示器 */
-.progress-indicator {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.completed {
-    font-weight: bold;
-    color: #28a745;
-    font-size: 0.9em;
-}
-
-/* 进度条基础样式 */
-.progress-bar {
-    width: 100px;
-    height: 6px;
-    background: #e9ecef;
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #28a745, #20c997);
-    border-radius: 3px;
-    transition: width 0.3s ease;
-}
-
-/* 任务列表 */
-.task-list {
-    margin-bottom: 20px;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.task-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    position: relative;
-    transition: background-color 0.2s ease;
-    min-height: 44px;
-}
-
-.task-item:hover {
-    cursor: pointer;
-}
-
-.task-checkbox {
-    width: 18px;
-    height: 18px;
-    border: 2px solid #dee2e6;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    flex-shrink: 0;
-    cursor: pointer;
-}
-
-.task-item.completed .task-checkbox {
-    background: #28a745;
-    border-color: #28a745;
-    color: white;
-}
-
-.task-item.completed .task-checkbox i {
-    font-size: 0.7em;
-}
-
-.task-content {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-}
-
-.task-name {
-    color: #333;
-    font-size: 14px !important;
-    font-weight: normal;
-    flex: 1;
-    line-height: 1.4;
-}
-
-.task-item.completed .task-name {
-    text-decoration: line-through;
-    color: #333 !important;
-    font-size: 14px !important;
-    font-weight: normal !important;
-    line-height: 1.4;
-}
-
-.task-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8em;
-    margin-top: 4px;
-}
-
-.task-reward {
-    color: #28a745;
-    font-weight: bold;
-    font-size: 14px !important;
-    flex-shrink: 0;
-    line-height: 1.4;
-}
-
-.task-item.completed .task-reward {
-    color: #28a745 !important;
-    font-weight: bold !important;
-    font-size: 14px !important;
-    line-height: 1.4;
-}
-
-.task-time {
-    color: #6c757d;
-}
-
-/* 任务操作按钮 */
-.task-actions {
-    display: flex;
-    gap: 4px;
-    transition: opacity 0.2s ease;
-}
-
-.task-item:hover .task-actions {
-    opacity: 1;
-}
-
-.task-edit-btn,
-.task-delete-btn {
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: #f8f9fa;
-    border-radius: 3px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.task-edit-btn:hover {
-    background: #000000;
-    color: white;
-}
-
-.task-delete-btn:hover {
-    background: #dc3545;
-    color: white;
-}
-
-/* 任务控制 */
+/* 任务控制区域 */
 .task-controls {
     display: flex;
     align-items: center;
@@ -695,86 +837,138 @@
     color: #000000;
 }
 
-/* 进度信息 */
-.progress-info {
+/* 任务列表容器 */
+.task-list {
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* 任务项 */
+.task-item {
     display: flex;
     align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    transition: background-color 0.2s ease;
+    min-height: 44px;
+}
+
+.task-item:hover {
+    cursor: pointer;
+}
+
+/* 任务复选框 */
+.task-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #dee2e6;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.task-item.completed .task-checkbox {
+    background: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.task-item.completed .task-checkbox i {
+    font-size: 0.7em;
+}
+
+/* 任务内容区域 */
+.task-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 8px;
 }
 
-.completed-count {
-    font-weight: bold;
-    color: #000000;
-    font-size: 0.9em;
+/* 任务名称 */
+.task-name {
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+    flex: 1;
+    line-height: 1.4;
 }
 
-.progress-info .progress-bar {
-    width: 80px;
-    height: 6px;
-    background: #e9ecef;
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.progress-info .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #28a745, #20c997);
-    border-radius: 3px;
-}
-
-/* 奖励预览 */
-.reward-preview {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85em;
-    color: #28a745;
-    font-weight: bold;
-}
-
-.reward-preview i {
-    color: #28a745;
+.task-item.completed .task-name {
+    text-decoration: line-through;
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.4;
 }
 
 /* 任务奖励 */
-.task-rewards {
-    display: flex;
-    gap: 16px;
-    padding: 16px;
-    background: linear-gradient(135deg, #f8fff8, #f0fff0);
-    border-radius: 8px;
-    border: 1px solid #28a745;
+.task-reward {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+    line-height: 1.4;
 }
 
-.reward-item {
+.task-item.completed .task-reward {
+    color: #28a745;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* 任务操作按钮 */
+.task-actions {
+    display: flex;
+    gap: 4px;
+    transition: opacity 0.2s ease;
+    opacity: 0; /* 默认隐藏 */
+}
+
+.task-item:hover .task-actions {
+    opacity: 1; /* 悬停时显示 */
+}
+
+/* 任务编辑/删除按钮 */
+.task-edit-btn,
+.task-delete-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: #f8f9fa;
+    border-radius: 3px;
+    cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #28a745;
-    font-size: 0.9em;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
-.reward-item i {
-    color: #28a745;
+.task-edit-btn:hover {
+    background: #000000;
+    color: white;
 }
 
-/* 每周重置提示 */
-.weekly-reset {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #6c757d;
-    font-size: 0.85em;
-    padding: 8px 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    margin-top: 12px;
+.task-delete-btn:hover {
+    background: #dc3545;
+    color: white;
 }
-
 
 /* =========================================
-   5. 月度资源统计
+   6. 月度资源统计
+   资源数据可视化和统计展示
 ========================================= */
 
+/* 月度资源统计区域 */
 .monthly-resources-section {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(8px);
@@ -785,17 +979,20 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* 周期信息区域 */
 .period-info {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
+/* 当前月份显示 */
 #currentMonth {
     color: #333;
     font-weight: bold;
 }
 
+/* 总获得信息 */
 .total-earned {
     display: flex;
     align-items: center;
@@ -815,6 +1012,7 @@
     gap: 16px;
 }
 
+/* 资源统计卡片 */
 .resource-stat-card {
     display: flex;
     align-items: center;
@@ -833,6 +1031,7 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+/* 悬停提示 */
 .resource-stat-card::after {
     content: '点击查看详情';
     position: absolute;
@@ -848,6 +1047,7 @@
     opacity: 1;
 }
 
+/* 资源图标 */
 .resource-icon {
     width: 40px;
     height: 40px;
@@ -861,6 +1061,7 @@
     flex-shrink: 0;
 }
 
+/* 资源数据区域 */
 .resource-data {
     flex: 1;
 }
@@ -913,82 +1114,9 @@
     color: #dc3545;
 }
 
-
-/* 资源卡片 */
-.refresh-btn {
-    background: none;
-    border: none;
-    color: #000000;
-    font-size: 1.2em;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 6px;
-    transition: all 0.2s ease;
-}
-
-.refresh-btn:hover {
-    background: rgba(0, 0, 0, 0.1);
-    transform: rotate(180deg);
-}
-
-.resource-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-.resource-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px;
-    background: #f8f9fa;
-    border-radius: 8px;
-    border: 1px solid #e9ecef;
-    transition: all 0.2s ease;
-}
-
-.resource-item:hover {
-    background: #e9ecef;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.resource-info {
-    flex: 1;
-}
-
-.resource-progress {
-    display: flex;
-    gap: 4px;
-    font-size: 0.85em;
-    color: #6c757d;
-    margin-bottom: 6px;
-}
-
-.current {
-    font-weight: bold;
-    color: #333;
-}
-
-.target {
-    color: #28a745;
-}
-
-.resource-item .progress-bar {
-    width: 100%;
-    height: 4px;
-    background: #e9ecef;
-    border-radius: 2px;
-}
-
-.resource-item .progress-fill {
-    background: linear-gradient(90deg, #28a745, #20c997);
-}
-
-
 /* =========================================
-   6. 式神统计区域
+   7. 式神统计区域
+   收集进度和可视化展示
 ========================================= */
 
 /* 缩小版式神统计 */
@@ -1002,6 +1130,7 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* 紧凑头部 */
 .compact-header {
     display: flex;
     justify-content: space-between;
@@ -1022,6 +1151,7 @@
     color: #000000;
 }
 
+/* 查看详情按钮 */
 .view-detail-btn {
     display: flex;
     align-items: center;
@@ -1043,6 +1173,7 @@
     gap: 10px;
 }
 
+/* 统计项 */
 .stat-item {
     text-align: center;
     padding: 10px 6px;
@@ -1056,6 +1187,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 统计标签 */
 .stat-label {
     font-size: 0.8em;
     color: #495057;
@@ -1065,6 +1197,7 @@
     letter-spacing: 0.3px;
 }
 
+/* 统计数值 */
 .stat-value {
     font-size: 1.2em;
     font-weight: 900;
@@ -1072,6 +1205,7 @@
     margin-bottom: 2px;
 }
 
+/* 统计进度 */
 .stat-progress {
     font-size: 0.75em;
     color: #28a745;
@@ -1079,7 +1213,7 @@
     font-weight: 600;
 }
 
-/* 为不同稀有度添加特殊颜色 */
+/* 不同稀有度的特殊颜色 */
 .stat-item:nth-child(1) .stat-value { /* 总收集 */
     color: #2c3e50;
 }
@@ -1108,244 +1242,12 @@
     color: #95a5a6;
 }
 
-/* 详细式神统计 */
-.shikigami-stats-section {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    border-radius: 16px;
-    padding: 32px;
-    margin-bottom: 40px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-}
-
-.stats-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 32px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-}
-
-.stats-header h2 {
-    color: #000000;
-    font-size: 1.8em;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 0;
-}
-
-.stats-header h2 i {
-    color: #000000;
-}
-
-/* 统计摘要 */
-.stats-summary {
-    display: flex;
-    gap: 24px;
-}
-
-.summary-item {
-    text-align: center;
-}
-
-.summary-item .label {
-    display: block;
-    color: #6c757d;
-    font-size: 0.9em;
-    margin-bottom: 4px;
-}
-
-.summary-item .value {
-    display: block;
-    color: #000000;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-/* 图表容器 */
-.charts-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
-}
-
-.chart-card {
-    background: #f8f9fa;
-    border-radius: 12px;
-    padding: 20px;
-    border: 1px solid #e9ecef;
-}
-
-.chart-card h3 {
-    color: #000000;
-    font-size: 1.1em;
-    margin-bottom: 16px;
-    text-align: center;
-}
-
-.chart-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 16px;
-}
-
-.chart-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-}
-
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.8em;
-    color: #6c757d;
-}
-
-.legend-color {
-    width: 12px;
-    height: 12px;
-    border-radius: 2px;
-}
-
-/* 统计表格 */
-.stats-table-container {
-    overflow-x: auto;
-}
-
-.stats-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.stats-table th {
-    background: linear-gradient(135deg, #000000, #333333);
-    color: white;
-    padding: 12px 16px;
-    text-align: left;
-    font-weight: 600;
-}
-
-.stats-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid #e9ecef;
-    color: #333;
-}
-
-.stats-table tbody tr:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-
 /* =========================================
-   7. 活动列表
+   8. 弹窗系统
+   模态框、表单和交互组件
 ========================================= */
 
-.activity-list-section {
-    background-color: transparent;
-    border-radius: 8px;
-    padding: 10px 0;
-    margin-top: 15px;
-    box-shadow: none;
-    border: none;
-}
-
-.activity-list-container {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
-
-.activity-list-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 15px;
-    border-radius: 6px;
-    background-color: currentColor;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    white-space: nowrap;
-    position: relative;
-}
-
-.activity-list-item:hover {
-    opacity: 0.8;
-    box-shadow: none;
-    transform: none;
-}
-
-.activity-list-info {
-    display: flex;
-    align-items: center;
-}
-
-.activity-color-indicator {
-    display: none;
-}
-
-.activity-list-details {
-    flex: 1;
-}
-
-.activity-list-name {
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-}
-
-.activity-list-dates {
-    display: none;
-}
-
-.activity-list-actions {
-    display: flex;
-    align-items: center;
-    margin-left: 8px;
-}
-
-.activity-delete-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 14px;
-    color: white;
-    background: transparent;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
-    margin-left: 8px;
-}
-
-.activity-delete-btn:hover {
-    color: #dc3545;
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.activity-delete-btn i {
-    margin-right: 0;
-    font-size: 12px;
-}
-
-
-/* =========================================
-   8. 弹窗样式
-========================================= */
-
-/* 模态弹窗 */
+/* 模态弹窗基础样式 */
 .modal {
     display: none;
     position: fixed;
@@ -1364,6 +1266,7 @@
     align-items: center;
 }
 
+/* 弹窗内容 */
 .modal-content {
     background-color: white;
     margin: auto;
@@ -1375,7 +1278,7 @@
     animation: modalSlideIn 0.3s ease-out;
 }
 
-/* 资源详情弹窗样式 */
+/* 资源详情弹窗特殊样式 */
 .resource-modal-content {
     max-width: 900px;
     max-height: 85vh;
@@ -1384,6 +1287,7 @@
     position: relative;
 }
 
+/* 粘性头部和底部 */
 .resource-modal-content .modal-header {
     position: sticky;
     top: 0;
@@ -1410,6 +1314,7 @@
     padding: 0 24px;
 }
 
+/* 资源详情头部 */
 .resource-detail-header {
     display: flex;
     align-items: center;
@@ -1445,12 +1350,230 @@
     font-weight: bold;
 }
 
+/* 弹窗动画 */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 弹窗头部 */
+.modal-header {
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #343a40;
+    font-size: 1.2em;
+}
+
+/* 关闭按钮 */
+.close-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+    user-select: none;
+}
+
+.close-btn:hover {
+    background-color: rgba(52, 58, 64, 0.2);
+    color: #343a40;
+    transform: scale(1.1);
+}
+
+.close-btn:active {
+    transform: scale(0.95);
+}
+
+/* 弹窗主体 */
+.modal-body {
+    padding: 20px;
+}
+
+/* 表单样式 */
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    flex: 1;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 0.9em;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #495057;
+    box-shadow: 0 0 0 2px rgba(73, 80, 87, 0.1);
+}
+
+/* 颜色选项 */
+.color-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.color-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.color-option input[type="radio"] {
+    display: none;
+}
+
+.color-swatch {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #dee2e6;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.color-swatch:hover {
+    border-color: #495057;
+    transform: scale(1.1);
+}
+
+.color-option input[type="radio"]:checked + .color-swatch {
+    border-color: #495057;
+    box-shadow: 0 0 0 2px rgba(73, 80, 87, 0.2);
+    transform: scale(1.1);
+}
+
+/* 弹窗底部 */
+.modal-footer {
+    padding: 16px 20px;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    border-radius: 0 0 8px 8px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* 弹窗按钮 */
+.cancel-btn,
+.save-btn,
+.export-btn {
+    padding: 8px 16px;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s ease;
+}
+
+.cancel-btn {
+    background-color: white;
+    color: #6c757d;
+}
+
+.cancel-btn:hover {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.save-btn,
+.export-btn {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.save-btn:hover,
+.export-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
+
+/* =========================================
+   9. 标签页和时间筛选
+   资源详情弹窗的交互组件
+========================================= */
+
 /* 标签页样式 */
 .resource-details-tabs {
     display: flex;
     gap: 0;
     border-bottom: 2px solid #dee2e6;
     margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9em;
+    color: #6c757d;
+}
+
+.tab-btn:hover {
+    color: #000000;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn.active {
+    color: #000000;
+    border-bottom-color: #000000;
+    font-weight: bold;
 }
 
 /* 时间筛选控件 */
@@ -1499,6 +1622,7 @@
     border-color: #000000;
 }
 
+/* 自定义日期范围 */
 .custom-date-range {
     display: flex;
     align-items: center;
@@ -1530,28 +1654,6 @@
 
 .apply-date-btn:hover {
     background: #218838;
-}
-
-.tab-btn {
-    padding: 12px 24px;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-size: 0.9em;
-    color: #6c757d;
-}
-
-.tab-btn:hover {
-    color: #000000;
-    background: rgba(0, 0, 0, 0.05);
-}
-
-.tab-btn.active {
-    color: #000000;
-    border-bottom-color: #000000;
-    font-weight: bold;
 }
 
 /* 标签内容 */
@@ -1605,394 +1707,12 @@
     background: rgba(0, 0, 0, 0.05);
 }
 
-
-/* 导出按钮样式 */
-.export-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s ease;
-}
-
-/* 弹窗滚动条美化 */
-.resource-modal-content .modal-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.resource-modal-content .modal-body::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-}
-
-.resource-modal-content .modal-body::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.resource-modal-content .modal-body::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
-/* 防止滚动穿透 */
-.modal.show {
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-}
-
-.modal-content {
-    overscroll-behavior: contain;
-}
-
-/* 表格滚动条美化 */
-.table-container::-webkit-scrollbar {
-    width: 6px;
-}
-
-.table-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
-}
-
-.table-container::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 3px;
-}
-
-.table-container::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-    .resource-modal-content {
-        max-width: 95vw;
-        max-height: 90vh;
-        margin: 20px;
-    }
-
-    .time-filter-container {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-
-    .time-filter-options {
-        justify-content: center;
-    }
-
-    .custom-date-range {
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-
-    .source-content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .trend-controls {
-        flex-direction: column;
-        gap: 12px;
-        align-items: stretch;
-    }
-
-    .trend-period-selector {
-        justify-content: center;
-    }
-
-    .insight-cards {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    #sourceChart, #trendChart {
-        max-width: 100%;
-        height: auto;
-    }
-}
-
-@media (max-width: 480px) {
-    .resource-modal-content {
-        max-width: 95vw;
-        max-height: 95vh;
-        margin: 10px;
-    }
-
-    .resource-modal-content .modal-header {
-        padding: 12px 16px;
-    }
-
-    .resource-modal-content .modal-body {
-        padding: 0 16px;
-    }
-
-    .resource-modal-content .modal-footer {
-        padding: 12px 16px;
-    }
-
-    .resource-details-tabs {
-        flex-wrap: wrap;
-    }
-
-    .tab-btn {
-        flex: 1;
-        min-width: 80px;
-        font-size: 0.8em;
-        padding: 10px 8px;
-    }
-
-    .time-filter-container {
-        padding: 12px;
-    }
-
-    .time-filter-options {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 6px;
-    }
-
-    .time-filter-btn {
-        font-size: 0.8em;
-        padding: 6px 12px;
-    }
-
-    .source-content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .insight-cards {
-        grid-template-columns: 1fr;
-        gap: 8px;
-    }
-
-    .insight-card {
-        padding: 12px;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .insight-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 1em;
-        margin-bottom: 8px;
-    }
-
-    .insight-value {
-        font-size: 1.2em;
-    }
-
-    .chart-container-enhanced {
-        padding: 12px;
-    }
-
-    .source-chart-container-enhanced {
-        padding: 12px;
-        min-height: 250px;
-    }
-}
-
-
-.export-btn:hover {
-    background: #218838;
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.modal-header {
-    padding: 20px;
-    background: #f8f9fa;
-    border-bottom: 1px solid #dee2e6;
-    border-radius: 8px 8px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    margin: 0;
-    color: #343a40;
-    font-size: 1.2em;
-}
-
-.close-btn {
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: rgba(108, 117, 125, 0.1);
-    color: #6c757d;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    outline: none;
-    user-select: none;
-}
-
-.close-btn:hover {
-    background-color: rgba(52, 58, 64, 0.2);
-    color: #343a40;
-    transform: scale(1.1);
-}
-
-.close-btn:active {
-    transform: scale(0.95);
-}
-
-.modal-body {
-    padding: 20px;
-}
-
-/* 表单样式 */
-.form-row {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-
-.form-group {
-    flex: 1;
-    margin-bottom: 16px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 6px;
-    color: #495057;
-    font-weight: 500;
-    font-size: 0.9em;
-}
-
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group input[type="color"],
-.form-group input[type="number"],
-.form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    font-size: 0.9em;
-    transition: border-color 0.2s ease;
-    box-sizing: border-box;
-}
-
-.form-group input[type="text"]:focus,
-.form-group input[type="date"]:focus,
-.form-group input[type="color"]:focus,
-.form-group input[type="number"]:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #495057;
-    box-shadow: 0 0 0 2px rgba(73, 80, 87, 0.1);
-}
-
-/* 颜色选项样式 */
-.color-options {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.color-option {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-}
-
-.color-option input[type="radio"] {
-    display: none;
-}
-
-.color-swatch {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 2px solid #dee2e6;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.color-swatch:hover {
-    border-color: #495057;
-    transform: scale(1.1);
-}
-
-.color-option input[type="radio"]:checked + .color-swatch {
-    border-color: #495057;
-    box-shadow: 0 0 0 2px rgba(73, 80, 87, 0.2);
-    transform: scale(1.1);
-}
-
-.modal-footer {
-    padding: 16px 20px;
-    background: #f8f9fa;
-    border-top: 1px solid #dee2e6;
-    border-radius: 0 0 8px 8px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 12px;
-}
-
-/* 弹窗按钮 */
-.cancel-btn, .save-btn {
-    padding: 8px 16px;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.9em;
-    transition: all 0.2s ease;
-}
-
-.cancel-btn {
-    background-color: white;
-    color: #6c757d;
-}
-
-.cancel-btn:hover {
-    background-color: #e9ecef;
-    color: #495057;
-}
-
-.save-btn {
-    background-color: #28a745;
-    color: white;
-    border-color: #28a745;
-}
-
-.save-btn:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
-}
-
-
 /* =========================================
-   9. 动画效果
+   10. 动画效果
+   页面交互和过渡动画
 ========================================= */
 
+/* 淡入上升动画 */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -2005,11 +1725,14 @@
 }
 
 /* 卡片入场动画 */
-.task-card, .resource-card, .chart-card, .action-item {
+.task-card,
+.resource-card,
+.chart-card,
+.action-item {
     animation: fadeInUp 0.6s ease forwards;
 }
 
-/* 动画延迟 */
+/* 动画延迟序列 */
 .task-card:nth-child(1) {
     animation-delay: 0.1s;
 }
@@ -2058,34 +1781,12 @@
     animation-delay: 1.2s;
 }
 
-
-/* =========================================
-   10. 滚动条样式
-========================================= */
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-
 /* =========================================
    11. 响应式设计
+   移动端和不同屏幕尺寸适配
 ========================================= */
 
+/* 平板设备适配 */
 @media (max-width: 1200px) {
     .section-grid {
         grid-template-columns: 1fr 1fr;
@@ -2100,6 +1801,7 @@
     }
 }
 
+/* 移动设备适配 */
 @media (max-width: 768px) {
     /* 时间筛选控件响应式 */
     .time-filter-container {
@@ -2115,41 +1817,6 @@
     .custom-date-range {
         width: 100%;
         justify-content: space-between;
-    }
-
-    /* 来源分析响应式 */
-    .source-content-wrapper {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .source-stats-summary {
-        flex-direction: column;
-        gap: 8px;
-        align-items: flex-start;
-    }
-
-    .source-analysis-header {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    /* 趋势分析响应式 */
-    .trend-analysis-header {
-        flex-direction: column;
-        gap: 12px;
-        align-items: flex-start;
-    }
-
-    .trend-controls {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .insight-cards {
-        grid-template-columns: 1fr;
-        gap: 12px;
     }
 
     /* 主体内容 */
@@ -2173,14 +1840,6 @@
         grid-template-columns: 1fr;
     }
 
-    .charts-container {
-        grid-template-columns: 1fr;
-    }
-
-    .charts-container .chart-card:last-child {
-        grid-column: span 1;
-    }
-
     .resources-grid {
         grid-template-columns: 1fr 1fr;
     }
@@ -2188,22 +1847,6 @@
     .stats-compact-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 8px;
-    }
-
-    /* 统计区域 */
-    .stats-header {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    /* 资源区域 */
-    .resource-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* 操作区域 */
-    .actions-grid {
-        grid-template-columns: 1fr;
     }
 
     /* 字体大小 */
@@ -2214,8 +1857,35 @@
     .hero-section {
         min-height: auto;
     }
+
+    /* 弹窗样式 */
+    .resource-modal-content {
+        max-width: 95vw;
+        max-height: 90vh;
+        margin: 20px;
+    }
+
+    .resource-modal-content .modal-body {
+        padding: 0 16px;
+    }
+
+    .resource-modal-content .modal-footer {
+        padding: 12px 16px;
+    }
+
+    .resource-details-tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        flex: 1;
+        min-width: 80px;
+        font-size: 0.8em;
+        padding: 10px 8px;
+    }
 }
 
+/* 小屏设备适配 */
 @media (max-width: 576px) {
     /* 表单布局 */
     .form-row {
@@ -2238,5 +1908,169 @@
     .stats-compact-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 8px;
+    }
+
+    /* 时间筛选 */
+    .time-filter-container {
+        padding: 12px;
+    }
+
+    .time-filter-options {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .time-filter-btn {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+}
+
+/* =========================================
+   12. 滚动条美化
+   自定义滚动条样式
+========================================= */
+
+/* 全局滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* 弹窗滚动条 */
+.resource-modal-content .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.resource-modal-content .modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.resource-modal-content .modal-body::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.resource-modal-content .modal-body::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 表格滚动条 */
+.table-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* =========================================
+   13. 辅助工具类
+   通用样式和工具类
+========================================= */
+
+/* 类型标签样式 */
+.type-badge {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.type-badge[data-type="日常"] {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.type-badge[data-type="周常"] {
+    background: #e8f5e8;
+    color: #2e7d32;
+}
+
+.type-badge[data-type="活动"] {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+.type-badge[data-type="PVP"] {
+    background: #fff3e0;
+    color: #f57c00;
+}
+
+.type-badge[data-type="PVE"] {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.type-badge[data-type="社交"] {
+    background: #e0f2f1;
+    color: #00796b;
+}
+
+.type-badge[data-type="成就"] {
+    background: #fff8e1;
+    color: #f9a825;
+}
+
+.type-badge[data-type="商店"] {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+/* 隐藏元素工具类 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* 无障碍访问优化 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .modal {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .task-card {
+        border: 2px solid #000;
     }
 }

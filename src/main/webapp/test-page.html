@@ -207,21 +207,22 @@
 <script>
     // 模拟用户登录API，用于逃避登录校验
     function simulateLogin() {
-        console.log('正在调用用户登录API...');
-        fetch('/TriAura_war_exploded/test/mock-login', {
+        return fetch('/TriAura_war_exploded/test/mock-login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            credentials: 'include', // 允许浏览器发送cookie
             body: JSON.stringify({token: 'test-token'})
         }).then(response => response.json()).then(data => {
             console.log('登录API返回数据:', data);
             return data;
-            // 这里可以添加处理登录成功后的逻辑
         }).catch(error => {
             console.error('登录API调用失败:', error);
+            return Promise.reject(error);
         });
     }
+
 
     // 默认页面内容，用于比较判断
     const defaultPageContent = {
@@ -235,27 +236,27 @@
         {
             name: '首页',
             path: '/TriAura_war_exploded/user/tiraura',
-            description: '自定义测试页面'
+            description: '系统首页'
         },
         {
-            name: '测试页面',
-            path: '#',
-            description: '自定义测试页面'
+            name: '生活管理-首页',
+            path: '/TriAura_war_exploded/life/life-total',
+            description: '生活管理首页'
         },
         {
-            name: '测试页面',
-            path: '#',
-            description: '自定义测试页面'
+            name: '生活管理-资产管理',
+            path: '/TriAura_war_exploded/life/life-asset',
+            description: '资产管理'
         },
         {
-            name: '测试页面',
-            path: '#',
-            description: '自定义测试页面'
+            name: '游戏管理-首页',
+            path: '/TriAura_war_exploded/shikigami/home',
+            description: '游戏管理首页'
         },
         {
-            name: '测试页面',
-            path: '#',
-            description: '自定义测试页面'
+            name: '游戏管理-式神录',
+            path: '/TriAura_war_exploded/shikigami/record',
+            description: '式神录'
         },
         {
             name: '测试页面',
@@ -337,13 +338,14 @@
     // 统一的跳转API，用于处理所有页面跳转
     function handlePageRedirect(targetUrl) {
         console.log('正在调用统一跳转API...');
-
-        // 调用登录API，绕过登录校验
-        simulateLogin();
-
-        console.log(`跳转到：${targetUrl}`);
-        // 在新页面打开目标页面
-        window.open(targetUrl, '_blank');
+        // 调用登录API，绕过登录校验，等待登录完成后再跳转
+        simulateLogin().then(data => {
+            console.log(`登录成功，跳转到：${targetUrl}`);
+            // 在新页面打开目标页面
+            window.open(targetUrl, '_blank');
+        }).catch(error => {
+            console.error('登录失败，无法跳转:', error);
+        });
     }
 
     // 生成页面列表

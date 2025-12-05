@@ -2,6 +2,8 @@ package com.triauras.controller;
 
 
 import com.triauras.entity.Shikigami;
+import com.triauras.entity.ShikigamiActivity;
+import com.triauras.service.ShikigamiActivityService;
 import com.triauras.service.ShikigamiService;
 import com.triauras.utils.OSSUtils;
 import com.triauras.vo.ResultVO;
@@ -24,14 +26,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/shikigami")
 public class ShikigamiController {
     private final ShikigamiService shikigamiService;
+    private final ShikigamiActivityService shikigamiActivityService;
 
     /**
      * 构造函数，依赖注入式神服务
      *
      * @param shikigamiService 式神服务对象
      */
-    public ShikigamiController(ShikigamiService shikigamiService) {
+    public ShikigamiController(ShikigamiService shikigamiService, ShikigamiActivityService shikigamiActivityService) {
         this.shikigamiService = shikigamiService;
+        this.shikigamiActivityService = shikigamiActivityService;
     }
 
     /**
@@ -154,5 +158,17 @@ public class ShikigamiController {
     @RequestMapping(value = "/home")
     public String shikigamiHome() {
         return "shikigami/shikigami-home";
+    }
+
+    /**
+     * 获取所有式神活动
+     *
+     * @return 包含所有式神活动的响应对象
+     */
+    @RequestMapping(value = "/activities", method = RequestMethod.GET)
+    @ResponseBody
+    public ResultVO<List<ShikigamiActivity>> getAllActivities() {
+        List<ShikigamiActivity> activities = shikigamiActivityService.getShikigamiActivities();
+        return ResultVO.success(activities);
     }
 }

@@ -3,11 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:task="http://www.springframework.org/schema/task"
+       xmlns:task="http://www.springframework.org/schema/task" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 	    http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 	    http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
-	    http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd">
+	    http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="com.triauras">
         <context:include-filter type="annotation"
@@ -17,6 +17,27 @@
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
+
+    <!-- 1. 开启 SpringMVC 注解驱动（必需，否则拦截器/@RequestMapping 失效） -->
+    <mvc:annotation-driven/>
+
+    <!-- 2. 定义拦截器 Bean（id 自定义，class 为拦截器全类名） -->
+    <bean id="responsePageLoggerInterceptor" class="com.triauras.config.ResponsePageLoggerInterceptor"/>
+
+    <!-- 3. 注册拦截器（核心） -->
+    <mvc:interceptors>
+        <!-- 方式1：拦截所有请求（推荐，如需精准拦截可配置 path） -->
+        <mvc:interceptor>
+            <!-- 拦截所有URL（/** 表示所有层级的请求，/* 仅一级） -->
+            <mvc:mapping path="/**"/>
+            <!-- 排除不需要拦截的URL（可选，如静态资源） -->
+            <mvc:exclude-mapping path="/static/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <!-- 关联上面定义的拦截器 Bean -->
+            <ref bean="responsePageLoggerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 启用定时任务 -->
     <task:annotation-driven/>

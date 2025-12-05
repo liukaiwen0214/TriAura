@@ -27,25 +27,14 @@
 <% request.setAttribute("activePage", "game"); %>
 
 <%-- 引入导航栏组件 --%>
-<%@ include file="/WEB-INF/views/navbar.jsp" %>
-
+<%--<%@ include file="/WEB-INF/views/navbar.jsp" %>--%>
+<%-- 引入导航栏组件 --%>
+<%@ include file="../navbar.jsp" %>
 
 <div id="navbar-container"></div>
 
 <main class="main-content">
     <div class="content-container">
-        <!-- 欢迎区域 -->
-        <section class="welcome-section">
-            <div class="welcome-content">
-                <h1>欢迎回来</h1>
-                <p>这里是您的生活、游戏、工作管理中心</p>
-            </div>
-        </section>
-
-        <!-- 快速访问区域 -->
-        <section class="quick-access">
-            <div></div>
-        </section>
         <section class="activity-gantt-section">
             <div class="section-header">
                 <h2><i class="fas fa-chart-gantt"></i> 活动跟踪</h2>
@@ -117,9 +106,11 @@
                             <button class="time-filter-btn" data-period="all">全部</button>
                         </div>
                         <div class="custom-date-range">
-                            <input type="date" id="startDate" class="date-input">
+                            <label for="resourceStartDate"></label>
+                            <input type="date" id="resourceStartDate" class="date-input">
                             <span class="date-separator">至</span>
-                            <input type="date" id="endDate" class="date-input">
+                            <label for="resourceEndDate"></label>
+                            <input type="date" id="resourceEndDate" class="date-input">
                             <button class="apply-date-btn" id="applyDateFilter">应用</button>
                         </div>
                     </div>
@@ -219,12 +210,13 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="startDate">开始日期</label>
-                                <input type="date" id="startDate" name="startDate" required aria-required="true">
+                                <label for="activityStartDate">开始日期</label>
+                                <input type="date" id="activityStartDate" name="startDate" required
+                                       aria-required="true">
                             </div>
                             <div class="form-group">
-                                <label for="endDate">结束日期</label>
-                                <input type="date" id="endDate" name="endDate" required aria-required="true">
+                                <label for="activityEndDate">结束日期</label>
+                                <input type="date" id="activityEndDate" name="endDate" required aria-required="true">
                             </div>
                         </div>
                         <div class="form-row">
