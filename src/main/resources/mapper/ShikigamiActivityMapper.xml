@@ -4,40 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.triauras.mapper.ShikigamiActivityMapper">
-    <!-- 1. 所有字段列表（用于完整查询） -->
-    <sql id="All_Column_List">
-        activity_id
-        , activity_name, activity_type, description,
-        activity_color, start_time, end_time, status, dungeon_id,
-        create_time, update_time
-    </sql>
-
-    <!-- 2. 创建/插入时必填字段列表（根据NOT NULL约束） -->
-    <sql id="Required_Column_List">
-        activity_name
-        , activity_type, description, start_time, end_time, cover_image
-    </sql>
-
-    <!-- 3. 常用查询字段列表（页面展示用） -->
-    <sql id="Common_Query_Column_List">
-        activity_id
-        , activity_name, activity_type, description,
-        start_time, end_time, status, cover_image, is_hot
-    </sql>
-
-    <!-- 4. 管理后台查询字段列表 -->
-    <sql id="Admin_Query_Column_List">
-        activity_id
-        , activity_name, activity_type, status,
-        start_time, end_time, level_required, is_repeatable,
-        is_hot, create_time, update_time
-    </sql>
-
-    <!-- 5. 条件查询时的可过滤字段 -->
-    <sql id="Filterable_Column_List">
-        activity_type
-        , status, level_required, is_repeatable, is_hot, dungeon_id
-    </sql>
     <!-- 添加结果映射，确保字段正确映射 -->
     <resultMap id="ShikigamiActivityResultMap" type="com.triauras.entity.ShikigamiActivity">
         <id property="activity_id" column="activity_id"/>
@@ -51,10 +17,8 @@
         <result property="create_time" column="create_time"/>
         <result property="update_time" column="update_time"/>
     </resultMap>
-
     <select id="getShikigamiActivities" resultMap="ShikigamiActivityResultMap">
-        SELECT
-        <include refid="All_Column_List"/>
+        SELECT *
         FROM shikigami_activity;
     </select>
 </mapper>
