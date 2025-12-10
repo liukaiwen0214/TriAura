@@ -80,7 +80,7 @@
                     <div class="stat-icon">
                         <i class="fas fa-tasks"></i>
                     </div>
-                    <div class="stat-value">8</div>
+                    <div class="stat-value" id="todo_not_done_count">8</div>
                     <div class="stat-label">待办事项</div>
                     <div class="stat-change negative">
                         <i class="fas fa-arrow-down"></i> -2 今日
@@ -187,16 +187,16 @@
                     </div>
                     <div class="category-stats">
                         <div class="category-stat">
-                            <div class="category-stat-value">8</div>
+                            <div class="category-stat-value" id="todo_not_done">8</div>
                             <div class="category-stat-label">待完成</div>
                         </div>
                         <div class="category-stat">
-                            <div class="category-stat-value">15</div>
+                            <div class="category-stat-value" id="todo_done">15</div>
                             <div class="category-stat-label">已完成</div>
                         </div>
                     </div>
                     <div class="category-actions">
-                        <a href="#" class="btn-action">查看待办</a>
+                        <a id="viewTodoBtn" class="btn-action">查看待办</a>
                         <a href="#" class="btn-action">添加任务</a>
                     </div>
                 </div>
@@ -313,11 +313,25 @@
         <!-- 菜单内容由JavaScript动态生成 -->
     </div>
 </div>
-
+<!-- 待办列表弹窗 -->
+<div id="todoModal" class="todo-modal">
+    <div class="todo-modal-content">
+        <div class="todo-modal-header">
+            <h3>待办事项列表</h3>
+            <button id="closeTodoModal" class="todo-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="todo-modal-body">
+            <div id="todoList" class="todo-list"></div>
+        </div>
+    </div>
+</div>
 <!-- 遮罩层 -->
 <div id="overlay" class="overlay"></div>
 
 <script src="${pageContext.request.contextPath}/static/script/tiraura.js"></script>
 <script src="${pageContext.request.contextPath}/static/script/life/life-total.js"></script>
+<script src="${pageContext.request.contextPath}/static/script/common/user-utils.js"></script>
 </body>
 </html>

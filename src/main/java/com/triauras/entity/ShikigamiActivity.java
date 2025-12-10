@@ -39,49 +39,9 @@ public class ShikigamiActivity {
      */
     private String status;
     /**
-     * 参与活动所需的最低等级要求
-     */
-    private Integer level_required;
-    /**
-     * 参与活动消耗的体力值
-     */
-    private Integer stamina_cost;
-    /**
-     * 活动封面图片URL
-     */
-    private String cover_image;
-    /**
-     * 活动详情图片URL
-     */
-    private String detail_image;
-    /**
-     * 活动规则说明文本
-     */
-    private String rule_text;
-    /**
-     * 活动奖励信息描述
-     */
-    private String reward_info;
-    /**
      * 关联的副本ID
      */
     private Integer dungeon_id;
-    /**
-     * 活动是否可重复参与
-     */
-    private Boolean is_repeatable;
-    /**
-     * 最大参与次数限制
-     */
-    private Integer max_participation;
-    /**
-     * 活动排序顺序
-     */
-    private Integer sort_order;
-    /**
-     * 是否为热门活动
-     */
-    private Boolean is_hot;
     /**
      * 活动创建时间
      */

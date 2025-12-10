@@ -150,10 +150,9 @@ let saveBtn = null;
 // =========================================
 
 // 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
     // 原有初始化逻辑
-    initializeGanttChart();           // 初始化甘特图，显示活动时间轴
-    generateActivityList();           // 生成活动列表，展示所有式神活动
+    await initializeGanttChart();           // 初始化甘特图，显示活动时间轴
     initializeCountdowns();           // 初始化倒计时功能，显示活动剩余时间
     initializeTaskInteractions();     // 初始化任务交互功能，处理任务操作
     updateMonthDisplay();             // 更新月份显示，同步当前时间信息
@@ -171,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
 // =========================================
 
 // 初始化甘特图
-function initializeGanttChart() {
-    retrieveAllActivities();
+async function initializeGanttChart() {
+    await retrieveAllActivities();
     generateTimelineHeader();
     generateActivityRows();
     updateActivityBars(); // 添加活动条位置更新
@@ -264,7 +263,7 @@ function generateActivityRows() {
             <div class="activity-row">
                 <div class="timeline-track">
                     <div class="activity-bar" 
-                         style="background: ${activity.activity_color};" 
+                         style="background: ${activity.activity_color}; left: 0%; width: 0%;" 
                          data-id="${activityId}"
                          data-start="${activity.start_time}" 
                          data-end="${activity.end_time}" 
@@ -277,6 +276,14 @@ function generateActivityRows() {
     });
 
     ganttBody.innerHTML = rowsHTML;
+
+    // 为活动条添加点击事件
+    ganttBody.querySelectorAll('.activity-bar').forEach(bar => {
+        bar.addEventListener('click', function () {
+            const activityId = this.getAttribute('data-id');
+            showActivityDetail(activityId);
+        });
+    });
 }
 
 // 更新活动条位置
@@ -334,12 +341,16 @@ function updateActivityBars() {
         const activityId = activity.activity_id;
         const activityBar = document.querySelector(`[data-id="${activityId}"]`);
         if (activityBar) {
+            const activityRow = activityBar.parentElement.parentElement;
+            
             if (widthPercent > 0) {
+                // 活动在范围内，显示活动行并设置活动条位置
+                activityRow.classList.remove('hidden');
                 activityBar.style.left = `${leftPercent}%`;
                 activityBar.style.width = `${widthPercent}%`;
             } else {
-                // 如果活动不在当前显示范围内，隐藏活动条
-                activityBar.parentElement.parentElement.style.display = 'none';
+                // 活动不在范围内，隐藏整行
+                activityRow.classList.add('hidden');
             }
         }
     });
@@ -347,80 +358,128 @@ function updateActivityBars() {
 
 //后端获取所有活动
 function retrieveAllActivities() {
-    fetch(requestUrl + '/shikigami/activities')
+    return fetch(requestUrl + '/shikigami/activities')
         .then(response => response.json())
         .then(data => {
             // 检查数据是否为空
             if (data && Array.isArray(data.data) && data.data.length > 0) {
                 // 如果后端返回的数据不为空，使用后端数据
                 activities = data.data;
-
+                console.log('✅ 从后端加载活动数据成功，共', activities.length, '个活动');
             } else {
                 // 如果后端返回的数据为空，保持原来地默认数据
                 console.info('后端数据为空，使用默认活动数据');
+                console.log('📋 使用默认活动数据，共', activities.length, '个活动');
             }
-            // 重新生成甘特图以反映数据变化
-            generateTimelineHeader();
-            generateActivityRows();
-            updateActivityBars();
-            generateActivityList();
+            return activities;
         })
         .catch(error => {
             console.error('获取活动失败:', error);
             // 发生错误时也使用默认数据
             console.info('获取活动失败，使用默认活动数据');
+            console.log('📋 使用默认活动数据，共', activities.length, '个活动');
+            return activities;
         });
 }
 
-// 生成活动列表
-function generateActivityList() {
-    const listContainer = document.getElementById('activityListContainer');
-    if (!listContainer) return;
+// =========================================
+// 活动详情弹窗功能
+// 点击活动条显示详细信息
+// =========================================
 
-    // 计算当前视图的时间范围（与 updateActivityBars 保持一致）
-    const today = new Date();
-    let viewStartDate = new Date(today);
+// 当前编辑的活动数据
+let currentEditingActivity = null;
 
-    if (currentView === 'week') {
-        // 周视图显示本周的7天，从周一到周日
-        const dayOfWeek = today.getDay(); // 0是周日，1是周一
-        const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
-        viewStartDate.setDate(today.getDate() - daysToMonday);
-    } else {
-        // 月视图显示前后15天，加上当前偏移
-        viewStartDate.setDate(today.getDate() - 15 + currentOffset);
+// 显示活动详情弹窗
+function showActivityDetail(activityId) {
+    const activity = activities.find(a => a.activity_id == activityId);
+    if (!activity) return;
+
+    currentEditingActivity = {...activity}; // 复制活动数据用于编辑
+
+    // 填充弹窗数据
+    document.getElementById('activityDetailName').textContent = activity.activity_name;
+    document.getElementById('activityDetailType').textContent = activity.activity_type;
+    document.getElementById('activityDetailDescription').textContent = activity.description || '暂无描述';
+
+    // 格式化时间显示
+    const startDate = new Date(activity.start_time);
+    const endDate = new Date(activity.end_time);
+    document.getElementById('activityDetailStartTime').textContent = formatDate(startDate);
+    document.getElementById('activityDetailEndTime').textContent = formatDate(endDate);
+
+    // 设置状态
+    const statusElement = document.getElementById('activityDetailStatus');
+    statusElement.textContent = activity.status || '未知';
+    statusElement.className = `activity-status ${activity.status || '未开始'}`;
+
+    // 设置等级要求
+    document.getElementById('activityDetailLevel').textContent =
+        activity.level_required ? `Lv.${activity.level_required}` : '无限制';
+
+    // 设置规则说明
+    document.getElementById('activityDetailRules').textContent =
+        activity.rule_text || '暂无规则说明';
+
+    // 设置关联副本
+    document.getElementById('activityDetailDungeon').textContent =
+        activity.dungeon_id ? `副本ID: ${activity.dungeon_id}` : '无关联副本';
+
+    // 显示弹窗
+    const modal = document.getElementById('activityDetailModal');
+    modal.classList.add('show');
+
+    // 添加点击事件阻止冒泡
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) {
+            closeActivityDetailModal();
+        }
+    });
+}
+
+// 格式化日期显示
+function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+// 关闭活动详情弹窗
+function closeActivityDetailModal() {
+    const modal = document.getElementById('activityDetailModal');
+    modal.classList.remove('show');
+    currentEditingActivity = null;
+}
+
+// 编辑活动
+function editActivity() {
+    if (!currentEditingActivity) {
+        alert('请先选择要编辑的活动');
+        return;
     }
 
-    const viewEndDate = new Date(viewStartDate.getTime() + (daysToShow - 1) * 24 * 60 * 60 * 1000);
+    // 这里可以扩展为完整的编辑表单
+    console.log('编辑活动:', currentEditingActivity);
+    alert('编辑功能开发中...');
+}
 
-    // 过滤在当前视图时间范围内的活动
-    const visibleActivities = activities.filter(activity => {
-        const start = new Date(activity.start_time);
-        const end = new Date(activity.end_time);
+// 保存活动修改
+function saveActivityChanges() {
+    if (!currentEditingActivity) {
+        alert('没有要保存的修改');
+        return;
+    }
 
-        // 活动开始时间在视图结束时间之前，且活动结束时间在视图开始时间之后
-        return start <= viewEndDate && end >= viewStartDate;
-    });
+    // 这里可以扩展为保存到后端
+    console.log('保存修改:', currentEditingActivity);
+    alert('保存功能开发中...');
 
-    let listHTML = '';
-    visibleActivities.forEach(activity => {
-        listHTML += `
-            <div class="activity-list-item" data-id="${activity.activity_id}" title="${activity.activity_name}" style="background-color: ${activity.activity_color};">
-                <div class="activity-list-info">
-                    <div class="activity-list-details">
-                        <h4 class="activity-list-name">${activity.activity_name}</h4>
-                    </div>
-                    <div class="activity-list-actions">
-                        <button class="activity-delete-btn" onclick="deleteActivityFromList('${activity.activity_id}')">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-
-    listContainer.innerHTML = listHTML;
+    // 保存后关闭弹窗
+    closeActivityDetailModal();
 }
 
 // 删除活动
@@ -431,9 +490,8 @@ function deleteActivity(activityId) {
         if (activityIndex !== -1) {
             activities.splice(activityIndex, 1);
 
-            // 重新生成所有活动行和列表
+            // 重新生成所有活动行
             generateActivityRows();
-            generateActivityList();
 
             // 更新活动条位置
             updateActivityBars();
@@ -441,10 +499,7 @@ function deleteActivity(activityId) {
     }
 }
 
-// 从活动列表中删除活动
-function deleteActivityFromList(activityId) {
-    deleteActivity(activityId);
-}
+
 
 // 刷新甘特图
 function refreshGanttChart() {
@@ -1089,7 +1144,18 @@ async function switchView(view) {
     }
 
     // 重新生成甘特图（此时元素是隐藏的）
-    initializeGanttChart();
+    await initializeGanttChart();
+
+    // 重新绑定活动条点击事件
+    const ganttBody = document.querySelector('.gantt-body');
+    if (ganttBody) {
+        ganttBody.querySelectorAll('.activity-bar').forEach(bar => {
+            bar.addEventListener('click', function () {
+                const activityId = this.getAttribute('data-id');
+                showActivityDetail(activityId);
+            });
+        });
+    }
 
     // 更新进度条
     updateScrollbar();
@@ -2520,7 +2586,7 @@ function addActivity(name, startDate, endDate, color) {
 
     // 重新生成所有活动行和列表，确保一致性
     generateActivityRows();
-    generateActivityList();
+
 
     // 更新活动条位置
     updateActivityBars();

@@ -61,7 +61,7 @@
                         <i class="fas fa-book"></i>
                         <span>日记</span>
                     </a>
-                    <a href="#" class="dropdown-item">
+                    <a href="#" class="dropdown-item" data-url="/life/life-todo">
                         <i class="fas fa-tasks"></i>
                         <span>待办</span>
                     </a>

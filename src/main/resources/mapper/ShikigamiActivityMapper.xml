@@ -8,9 +8,7 @@
     <sql id="All_Column_List">
         activity_id
         , activity_name, activity_type, description,
-        activity_color, start_time, end_time, status, level_required, stamina_cost,
-        cover_image, detail_image, rule_text, reward_info, dungeon_id,
-        is_repeatable, max_participation, sort_order, is_hot,
+        activity_color, start_time, end_time, status, dungeon_id,
         create_time, update_time
     </sql>
 
@@ -50,17 +48,6 @@
         <result property="start_time" column="start_time"/>
         <result property="end_time" column="end_time"/>
         <result property="status" column="status"/>
-        <result property="level_required" column="level_required"/>
-        <result property="stamina_cost" column="stamina_cost"/>
-        <result property="cover_image" column="cover_image"/>
-        <result property="detail_image" column="detail_image"/>
-        <result property="rule_text" column="rule_text"/>
-        <result property="reward_info" column="reward_info"/>
-        <result property="dungeon_id" column="dungeon_id"/>
-        <result property="is_repeatable" column="is_repeatable"/>
-        <result property="max_participation" column="max_participation"/>
-        <result property="sort_order" column="sort_order"/>
-        <result property="is_hot" column="is_hot"/>
         <result property="create_time" column="create_time"/>
         <result property="update_time" column="update_time"/>
     </resultMap>

@@ -1,15 +1,26 @@
 package com.triauras.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * 用户实体类
  * 存储系统用户的基本信息
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Users extends BaseEntity {
+public class Users {
+
+    /**
+     * 主键ID
+     */
+    private Long id;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime created_at;
+
     /**
      * 用户名
      */
@@ -21,7 +32,7 @@ public class Users extends BaseEntity {
     private String email;
     
     /**
-     * 用户密码
+     * 用户密码（加密存储）
      */
     private String password;
     
@@ -49,4 +60,9 @@ public class Users extends BaseEntity {
      * 用户是否激活
      */
     private Boolean is_active;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updated_at;
 }

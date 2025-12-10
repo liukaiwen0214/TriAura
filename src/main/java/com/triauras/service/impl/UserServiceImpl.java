@@ -3,7 +3,7 @@ package com.triauras.service.impl;
 import com.triauras.entity.Users;
 import com.triauras.mapper.UsersMapper;
 import com.triauras.service.UsersService;
-
+import com.triauras.utils.PasswordEncoderUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class UserServiceImpl implements UsersService {
      */
     @Override
     public Users loginByEmail(String email, String password) {
-        log.debug("【业务处理】用户登录, email: {}", email);
+        log.info("【业务处理】用户登录, email: {}", email);
         // 根据邮箱查询用户
         Users users = usersMapper.selectByEmail(email);
         // 检查用户是否存在
@@ -44,14 +44,17 @@ public class UserServiceImpl implements UsersService {
             log.warn("用户登录失败 - 邮箱: {}", email);
             return null;
         }
-        // 验证密码
-        if (!users.getPassword().equals(password)) {
-            log.error("用户密码错误");
+        if (!PasswordEncoderUtil.matches(password, users.getPassword())) {
+            log.warn("密码验证失败 - 邮箱: {}", email);
             return null;
         }
+
         // 更新最后登录时间
-        log.debug("【业务完成】用户登录, email: {}", email);
+        users.setLast_login_at(new java.sql.Timestamp(System.currentTimeMillis()));
+        usersMapper.updateLastLoginTime(users.getId(), users.getLast_login_at());
+        log.info("用户登录成功 - 用户ID: {}, 用户名: {}", users.getId(), users.getUsername());
         return users;
+
     }
 
     /**
@@ -73,22 +76,25 @@ public class UserServiceImpl implements UsersService {
             // log.info("邮箱已存在");
             return "邮箱已存在";
         }
-
+// 对密码进行加密
+        String encodedPassword = PasswordEncoderUtil.encode(users.getPassword());
+        users.setPassword(encodedPassword);
         // 设置默认值
         users.setAvatar_url("https://example.com/default-avatar.jpg");
-        users.setTimezone("Asia/Shanghai");
+        users.setTimezone("Asia/Beijing");
         users.setCurrency("CNY");
         users.setIs_active(true);
         users.setCreated_at(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
         users.setUpdated_at(new Timestamp(System.currentTimeMillis()).toLocalDateTime());
 
         // 插入用户数据
-        int rowsAffected = usersMapper.insertUser(users);
-        if (rowsAffected == 0) {
-            // log.info("注册用户失败");
-            return "注册失败，请稍后重试";
+        int result = usersMapper.insertUser(users);
+        if (result > 0) {
+            log.info("用户注册成功 - 用户ID: {}, 用户名: {}", users.getId(), users.getUsername());
+            return "注册成功";
+        } else {
+            log.error("用户注册失败 - 用户名: {}, 邮箱: {}", users.getUsername(), users.getEmail());
+            return "注册失败";
         }
-        // log.debug("【业务完成】用户注册, email: {}", users.getEmail());
-        return "注册成功";
     }
 }

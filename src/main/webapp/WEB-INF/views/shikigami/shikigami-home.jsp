@@ -64,12 +64,7 @@
                 </div>
             </div>
 
-            <!-- 活动列表展示 -->
-            <div class="activity-list-section">
-                <div class="activity-list-container" id="activityListContainer">
-                    <!-- 活动列表将动态生成 -->
-                </div>
-            </div>
+
         </section>
 
         <!-- 资源详情弹窗 -->
@@ -192,6 +187,93 @@
                 <div class="modal-footer">
                     <button type="button" class="cancel-btn">取消</button>
                     <button type="submit" form="addTaskForm" class="save-btn">保存</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 活动详情弹窗 -->
+        <div id="activityDetailModal" class="modal">
+            <div class="modal-content activity-detail-modal-content">
+                <div class="modal-header">
+                    <h3 id="activityDetailTitle">活动详情</h3>
+                    <button type="button" class="close-btn" onclick="closeActivityDetailModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="activity-detail-body">
+                        <div class="activity-title-section">
+                            <h3 id="activityDetailName">活动名称</h3>
+                            <span id="activityDetailType" class="activity-type-badge">活动类型</span>
+                        </div>
+
+                        <div class="activity-detail-grid">
+                            <div class="activity-detail-item">
+                                <div class="activity-detail-label">
+                                    <i class="fas fa-info-circle"></i> 活动描述
+                                </div>
+                                <div class="activity-detail-value" id="activityDetailDescription">
+                                    活动描述内容
+                                </div>
+                            </div>
+
+                            <div class="activity-detail-item">
+                                <div class="activity-detail-label">
+                                    <i class="fas fa-clock"></i> 活动时间
+                                </div>
+                                <div class="activity-detail-value">
+                                    <div><strong>开始：</strong><span id="activityDetailStartTime">开始时间</span></div>
+                                    <div><strong>结束：</strong><span id="activityDetailEndTime">结束时间</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-detail-grid">
+                            <div class="activity-detail-item">
+                                <div class="activity-detail-label">
+                                    <i class="fas fa-chart-line"></i> 活动状态
+                                </div>
+                                <div class="activity-detail-value">
+                                    <span id="activityDetailStatus" class="activity-status">活动状态</span>
+                                </div>
+                            </div>
+
+                            <div class="activity-detail-item">
+                                <div class="activity-detail-label">
+                                    <i class="fas fa-user-level"></i> 参与等级
+                                </div>
+                                <div class="activity-detail-value" id="activityDetailLevel">
+                                    等级要求
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="activity-rules">
+                            <h4><i class="fas fa-book"></i> 活动规则</h4>
+                            <div id="activityDetailRules">
+                                活动规则说明内容
+                            </div>
+                        </div>
+
+                        <div class="activity-detail-item">
+                            <div class="activity-detail-label">
+                                <i class="fas fa-dungeon"></i> 关联副本
+                            </div>
+                            <div class="activity-detail-value" id="activityDetailDungeon">
+                                副本ID
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer activity-detail-footer">
+                    <button type="button" class="activity-detail-btn edit" onclick="editActivity()">
+                        <i class="fas fa-edit"></i> 编辑活动
+                    </button>
+                    <button type="button" class="activity-detail-btn save" onclick="saveActivityChanges()">
+                        <i class="fas fa-save"></i> 保存修改
+                    </button>
+                    <button type="button" class="activity-detail-btn cancel" onclick="closeActivityDetailModal()">
+                        <i class="fas fa-times"></i> 关闭
+                    </button>
                 </div>
             </div>
         </div>
