@@ -153,7 +153,7 @@ class LifeTotalPage {
             const elements = ['todo_not_done', 'todo_done', 'todo_not_done_count'];
             elements.forEach(id => {
                 const el = document.getElementById(id);
-                if (el) el.textContent = 0;
+                if (el) el.textContent = "0";
             });
         }
     }
@@ -178,10 +178,18 @@ class LifeTotalPage {
 
         if (viewTodoBtn && todoModal && closeTodoModal) {
             // 查看待办按钮点击事件
-            viewTodoBtn.addEventListener('click', () => {
-                this.showTodoModal();
+            viewTodoBtn.addEventListener('click', async () => { // 1. 加 async 关键字
+                try {
+                    await this.showTodoModal(); // 2. await 等待 Promise 完成
+                    // 可选：弹窗打开成功后的逻辑（比如日志、状态更新）
+                    console.log('待办弹窗打开成功');
+                } catch (err) {
+                    // 3. 捕获弹窗打开失败的错误，避免未处理的 Promise 拒绝
+                    console.error('打开待办弹窗失败：', err);
+                    // 可选：用户友好提示
+                    alert('弹窗加载失败，请重试');
+                }
             });
-
             // 关闭按钮点击事件
             closeTodoModal.addEventListener('click', () => {
                 this.hideTodoModal();
@@ -239,6 +247,32 @@ class LifeTotalPage {
         }
     }
 
+    /**
+     * 获取标签颜色类
+     * @param {string} tag - 标签名称
+     * @returns {string} 颜色类名
+     */
+    getTagColorClass(tag) {
+        // 根据标签名生成颜色类，使用哈希函数确保相同标签始终有相同颜色
+        const tagColors = {
+            '工作': 'tag-color-1',
+            '文档': 'tag-color-2',
+            '优先级高': 'tag-color-3',
+            '会议': 'tag-color-4',
+            '学习': 'tag-color-5',
+            '技术': 'tag-color-6',
+            'JavaScript': 'tag-color-7',
+            '生活': 'tag-color-8',
+            '购物': 'tag-color-9',
+            '健康': 'tag-color-10',
+            '运动': 'tag-color-11',
+            '报告': 'tag-color-12',
+            '整理': 'tag-color-13'
+        };
+
+        return tagColors[tag] || 'tag-color-default';
+    }
+
 
     /**
      * 渲染待办列表
@@ -248,6 +282,7 @@ class LifeTotalPage {
      * @property {number} priority - 待办事项的优先级（1-低，2-中，3-高）
      * @property {string} deadline - 待办事项的截止时间
      * @property {number} id - 待办事项的唯一标识符
+     * @property {String} tags - 待办事项的标签
      */
     renderTodoList(todos, container) {
         if (!todos || todos.length === 0) {
@@ -264,6 +299,22 @@ class LifeTotalPage {
             const priorityClass = `priority-${todo.priority}`;
             const timeInfo = this.timeProcessing(todo.deadline);
             const timeClass = `time-${timeInfo.type}`;
+            console.info("todo.tags:", todo.tags);
+            const tagsHTML = (() => {
+                // 1. 处理 tags：转数组 + 去空格 + 过滤空项
+                const tagsArray = todo.tags ? todo.tags.split(',').map(tag => tag.trim()).filter(tag => tag) : [];
+
+                // 2. 只有数组有内容时才生成 HTML
+                if (tagsArray.length === 0) return '';
+
+                // 3. 对数组调用 map（此时不会报错）
+                return `
+        <div class="tags-container">
+            ${tagsArray.map(tag => `<span class="tag-item ${this.getTagColorClass(tag)}">${tag}</span>`).join('')}
+        </div>
+    `;
+            })();
+
 
             return `
             <div class="todo-item">
@@ -271,9 +322,12 @@ class LifeTotalPage {
                     <input type="checkbox" id="todo-${todo.id}">
                 </div>
                 <div class="todo-item-content">
-                    <div class="todo-item-title">
-                        <span>${todo.title}</span>
-                        <span class="priority-label ${priorityClass}">${todo.priority === 3 ? '高' : todo.priority === 2 ? '中' : '低'}</span>
+                    <div class="todo-item-header">
+                        <div class="todo-item-title">
+                            <span class="todo-item-title-text">${todo.title}</span>
+                            <span class="priority-label ${priorityClass}">${todo.priority === 3 ? '高' : todo.priority === 2 ? '中' : '低'}</span>
+                        </div>
+                        ${tagsHTML}
                     </div>
                     <div class="todo-item-description">${todo.description}</div>
                     <div class="todo-item-footer">
@@ -318,9 +372,9 @@ class LifeTotalPage {
         const todayOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         const tomorrowOnly = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
 
-        let type = 'other';
-        let timeText = '';
-        let label = '';
+        let type;
+        let timeText;
+        let label;
 
         if (dueDateOnly < todayOnly) {
             // 逾期

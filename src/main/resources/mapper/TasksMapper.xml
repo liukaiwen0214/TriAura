@@ -10,6 +10,10 @@
         <result property="user_id" column="user_id"/>
         <result property="title" column="title"/>
         <result property="description" column="description"/>
+        <result property="tags" column="tags"/>
+        <result property="deadline" column="deadline"/>
+        <result property="priority" column="priority"/>
+        <result property="status" column="status"/>
         <result property="completed_at" column="completed_at"/>
         <result property="created_at" column="created_at"/>
         <result property="updated_at" column="updated_at"/>

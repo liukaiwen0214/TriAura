@@ -24,6 +24,10 @@ public class Tasks {
      * 待办事项详细描述
      */
     private String description;
+    /**
+     * 任务标签，多个标签用英文逗号分隔（如：工作,学习,家庭）
+     */
+    private String tags;
 
     /**
      * 待办截止时间

@@ -2305,3 +2305,278 @@ Caused by: java.lang.NullPointerException: Cannot invoke "com.fasterxml.jackson.
 2025-12-10 15:54:52.309 [http-nio-8080-exec-3] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
 2025-12-10 15:54:52.309 [http-nio-8080-exec-3] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
 2025-12-10 15:54:52.311 [http-nio-8080-exec-3] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:45:04.090 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+2025-12-10 17:45:04.718 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-10 17:45:05.001 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.s.config.TaskSchedulerRouter - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-10 17:45:05.003 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 912 ms
+2025-12-10 17:45:05.014 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'springmvc'
+2025-12-10 17:45:05.065 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 50 ms
+2025-12-10 17:45:05.407 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/ | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:45:06.107 [http-nio-8080-exec-5] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/ | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:45:16.300 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/test-page.html | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:45:16.301 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/test | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:45:17.865 [http-nio-8080-exec-7] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/test-page.html | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:45:17.865 [http-nio-8080-exec-7] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/test | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:45:35.260 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：404 OK | 请求URL：/TriAura_war_exploded/ | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:46:06.340 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+2025-12-10 17:46:06.950 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-10 17:46:07.246 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.s.config.TaskSchedulerRouter - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-10 17:46:07.248 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 901 ms
+2025-12-10 17:46:07.258 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'springmvc'
+2025-12-10 17:46:07.305 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 47 ms
+2025-12-10 17:46:17.895 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/test-page.html | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:46:17.896 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/test | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:46:32.985 [http-nio-8080-exec-1] INFO  c.triauras.controller.TestController - 用户登录成功 - 用户ID: 1, 用户名: 测试
+2025-12-10 17:46:33.166 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/test/mock-login | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:46:33.317 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 17:46:33.391 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:46:33.393 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:46:33.395 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:46:33.416 [http-nio-8080-exec-10] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 17:46:33.446 [http-nio-8080-exec-10] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-12-10 17:46:34.950 [http-nio-8080-exec-10] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 17:46:34.971 [http-nio-8080-exec-10] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 17:46:35.022 [http-nio-8080-exec-10] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 14
+2025-12-10 17:46:35.023 [http-nio-8080-exec-10] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 17:46:35.023 [http-nio-8080-exec-10] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 17:46:35.024 [http-nio-8080-exec-10] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 17:46:35.053 [http-nio-8080-exec-10] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 17:46:35.053 [http-nio-8080-exec-10] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 17:46:35.065 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:46:36.373 [http-nio-8080-exec-1] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 17:46:36.374 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 17:46:36.375 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 17:46:36.408 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 14
+2025-12-10 17:46:36.408 [http-nio-8080-exec-1] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 17:46:36.408 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 17:46:36.409 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 17:46:36.440 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 17:46:36.441 [http-nio-8080-exec-1] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 17:46:36.445 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:51:16.366 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext: initialization started
+2025-12-10 17:51:16.941 [RMI TCP Connection(2)-127.0.0.1] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-10 17:51:17.226 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.s.config.TaskSchedulerRouter - No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2025-12-10 17:51:17.229 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.context.ContextLoader - Root WebApplicationContext initialized in 862 ms
+2025-12-10 17:51:17.240 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'springmvc'
+2025-12-10 17:51:17.287 [RMI TCP Connection(2)-127.0.0.1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 47 ms
+2025-12-10 17:51:27.205 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：304 OK | 请求URL：/TriAura_war_exploded/test-page.html | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:51:27.206 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：304 OK | 请求URL：/TriAura_war_exploded/test | 视图名（页面）：forward:/test-page.html
+2025-12-10 17:51:28.536 [http-nio-8080-exec-1] INFO  c.triauras.controller.TestController - 用户登录成功 - 用户ID: 1, 用户名: 测试
+2025-12-10 17:51:28.684 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/test/mock-login | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:51:29.170 [http-nio-8080-exec-3] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 17:51:29.221 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:51:29.225 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:51:29.233 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:51:29.249 [http-nio-8080-exec-2] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 17:51:29.276 [http-nio-8080-exec-2] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2025-12-10 17:51:29.797 [http-nio-8080-exec-2] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 17:51:29.856 [http-nio-8080-exec-2] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 17:51:29.990 [http-nio-8080-exec-2] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 17:51:29.994 [http-nio-8080-exec-2] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 17:51:29.995 [http-nio-8080-exec-2] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 17:51:29.996 [http-nio-8080-exec-2] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 17:51:30.031 [http-nio-8080-exec-2] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 17:51:30.033 [http-nio-8080-exec-2] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 17:51:30.060 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:51:33.367 [http-nio-8080-exec-3] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 17:51:33.375 [http-nio-8080-exec-3] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 17:51:33.377 [http-nio-8080-exec-3] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 17:51:33.413 [http-nio-8080-exec-3] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 17:51:33.414 [http-nio-8080-exec-3] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 17:51:33.415 [http-nio-8080-exec-3] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 17:51:33.416 [http-nio-8080-exec-3] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 17:51:33.447 [http-nio-8080-exec-3] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 17:51:33.448 [http-nio-8080-exec-3] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 17:51:33.450 [http-nio-8080-exec-3] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:57:12.736 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 17:57:12.906 [http-nio-8080-exec-4] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:57:12.929 [http-nio-8080-exec-4] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:57:12.932 [http-nio-8080-exec-5] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:57:12.935 [http-nio-8080-exec-8] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 17:57:13.014 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 17:57:13.014 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 17:57:13.046 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 17:57:13.046 [http-nio-8080-exec-8] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 17:57:13.046 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 17:57:13.047 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 17:57:13.078 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 17:57:13.078 [http-nio-8080-exec-8] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 17:57:13.079 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 17:57:15.594 [http-nio-8080-exec-9] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 17:57:15.595 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 17:57:15.596 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 17:57:15.635 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 17:57:15.636 [http-nio-8080-exec-9] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 17:57:15.638 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 17:57:15.639 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 17:57:15.671 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 17:57:15.671 [http-nio-8080-exec-9] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 17:57:15.674 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:01:46.433 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:01:46.561 [http-nio-8080-exec-3] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:01:46.564 [http-nio-8080-exec-3] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:01:46.575 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:01:46.581 [http-nio-8080-exec-6] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:01:46.618 [http-nio-8080-exec-6] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:01:46.620 [http-nio-8080-exec-6] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:01:46.657 [http-nio-8080-exec-6] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:01:46.659 [http-nio-8080-exec-6] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:01:46.660 [http-nio-8080-exec-6] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:01:46.660 [http-nio-8080-exec-6] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:01:46.691 [http-nio-8080-exec-6] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:01:46.691 [http-nio-8080-exec-6] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:01:46.693 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:01:49.485 [http-nio-8080-exec-2] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:01:49.487 [http-nio-8080-exec-2] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:01:49.488 [http-nio-8080-exec-2] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:01:49.525 [http-nio-8080-exec-2] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:01:49.526 [http-nio-8080-exec-2] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:01:49.527 [http-nio-8080-exec-2] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:01:49.527 [http-nio-8080-exec-2] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:01:49.560 [http-nio-8080-exec-2] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:01:49.561 [http-nio-8080-exec-2] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:01:49.564 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:03:03.017 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:03:03.139 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:03:03.140 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:03:03.148 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:03:03.155 [http-nio-8080-exec-4] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:03:03.187 [http-nio-8080-exec-4] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:03:03.188 [http-nio-8080-exec-4] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:03:03.228 [http-nio-8080-exec-4] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:03:03.229 [http-nio-8080-exec-4] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:03:03.230 [http-nio-8080-exec-4] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:03:03.230 [http-nio-8080-exec-4] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:03:03.278 [http-nio-8080-exec-4] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:03:03.279 [http-nio-8080-exec-4] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:03:03.280 [http-nio-8080-exec-4] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:03:05.231 [http-nio-8080-exec-8] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:03:05.232 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:03:05.232 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:03:05.263 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:03:05.263 [http-nio-8080-exec-8] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:03:05.263 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:03:05.263 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:03:05.294 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:03:05.295 [http-nio-8080-exec-8] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:03:05.295 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:04:24.010 [http-nio-8080-exec-7] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:04:24.140 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:04:24.145 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:04:24.151 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:04:24.154 [http-nio-8080-exec-5] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:04:24.185 [http-nio-8080-exec-5] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:04:24.186 [http-nio-8080-exec-5] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:04:24.222 [http-nio-8080-exec-5] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:04:24.223 [http-nio-8080-exec-5] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:04:24.223 [http-nio-8080-exec-5] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:04:24.224 [http-nio-8080-exec-5] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:04:24.256 [http-nio-8080-exec-5] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:04:24.257 [http-nio-8080-exec-5] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:04:24.258 [http-nio-8080-exec-5] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:04:26.716 [http-nio-8080-exec-9] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:04:26.716 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:04:26.716 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:04:26.751 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:04:26.752 [http-nio-8080-exec-9] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:04:26.753 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:04:26.753 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:04:26.786 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:04:26.786 [http-nio-8080-exec-9] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:04:26.790 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:05:22.140 [http-nio-8080-exec-4] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:05:22.251 [http-nio-8080-exec-5] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:05:22.254 [http-nio-8080-exec-5] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:05:22.266 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:05:22.270 [http-nio-8080-exec-1] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:05:22.271 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:05:22.271 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:05:22.303 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:05:22.304 [http-nio-8080-exec-1] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:05:22.304 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:05:22.304 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:05:22.335 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:05:22.335 [http-nio-8080-exec-1] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:05:22.336 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:05:24.101 [http-nio-8080-exec-7] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:05:24.103 [http-nio-8080-exec-7] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:05:24.104 [http-nio-8080-exec-7] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:05:24.140 [http-nio-8080-exec-7] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:05:24.141 [http-nio-8080-exec-7] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:05:24.142 [http-nio-8080-exec-7] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:05:24.143 [http-nio-8080-exec-7] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:05:24.175 [http-nio-8080-exec-7] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:05:24.176 [http-nio-8080-exec-7] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:05:24.179 [http-nio-8080-exec-7] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:08:55.244 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:08:55.354 [http-nio-8080-exec-7] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:08:55.358 [http-nio-8080-exec-7] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:08:55.365 [http-nio-8080-exec-3] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:08:55.371 [http-nio-8080-exec-10] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:08:55.407 [http-nio-8080-exec-10] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:08:55.408 [http-nio-8080-exec-10] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:08:55.448 [http-nio-8080-exec-10] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:08:55.449 [http-nio-8080-exec-10] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:08:55.450 [http-nio-8080-exec-10] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:08:55.450 [http-nio-8080-exec-10] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:08:55.482 [http-nio-8080-exec-10] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:08:55.482 [http-nio-8080-exec-10] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:08:55.484 [http-nio-8080-exec-10] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:08:57.849 [http-nio-8080-exec-6] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:08:57.849 [http-nio-8080-exec-6] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:08:57.850 [http-nio-8080-exec-6] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:08:57.881 [http-nio-8080-exec-6] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:08:57.882 [http-nio-8080-exec-6] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:08:57.882 [http-nio-8080-exec-6] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:08:57.882 [http-nio-8080-exec-6] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:08:57.914 [http-nio-8080-exec-6] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:08:57.914 [http-nio-8080-exec-6] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:08:57.915 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:10:44.154 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:10:44.359 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:10:44.362 [http-nio-8080-exec-6] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:10:44.386 [http-nio-8080-exec-4] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:10:44.395 [http-nio-8080-exec-8] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:10:44.428 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:10:44.429 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:10:44.463 [http-nio-8080-exec-8] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:10:44.464 [http-nio-8080-exec-8] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:10:44.464 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:10:44.465 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:10:44.500 [http-nio-8080-exec-8] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:10:44.500 [http-nio-8080-exec-8] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:10:44.502 [http-nio-8080-exec-8] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:10:46.236 [http-nio-8080-exec-1] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:10:46.237 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:10:46.238 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:10:46.276 [http-nio-8080-exec-1] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:10:46.277 [http-nio-8080-exec-1] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:10:46.277 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:10:46.280 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:10:46.472 [http-nio-8080-exec-1] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:10:46.473 [http-nio-8080-exec-1] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:10:46.475 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:12:20.225 [http-nio-8080-exec-2] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/life-total | 视图名（页面）：life/life-total
+2025-12-10 18:12:20.376 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:12:20.390 [http-nio-8080-exec-1] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:12:20.398 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/user/info | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:12:20.421 [http-nio-8080-exec-9] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:12:20.456 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:12:20.458 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:12:20.652 [http-nio-8080-exec-9] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:12:20.652 [http-nio-8080-exec-9] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:12:20.653 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:12:20.653 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:12:20.684 [http-nio-8080-exec-9] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:12:20.684 [http-nio-8080-exec-9] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:12:20.686 [http-nio-8080-exec-9] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
+2025-12-10 18:12:22.187 [http-nio-8080-exec-5] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理】获取用户所有待办列表（不含已删除项）, userId: 1
+2025-12-10 18:12:22.189 [http-nio-8080-exec-5] DEBUG c.t.mapper.TasksMapper.getToDoList - ==>  Preparing: select * from tasks where user_id = ? and is_deleted = 0
+2025-12-10 18:12:22.190 [http-nio-8080-exec-5] DEBUG c.t.mapper.TasksMapper.getToDoList - ==> Parameters: 1(Integer)
+2025-12-10 18:12:22.226 [http-nio-8080-exec-5] DEBUG c.t.mapper.TasksMapper.getToDoList - <==      Total: 7
+2025-12-10 18:12:22.227 [http-nio-8080-exec-5] INFO  c.t.service.impl.TasksServiceImpl - 【业务处理, userId: 1】获取用户待办事项统计信息（不含已删除项）
+2025-12-10 18:12:22.228 [http-nio-8080-exec-5] DEBUG c.t.m.T.getToDoListStatistics - ==>  Preparing: SELECT COUNT(*) AS totalallcount, -- 总任务数 -- 已完成数：status=2 且 completed_at非空（排除脏数据） SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totaldonecount, -- 已完成数 -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据） COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数 FROM tasks WHERE user_id = ? and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+2025-12-10 18:12:22.229 [http-nio-8080-exec-5] DEBUG c.t.m.T.getToDoListStatistics - ==> Parameters: 1(Integer)
+2025-12-10 18:12:22.263 [http-nio-8080-exec-5] DEBUG c.t.m.T.getToDoListStatistics - <==      Total: 1
+2025-12-10 18:12:22.263 [http-nio-8080-exec-5] INFO  c.triauras.controller.LifeController - 获取用户 1 的任务列表
+2025-12-10 18:12:22.265 [http-nio-8080-exec-5] DEBUG c.t.c.ResponsePageLoggerInterceptor - 响应状态：200 OK | 请求URL：/TriAura_war_exploded/life/get-tasks | 视图名（页面）：无（JSON/静态资源）
