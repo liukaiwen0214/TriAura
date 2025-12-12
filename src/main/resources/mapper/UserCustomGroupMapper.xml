@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.triauras.mapper.UserCustomGroupMapper">
+    <!-- 添加结果映射，确保字段正确映射 -->
+    <resultMap id="customGroupResultMap" type="com.triauras.entity.UserCustomGroup">
+        <result property="group_id" column="group_id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="group_name" column="group_name"/>
+        <result property="sort" column="sort"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="is_deleted" column="is_deleted"/>
+    </resultMap>
+    <!-- 根据用户ID查询自定义分组（未删除） -->
+    <select id="selectByUserId" resultMap="customGroupResultMap">
+        SELECT group_id,
+               group_name,
+               user_id,
+               is_deleted,
+               sort
+        FROM user_custom_group
+        WHERE user_id = #{userId}
+          AND is_deleted = #{isDeleted}
+        ORDER BY sort
+    </select>
+
+
+</mapper>

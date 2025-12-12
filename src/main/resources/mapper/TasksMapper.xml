@@ -19,6 +19,8 @@
         <result property="updated_at" column="updated_at"/>
         <result property="reminder_time" column="reminder_time"/>
         <result property="is_deleted" column="is_deleted"/>
+        <result property="group_type" column="group_type"/>
+        <result property="custom_group_id" column="custom_group_id"/>
     </resultMap>
     <!-- 获取所有待办列表（包含已删除项）,需要根据user_id进行筛选 -->
     <select id="getToDoList" resultMap="todoResultMap">
@@ -38,4 +40,64 @@
           and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
     </select>
 
+
+    <!-- 根据用户ID和状态列表查询任务 -->
+    <select id="selectByUserIdAndStatusList" resultMap="todoResultMap">
+        SELECT
+        id,
+        user_id,
+        title,
+        description,
+        tags,
+        deadline,
+        priority,
+        status,
+        group_type,
+        custom_group_id,
+        created_at,
+        updated_at,
+        completed_at,
+        reminder_time,
+        is_deleted
+        FROM tasks
+        WHERE user_id = #{userId}
+        AND status IN
+        <foreach collection="statusList" item="status" open="(" separator="," close=")">
+            #{status}
+        </foreach>
+        AND is_deleted = #{isDeleted}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据用户ID和自定义分组ID查询任务 -->
+    <select id="selectByUserIdAndCustomGroupId" resultMap="todoResultMap">
+        SELECT id,
+               user_id,
+               title,
+               description,
+               tags,
+               deadline,
+               priority,
+               status,
+               group_type,
+               custom_group_id,
+               created_at,
+               updated_at,
+               completed_at,
+               reminder_time,
+               is_deleted
+        FROM tasks
+        WHERE user_id = #{userId}
+          AND custom_group_id = #{customGroupId}
+          AND is_deleted = #{isDeleted}
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 统计自定义分组下的任务数量 -->
+    <select id="countByCustomGroupId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM tasks
+        WHERE custom_group_id = #{customGroupId}
+          AND is_deleted = #{isDeleted}
+    </select>
 </mapper>

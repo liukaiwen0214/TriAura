@@ -1,12 +1,15 @@
 package com.triauras.controller;
 
 import com.triauras.entity.Tasks;
+import com.triauras.entity.tools.DataVO;
+import com.triauras.service.GeneralService;
 import com.triauras.service.TasksService;
 import com.triauras.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -22,9 +25,11 @@ import java.util.Map;
 @RequestMapping("/life")
 public class LifeController {
     private final TasksService tasksService;
+    private final GeneralService generalService;
 
-    public LifeController(TasksService tasksService) {
+    public LifeController(TasksService tasksService, GeneralService generalService) {
         this.tasksService = tasksService;
+        this.generalService = generalService;
     }
 
     /**
@@ -65,6 +70,15 @@ public class LifeController {
             log.error("获取任务列表异常", e);
             return ResultVO.error("获取任务列表失败");
         }
+    }
+
+    @RequestMapping("/getData")
+    @ResponseBody
+    public ResultVO<DataVO> getLifeData(@RequestParam("userId") int userId) {
+        // 调用Service获取数据
+        DataVO dataVO = generalService.getTaskData(userId);
+        // 用统一的ResultVO封装
+        return ResultVO.success(dataVO);
     }
 
     /**

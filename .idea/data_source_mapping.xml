@@ -3,9 +3,12 @@
   <component name="DataSourcePerFileMappings">
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/ShikigamiActivityMapper.xml" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
     <file url="file://$PROJECT_DIR$/src/main/resources/mapper/TasksMapper.xml" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/mapper/UserCustomGroupMapper.xml" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b264f737-66f1-43c5-854a-5fd3b36f28e9/console.sql" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b264f737-66f1-43c5-854a-5fd3b36f28e9/console_1.sql" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b264f737-66f1-43c5-854a-5fd3b36f28e9/console_2.sql" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
     <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b264f737-66f1-43c5-854a-5fd3b36f28e9/console_3.sql" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b264f737-66f1-43c5-854a-5fd3b36f28e9/console_4.sql" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
+    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/b264f737-66f1-43c5-854a-5fd3b36f28e9/console_5.sql" value="b264f737-66f1-43c5-854a-5fd3b36f28e9" />
   </component>
 </project>

@@ -401,9 +401,3 @@ class LifeTotalPage {
         };
     }
 }
-
-
-
-
-
-

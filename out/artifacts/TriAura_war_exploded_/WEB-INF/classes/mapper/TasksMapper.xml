@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.triauras.mapper.TasksMapper">
+    <!-- 添加结果映射，确保字段正确映射 -->
+    <resultMap id="todoResultMap" type="com.triauras.entity.Tasks">
+        <id property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="tags" column="tags"/>
+        <result property="deadline" column="deadline"/>
+        <result property="priority" column="priority"/>
+        <result property="status" column="status"/>
+        <result property="completed_at" column="completed_at"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+        <result property="reminder_time" column="reminder_time"/>
+        <result property="is_deleted" column="is_deleted"/>
+        <result property="group_type" column="group_type"/>
+        <result property="custom_group_id" column="custom_group_id"/>
+    </resultMap>
+    <!-- 获取所有待办列表（包含已删除项）,需要根据user_id进行筛选 -->
+    <select id="getToDoList" resultMap="todoResultMap">
+        select *
+        from tasks
+        where user_id = #{userId}
+          and is_deleted = 0
+    </select>
+    <select id="getToDoListStatistics" resultType="java.util.Map">
+        SELECT COUNT(*)                                                          AS totalallcount,    -- 总任务数
+               -- 已完成数：status=2 且 completed_at非空（排除脏数据）
+               SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0))            AS totaldonecount,   -- 已完成数
+               -- 未完成数：总条数 - 已完成数（自动包含未开始/进行中/已取消/脏数据）
+               COUNT(*) - SUM(IF(status = 2 AND completed_at IS NOT NULL, 1, 0)) AS totalnotdonecount -- 未完成数
+        FROM tasks
+        WHERE user_id = #{userId}
+          and is_deleted = 0; -- 去掉该行则统计全表所有用户的任务
+    </select>
+
+</mapper>

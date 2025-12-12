@@ -19,7 +19,14 @@ public class Tasks {
      * 待办事项标题
      */
     private String title;
-
+    /**
+     * 待办事项分组类型：0=默认分组，1=自定义分组
+     */
+    private int group_type;
+    /**
+     * 自定义分组ID（仅当group_type为1时有效）
+     */
+    private Long custom_group_id;
     /**
      * 待办事项详细描述
      */
