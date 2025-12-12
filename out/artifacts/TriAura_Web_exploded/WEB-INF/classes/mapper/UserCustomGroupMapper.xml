@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.triauras.mapper.UserCustomGroupMapper">
+    <!-- 添加结果映射，确保字段正确映射 -->
+    <resultMap id="customGroupResultMap" type="com.triauras.entity.UserCustomGroup">
+        <result property="id" column="id"/>
+        <result property="user_id" column="user_id"/>
+        <result property="group_name" column="group_name"/>
+        <result property="sort" column="sort"/>
+        <result property="created_at" column="created_at"/>
+        <result property="updated_at" column="updated_at"/>
+    </resultMap>
+
+</mapper>
